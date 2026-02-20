@@ -1,1665 +1,1238 @@
 <!doctype html>
 <html lang="id" class="h-full">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PICA - Pertamina Internal Communication &amp; Alignment</title>
-<script src="https://cdn.tailwindcss.com/3.4.17"></script>
-<script src="/_sdk/element_sdk.js"></script>
-<script src="/_sdk/data_sdk.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-pertamina: {
-red: '#E21F26',
-blue: '#0054A6',
-green: '#00A651',
-darkBlue: '#003D7A',
-lightRed: '#FEE2E2',
-lightBlue: '#DBEAFE',
-lightGreen: '#D1FAE5'
-}
-},
-fontFamily: {
-inter: ['Inter', 'sans-serif']
-}
-}
-}
-}
-</script>
-<style>
-* { font-family: 'Inter', sans-serif; }
-.sidebar-item { transition: all 0.2s ease; }
-.sidebar-item:hover { background: rgba(0, 84, 166, 0.1); }
-.sidebar-item.active { background: linear-gradient(90deg, #0054A6 0%, #003D7A 100%); color: white; }
-.card-hover { transition: all 0.3s ease; }
-.card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-.progress-bar { transition: width 0.8s ease-out; }
-.fade-in { animation: fadeIn 0.4s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-.submenu.open { max-height: 500px; }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
-::-webkit-scrollbar-thumb { background: #0054A6; border-radius: 3px; }
-.table-row-hover:hover { background-color: #f3f4f6; }
-.influence-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
-.influence-high { background-color: #FEE2E2; color: #E21F26; }
-.influence-medium { background-color: #FEF3C7; color: #D97706; }
-.influence-low { background-color: #D1FAE5; color: #00A651; }
-.influence-interest { background-color: #E0E7FF; color: #4F46E5; }
-.type-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
-.type-key-stakeholder { background-color: #DDF4FF; color: #0054A6; }
-.type-regular-stakeholder { background-color: #F3E8FF; color: #7C3AED; }
-.type-emerging-stakeholder { background-color: #FEF3C7; color: #D97706; }
-.status-badge { padding: 0.35rem 0.9rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; }
-.status-draft { background-color: #FEF3C7; color: #92400E; }
-.status-filming { background-color: #FED7AA; color: #92400E; }
-.status-published { background-color: #D1FAE5; color: #065F46; }
-.calendar-day { min-height: 160px; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s ease; overflow-y: auto; background-color: white; }
-.calendar-day:hover { background-color: #f9fafb; border-color: #0054A6; }
-.calendar-day.has-content { background-color: #DBEAFE; border-color: #0054A6; }
-.calendar-day-number { font-weight: 700; margin-bottom: 0.5rem; font-size: 0.95rem; color: #1f2937; }
-.calendar-day-content { font-size: 0.65rem; line-height: 1.2; }
-.content-badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 3px; font-size: 0.65rem; font-weight: 700; margin-bottom: 0.2rem; margin-right: 0.2rem; line-height: 1.1; white-space: nowrap; }
-.badge-draft { background-color: #FEF3C7; color: #92400E; }
-.badge-filming { background-color: #FED7AA; color: #92400E; }
-.badge-published { background-color: #D1FAE5; color: #065F46; }
-.content-item { font-size: 0.65rem; padding: 0.35rem 0.4rem; margin-bottom: 0.35rem; background-color: rgba(0, 84, 166, 0.08); border-left: 2px solid #0054A6; border-radius: 2px; line-height: 1.3; }
-.content-title { display: block; margin-top: 0.2rem; color: #1f2937; font-weight: 600; font-size: 0.7rem; word-break: break-word; }
-.content-count { font-size: 0.65rem; color: #666; font-weight: 600; margin-top: 0.4rem; }
-.program-card { border-left: 4px solid #0054A6; padding: 1.5rem; border-radius: 0.75rem; background: white; border: 1px solid #e5e7eb; transition: all 0.3s ease; }
-.program-card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transform: translateY(-2px); }
-.program-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-.status-badge-active { background-color: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
-.status-badge-planning { background-color: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
-.status-badge-completed { background-color: #DBEAFE; color: #0369A1; border: 1px solid #93C5FD; }
-</style>
-<style>body { box-sizing: border-box; }</style>
-</head>
-<body class="h-full bg-gray-50">
-<div class="h-full flex overflow-hidden"><!-- Sidebar -->
-<aside class="w-72 bg-white border-r border-gray-200 flex flex-col shadow-lg" style="min-width: 288px;"><!-- Logo Section -->
-<div class="h-64 bg-white flex items-center justify-center overflow-hidden relative group border-b border-gray-300 shadow-md">
-<div class="relative w-full h-full flex items-center justify-center px-6"><img src="https://i.imgur.com/ilP1Ssb.jpeg" alt="PICA Logo" class="w-4/5 h-4/5 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300" loading="lazy">
-</div>
-</div><!-- Navigation -->
-<nav class="flex-1 py-4 overflow-y-auto">
-<div class="px-4 mb-2"><span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Main Menu</span>
-</div><!-- Menu 1: Corporate Communication -->
-<div class="menu-group"><button onclick="toggleMenu('corpcomm')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-corpcomm">
-<div class="flex items-center gap-3">
-<div class="w-9 h-9 rounded-lg bg-pertamina-lightBlue flex items-center justify-center">
-<svg class="w-5 h-5 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-</svg>
-</div><span class="font-medium text-gray-700 text-sm">Corporate Communication</span>
-</div>
-<svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-corpcomm" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-</svg></button>
-<div class="submenu pl-14 pr-4" id="submenu-corpcomm"><button onclick="showContent('calendar')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📅 Content Calendar</button> <button onclick="showContent('media')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🎥 Media Coverage Schedule</button> <button onclick="showContent('planner')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📝 Content Planner</button> <button onclick="showContent('workspace')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">👥 Team Workspace</button>
-</div>
-</div><!-- Menu 2: Stakeholder Relations -->
-<div class="menu-group"><button onclick="toggleMenu('stakeholder')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-stakeholder">
-<div class="flex items-center gap-3">
-<div class="w-9 h-9 rounded-lg bg-pertamina-lightGreen flex items-center justify-center">
-<svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-</svg>
-</div><span class="font-medium text-gray-700 text-sm">Stakeholder Relations</span>
-</div>
-<svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-stakeholder" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-</svg></button>
-<div class="submenu pl-14 pr-4" id="submenu-stakeholder"><button onclick="showContent('government')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏛️ Government Relations</button> <button onclick="showContent('nongovernment')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🤝 Non-Government Partners</button>
-</div>
-</div><!-- Menu 3: CSR & SMEPP -->
-<div class="menu-group"><button onclick="toggleMenu('csr')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-csr">
-<div class="flex items-center gap-3">
-<div class="w-9 h-9 rounded-lg bg-pertamina-lightRed flex items-center justify-center">
-<svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-</svg>
-</div><span class="font-medium text-gray-700 text-sm">CSR &amp; SMEPP</span>
-</div>
-<svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-csr" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-</svg></button>
-<div class="submenu pl-14 pr-4" id="submenu-csr"><button onclick="showContent('csrprogram')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🌱 CSR Programs</button> <button onclick="showContent('achievement')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏆 Achievement CSR</button> <button onclick="showContent('smepp')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏪 SMEPP Monitoring</button> <button onclick="showContent('sertifikasi')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📜 Sertifikasi UMKM</button>
-</div>
-</div><!-- Menu 4: Corporate Governance -->
-<div class="menu-group"><button onclick="toggleMenu('governance')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-governance">
-<div class="flex items-center gap-3">
-<div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
-<svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-</svg>
-</div><span class="font-medium text-gray-700 text-sm">Corporate Governance</span>
-</div>
-<svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-governance" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-</svg></button>
-<div class="submenu pl-14 pr-4" id="submenu-governance"><button onclick="showContent('policies')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📋 Policy Documents</button> <button onclick="showContent('boardmeeting')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📆 Board Meetings</button> <button onclick="showContent('decisions')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📁 Decision Archive</button>
-</div>
-</div>
-</nav><!-- User Profile -->
-<div class="p-4 border-t border-gray-100 bg-gray-50">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-gradient-to-br from-pertamina-blue to-pertamina-green flex items-center justify-center text-white font-semibold">
-AP
-</div>
-<div class="flex-1">
-<p class="text-sm font-medium text-gray-800">Admin PICA</p>
-<p class="text-xs text-gray-500">Corporate Secretary</p>
-</div><button class="p-2 hover:bg-gray-200 rounded-lg transition-colors">
-<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-</svg></button>
-</div>
-</div>
-</aside><!-- Main Content Area -->
-<main class="flex-1 flex flex-col overflow-hidden"><!-- Top Header -->
-<header class="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between">
-<div>
-<h2 id="page-title" class="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
-<p id="welcome-text" class="text-sm text-gray-500">Selamat datang di PICA Dashboard</p>
-</div>
-<div class="flex items-center gap-4">
-<div class="relative"><input type="text" placeholder="Search..." class="w-64 pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-<svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-</svg>
-</div><button class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-</svg><span class="absolute top-1 right-1 w-2 h-2 bg-pertamina-red rounded-full"></span> </button>
-<div class="text-right">
-<p class="text-sm font-medium text-gray-700" id="current-date"></p>
-<p class="text-xs text-gray-400" id="current-time"></p>
-</div>
-</div>
-</header><!-- Dynamic Content Area -->
-<div class="flex-1 p-8 overflow-y-auto" id="content-area"><!-- Dashboard Home Content -->
-<div id="dashboard-home" class="fade-in"><!-- Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-<div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-4">
-<div class="w-12 h-12 rounded-xl bg-pertamina-lightBlue flex items-center justify-center">
-<svg class="w-6 h-6 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-</svg>
-</div><span class="text-xs font-medium text-pertamina-green bg-pertamina-lightGreen px-2 py-1 rounded-full">+12%</span>
-</div>
-<p class="text-3xl font-bold text-gray-800">156</p>
-<p class="text-sm text-gray-500 mt-1">Total Content</p>
-</div>
-<div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-4">
-<div class="w-12 h-12 rounded-xl bg-pertamina-lightGreen flex items-center justify-center">
-<svg class="w-6 h-6 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-</svg>
-</div><span class="text-xs font-medium text-pertamina-green bg-pertamina-lightGreen px-2 py-1 rounded-full">+8%</span>
-</div>
-<p class="text-3xl font-bold text-gray-800">89</p>
-<p class="text-sm text-gray-500 mt-1">Active Stakeholders</p>
-</div>
-<div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-4">
-<div class="w-12 h-12 rounded-xl bg-pertamina-lightRed flex items-center justify-center">
-<svg class="w-6 h-6 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-</svg>
-</div><span class="text-xs font-medium text-pertamina-green bg-pertamina-lightGreen px-2 py-1 rounded-full">+15%</span>
-</div>
-<p class="text-3xl font-bold text-gray-800">7</p>
-<p class="text-sm text-gray-500 mt-1">CSR Programs</p>
-</div>
-<div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-4">
-<div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
-<svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-</svg>
-</div><span class="text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue px-2 py-1 rounded-full">100%</span>
-</div>
-<p class="text-3xl font-bold text-gray-800">12</p>
-<p class="text-sm text-gray-500 mt-1">Board Meetings</p>
-</div>
-</div><!-- Quick Actions & Recent Activity -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"><!-- Quick Actions -->
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
-<div class="space-y-3"><button onclick="showContent('planner')" class="w-full flex items-center gap-3 p-3 bg-gradient-to-r from-pertamina-blue to-pertamina-darkBlue text-white rounded-xl hover:shadow-lg transition-all">
-<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-</svg><span class="font-medium">Create New Content</span> </button> <button onclick="showContent('government')" class="w-full flex items-center gap-3 p-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
-<svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-</svg><span class="font-medium">View Stakeholders</span> </button> <button onclick="showContent('csr-monitoring')" class="w-full flex items-center gap-3 p-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
-<svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-</svg><span class="font-medium">View CSR Report</span> </button>
-</div>
-</div><!-- Recent Activity -->
-<div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
-<div class="space-y-4">
-<div class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors">
-<div class="w-10 h-10 rounded-full bg-pertamina-lightBlue flex items-center justify-center flex-shrink-0">
-<svg class="w-5 h-5 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-</svg>
-</div>
-<div class="flex-1">
-<p class="text-sm font-medium text-gray-800">February Content Calendar Updated</p>
-<p class="text-xs text-gray-500">Corporate Communication • Just now</p>
-</div><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Updated</span>
-</div>
-</div>
-</div>
-</div>
-</div><!-- Content Calendar Page - Visual Calendar -->
-<div id="content-calendar" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-6">
-<div>
-<h3 class="text-xl font-bold text-gray-800">📅 Content Calendar - February 2026</h3>
-<p class="text-sm text-gray-500 mt-1">Status Konten &amp; Nama Konten</p>
-</div>
-<div class="flex gap-2"><button onclick="prevMonth()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">← Prev</button> <button onclick="nextMonth()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">Next →</button>
-</div>
-</div><!-- Visual Calendar -->
-<div class="bg-white rounded-xl border border-gray-200 p-6 mb-6 overflow-x-auto">
-<h4 class="text-lg font-semibold text-gray-800 mb-4 text-center" id="calendar-month-year">February 2026</h4><!-- Days of week header -->
-<div class="grid grid-cols-7 gap-2 mb-4">
-<div class="text-center font-semibold text-gray-600 py-2 text-sm">
-Sun
-</div>
-<div class="text-center font-semibold text-gray-600 py-2 text-sm">
-Mon
-</div>
-<div class="text-center font-semibold text-gray-600 py-2 text-sm">
-Tue
-</div>
-<div class="text-center font-semibold text-gray-600 py-2 text-sm">
-Wed
-</div>
-<div class="text-center font-semibold text-gray-600 py-2 text-sm">
-Thu
-</div>
-<div class="text-center font-semibold text-gray-600 py-2 text-sm">
-Fri
-</div>
-<div class="text-center font-semibold text-gray-600 py-2 text-sm">
-Sat
-</div>
-</div><!-- Calendar grid -->
-<div class="grid grid-cols-7 gap-2" id="calendar-grid"><!-- Days will be populated by JavaScript -->
-</div>
-</div><!-- Legend -->
-<div class="bg-gray-50 rounded-lg p-4 mb-6">
-<p class="text-sm font-semibold text-gray-700 mb-3">Status Konten:</p>
-<div class="flex gap-6 flex-wrap">
-<div class="flex items-center gap-2"><span class="content-badge badge-draft">Draft</span> <span class="text-sm text-gray-600">Sedang Persiapan</span>
-</div>
-<div class="flex items-center gap-2"><span class="content-badge badge-filming">Filming</span> <span class="text-sm text-gray-600">Sedang Syuting</span>
-</div>
-<div class="flex items-center gap-2"><span class="content-badge badge-published">Published</span> <span class="text-sm text-gray-600">Sudah Dipublikasi</span>
-</div>
-</div>
-</div><!-- Stats -->
-<div class="grid grid-cols-4 gap-4">
-<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-pertamina-blue" id="total-content-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Total Content</p>
-</div>
-<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-amber-600" id="draft-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Draft</p>
-</div>
-<div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-orange-600" id="filming-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Filming</p>
-</div>
-<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-pertamina-green" id="published-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Published</p>
-</div>
-</div>
-</div>
-</div><!-- Media Coverage Schedule -->
-<div id="content-media" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-6">
-<div>
-<h3 class="text-xl font-bold text-gray-800">🎥 Media Coverage Schedule</h3>
-<p class="text-sm text-gray-500 mt-1">Jadwal Liputan Tim</p>
-</div>
-</div><!-- Filter -->
-<div class="mb-6 flex gap-4"><input type="text" id="media-search" placeholder="Search content..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterMediaContent()"> <select id="media-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterMediaContent()"> <option value="">All Status</option> <option value="Draft">Draft</option> <option value="Filming">Filming</option> <option value="Published">Published</option> </select>
-</div><!-- Media Coverage Table -->
-<div class="overflow-x-auto">
-<table class="w-full">
-<thead>
-<tr class="border-b-2 border-gray-300 bg-gray-50">
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Content Title</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Film Date</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Published Date</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Progress</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Actions</th>
-</tr>
-</thead>
-<tbody id="media-tbody"><!-- Content will be populated by JavaScript -->
-</tbody>
-</table>
-</div><!-- Stats -->
-<div class="mt-8 pt-6 border-t border-gray-100 grid grid-cols-4 gap-4">
-<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-pertamina-blue" id="media-total-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Total Coverage</p>
-</div>
-<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-amber-600" id="media-draft-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Draft</p>
-</div>
-<div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-orange-600" id="media-filming-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Filming</p>
-</div>
-<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-pertamina-green" id="media-published-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Published</p>
-</div>
-</div>
-</div>
-</div><!-- Content Planner -->
-<div id="content-planner" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">📝 Content Planner - Status Produksi</h3><!-- Filter -->
-<div class="mb-6 flex gap-4"><input type="text" id="planner-search" placeholder="Search content..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterPlannerContent()"> <select id="planner-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterPlannerContent()"> <option value="">All Status</option> <option value="Draft">Draft</option> <option value="Review">Review</option> <option value="Published">Published</option> </select>
-</div><!-- Content Planner Cards -->
-<div id="planner-container" class="space-y-4"><!-- Cards will be populated by JavaScript -->
-</div><!-- Stats -->
-<div class="mt-8 pt-6 border-t border-gray-100 grid grid-cols-4 gap-4">
-<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-pertamina-blue" id="planner-total-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Total Content</p>
-</div>
-<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-amber-600" id="planner-draft-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Draft</p>
-</div>
-<div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-purple-600" id="planner-review-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Review</p>
-</div>
-<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-pertamina-green" id="planner-published-count">0</p>
-<p class="text-sm text-gray-600 mt-1">Published</p>
-</div>
-</div>
-</div>
-</div><!-- Team Workspace -->
-<div id="content-workspace" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">👥 Team Workspace - Progress Per Departemen</h3><!-- Department Progress Bars -->
-<div id="workspace-container" class="space-y-6"><!-- Progress bars will be populated by JavaScript -->
-</div><!-- Overall Stats -->
-<div class="mt-8 pt-6 border-t border-gray-100 grid grid-cols-5 gap-4">
-<div class="text-center">
-<p class="text-2xl font-bold text-pertamina-blue" id="dept-total">0</p>
-<p class="text-sm text-gray-600">Total Departments</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-green-600" id="dept-excellent">0</p>
-<p class="text-sm text-gray-600">Excellent (90%+)</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-blue-600" id="dept-good">0</p>
-<p class="text-sm text-gray-600">Good (70-89%)</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-amber-600" id="dept-fair">0</p>
-<p class="text-sm text-gray-600">Fair (50-69%)</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-red-600" id="dept-poor">0</p>
-<p class="text-sm text-gray-600">Below 50%</p>
-</div>
-</div>
-</div>
-</div><!-- Government Relations -->
-<div id="content-government" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-6">
-<h3 class="text-xl font-bold text-gray-800">🏛️ Government Relations - Stakeholder Database</h3><button onclick="openAddModal()" class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-</svg> Add Stakeholder </button>
-</div><!-- Filter & Search -->
-<div class="mb-6 flex gap-4"><input type="text" id="search-input" placeholder="Search by name or email..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterStakeholders()"> <select id="type-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterStakeholders()"> <option value="">All Types</option> <option value="Key Stakeholder">Key Stakeholder</option> <option value="Regular Stakeholder">Regular Stakeholder</option> <option value="Emerging Stakeholder">Emerging Stakeholder</option> </select> <select id="influence-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterStakeholders()"> <option value="">All Levels</option> <option value="High Influence">High Influence</option> <option value="High Interest">High Interest</option> <option value="Medium Influence">Medium Influence</option> <option value="Low Influence">Low Influence</option> </select>
-</div><!-- Stakeholders Table -->
-<div class="overflow-x-auto">
-<table class="w-full" id="stakeholders-table">
-<thead>
-<tr class="border-b border-gray-200">
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Name</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Organization</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Role</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Email</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Type</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Level</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Gender</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Notes</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Actions</th>
-</tr>
-</thead>
-<tbody id="stakeholders-tbody"><!-- Data will be populated by JavaScript -->
-</tbody>
-</table>
-</div><!-- Stats -->
-<div class="mt-6 pt-6 border-t border-gray-100 grid grid-cols-5 gap-4">
-<div class="text-center">
-<p class="text-2xl font-bold text-pertamina-blue" id="total-stakeholders">0</p>
-<p class="text-sm text-gray-600">Total</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-pertamina-red" id="high-influence-count">0</p>
-<p class="text-sm text-gray-600">High Influence</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-indigo-600" id="high-interest-count">0</p>
-<p class="text-sm text-gray-600">High Interest</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-amber-600" id="medium-influence-count">0</p>
-<p class="text-sm text-gray-600">Medium Influence</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-pertamina-green" id="low-influence-count">0</p>
-<p class="text-sm text-gray-600">Low Influence</p>
-</div>
-</div>
-</div>
-</div><!-- Add/Edit Modal -->
-<div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onclick="closeAddModal(event)">
-<div class="bg-white rounded-2xl p-8 w-full max-w-2xl max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
-<h3 class="text-2xl font-bold text-gray-800 mb-6" id="modal-title">Add New Stakeholder</h3>
-<form id="stakeholder-form" onsubmit="handleFormSubmit(event)">
-<div class="grid grid-cols-2 gap-4 mb-4">
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Name</label> <input type="text" id="form-name" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Organization</label> <input type="text" id="form-organization" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Role</label> <input type="text" id="form-role" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Gender</label> <select id="form-gender" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"> <option value="">Select Gender</option> <option value="Pria">Pria (Male)</option> <option value="Wanita">Wanita (Female)</option> </select>
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Birth Date</label> <input type="date" id="form-birth_date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Type</label> <select id="form-type" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"> <option value="">Select Type</option> <option value="Key Stakeholder">Key Stakeholder</option> <option value="Regular Stakeholder">Regular Stakeholder</option> <option value="Emerging Stakeholder">Emerging Stakeholder</option> </select>
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Contact Number</label> <input type="tel" id="form-contact_number" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Email</label> <input type="email" id="form-email" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Level</label> <select id="form-influence_level" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"> <option value="">Select Level</option> <option value="High Influence">High Influence</option> <option value="High Interest">High Interest</option> <option value="Medium Influence">Medium Influence</option> <option value="Low Influence">Low Influence</option> </select>
-</div>
-<div><label class="block text-sm font-medium text-gray-700 mb-2">Last Contact Date</label> <input type="date" id="form-last_contact_date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
-</div>
-<div class="col-span-2"><label class="block text-sm font-medium text-gray-700 mb-2">Notes</label> <textarea id="form-notes" rows="3" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"></textarea>
-</div>
-</div>
-<div class="flex gap-3 justify-end mt-6"><button type="button" onclick="closeAddModal()" class="px-6 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium">Cancel</button> <button type="submit" class="px-6 py-2 text-white bg-pertamina-blue rounded-lg hover:bg-pertamina-darkBlue transition-colors font-medium">Save Stakeholder</button>
-</div>
-</form>
-</div>
-</div><!-- Non-Government Partners -->
-<div id="content-nongovernment" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">🤝 Non-Government Partners</h3>
-<p class="text-gray-600">Non-Government Partners Database</p>
-</div>
-</div><!-- CSR Program Monitoring -->
-<div id="content-csr-monitoring" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-6">
-<div>
-<h3 class="text-xl font-bold text-gray-800">📊 CSR Program Monitoring</h3>
-<p class="text-sm text-gray-500 mt-1">Program Pemberdayaan Masyarakat - Status &amp; Progress Real-Time</p>
-</div>
-</div><!-- Filter & Search -->
-<div class="mb-6 flex gap-4 flex-wrap"><input type="text" id="csr-search" placeholder="Search program..." class="flex-1 min-w-64 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterCSRPrograms()"> <select id="csr-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterCSRPrograms()"> <option value="">All Status</option> <option value="Active">Active</option> <option value="Planning">Planning</option> <option value="Completed">Completed</option> </select> <button onclick="resetCSRFilter()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Reset</button>
-</div><!-- CSR Programs Grid - 2 Columns -->
-<div id="csr-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8"><!-- Cards will be populated by JavaScript -->
-</div><!-- Overall Stats -->
-<div class="pt-6 border-t border-gray-100 grid grid-cols-5 gap-4">
-<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-pertamina-blue" id="csr-total-count">0</p>
-<p class="text-sm text-gray-600">Total Programs</p>
-</div>
-<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-green-600" id="csr-active-count">0</p>
-<p class="text-sm text-gray-600">Active</p>
-</div>
-<div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-amber-600" id="csr-planning-count">0</p>
-<p class="text-sm text-gray-600">Planning</p>
-</div>
-<div class="bg-gradient-to-br from-blue-50 to-cyan-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-blue-600" id="csr-completed-count">0</p>
-<p class="text-sm text-gray-600">Completed</p>
-</div>
-<div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 text-center">
-<p class="text-2xl font-bold text-purple-600" id="csr-avg-progress">0%</p>
-<p class="text-sm text-gray-600">Avg Progress</p>
-</div>
-</div>
-</div>
-</div><!-- SMEPP Monitoring -->
-<div id="content-smepp-monitoring" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-6">
-<div>
-<h3 class="text-xl font-bold text-gray-800">📈 SMEPP - UMKM Binaan Monitoring</h3>
-<p class="text-sm text-gray-500 mt-1">Program Pembinaan UMKM - Status &amp; Performance</p>
-</div>
-</div><!-- Filter & Search -->
-<div class="mb-6 flex gap-4"><input type="text" id="smepp-search" placeholder="Search UMKM..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterSMEPP()"> <select id="smepp-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterSMEPP()"> <option value="">All Status</option> <option value="Excellent">Excellent</option> <option value="Good">Good</option> <option value="Fair">Fair</option> <option value="Developing">Developing</option> </select>
-</div><!-- UMKM Table -->
-<div class="overflow-x-auto mb-6">
-<table class="w-full">
-<thead>
-<tr class="border-b-2 border-gray-300 bg-gray-50">
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">UMKM Name</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Owner</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Sector</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Performance</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Revenue (Year)</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Employees</th>
-</tr>
-</thead>
-<tbody id="smepp-tbody"><!-- Data will be populated by JavaScript -->
-</tbody>
-</table>
-</div><!-- Overall Stats -->
-<div class="pt-6 border-t border-gray-100 grid grid-cols-6 gap-4">
-<div class="text-center">
-<p class="text-2xl font-bold text-pertamina-blue" id="smepp-total-count">0</p>
-<p class="text-sm text-gray-600">Total UMKM</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-green-600" id="smepp-excellent-count">0</p>
-<p class="text-sm text-gray-600">Excellent</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-blue-600" id="smepp-good-count">0</p>
-<p class="text-sm text-gray-600">Good</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-amber-600" id="smepp-fair-count">0</p>
-<p class="text-sm text-gray-600">Fair</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-orange-600" id="smepp-developing-count">0</p>
-<p class="text-sm text-gray-600">Developing</p>
-</div>
-<div class="text-center">
-<p class="text-2xl font-bold text-purple-600" id="smepp-total-employees">0</p>
-<p class="text-sm text-gray-600">Total Employees</p>
-</div>
-</div>
-</div>
-</div><!-- Policies -->
-<div id="content-policies" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">📋 Policy Documents</h3>
-<p class="text-gray-600">Policy Documents Database</p>
-</div>
-</div><!-- Board Meetings -->
-<div id="content-boardmeeting" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">📆 Board Meetings</h3>
-<p class="text-gray-600">Board Meetings Database</p>
-</div>
-</div><!-- Decisions -->
-<div id="content-decisions" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">📁 Decision Archive</h3>
-<p class="text-gray-600">Decisions Database</p>
-</div>
-</div>
-</div>
-</main>
-</div>
-<script>
-// Content Calendar Data
-const contentCalendarData = [
-{ title: "POV: izin mau pulang duluan Tapi bos tiba-tiba ngajak meeting", filmDate: "2026-02-19", publishedDate: "2026-02-27" },
-{ title: "Torang Kasi Tau Edisi Portashop", filmDate: "2026-02-06", publishedDate: "2026-02-25" },
-{ title: "POV: Tipe-Tipe Orang di Hari PertamaPuasa", filmDate: "2026-02-06", publishedDate: "2026-02-20" },
-{ title: "Q&A Bareng OJT MOR 8", filmDate: "2026-02-09", publishedDate: "2026-02-16" },
-{ title: "GRWM", filmDate: "2026-02-03", publishedDate: "2026-02-08" },
-{ title: "Perwira Menjawab Eps 1", filmDate: "2026-02-02", publishedDate: "2026-02-04" },
-{ title: "Perwira Menjawab Eps 2", filmDate: "2026-02-02", publishedDate: null },
-{ title: "Perwira Menjawab Eps 3", filmDate: "2026-02-02", publishedDate: null },
-{ title: "Ngabuburit Ala Perwira Pertamina", filmDate: null, publishedDate: null },
-{ title: "Fun Fact Energi Menjelang Berbuka", filmDate: null, publishedDate: null }
-];
-
-function getContentStatus(content) {
-if (content.publishedDate) return 'Published';
-if (content.filmDate) return 'Filming';
-return 'Draft';
-}
-
-let allCalendarContent = [...contentCalendarData];
-let currentMonth = 2;
-let currentYear = 2026;
-
-// Department Data
-const departmentData = [
-{ name: "Content Production", progress: 85, team: 8 },
-{ name: "Video Editing", progress: 92, team: 6 },
-{ name: "Social Media", progress: 78, team: 5 },
-{ name: "PR & Communications", progress: 88, team: 7 },
-{ name: "Analytics", progress: 65, team: 4 },
-{ name: "Graphic Design", progress: 95, team: 5 }
-];
-
-// CSR Program Data with Icons
-const csrProgramsData = [
-{ name: 'Pertamina Berdikari', status: 'Active', progress: 85, description: 'Program pemberdayaan masyarakat dan koperasi', icon: '🤝' },
-{ name: 'Mitigasi Bencana', status: 'Active', progress: 92, description: 'Program penanggulangan dan manajemen bencana alam', icon: '🚨' },
-{ name: 'Konservasi Fauna', status: 'Active', progress: 78, description: 'Program pelestarian satwa liar dan biodiversitas', icon: '🦁' },
-{ name: 'Desa Energi Berdikari', status: 'Active', progress: 88, description: 'Program desa dengan energi terbarukan', icon: '⚡' },
-{ name: 'PERTAMINA CERDAS', status: 'Active', progress: 82, description: 'Program pendidikan dan pengembangan SDM', icon: '📚' },
-{ name: 'Waste Management', status: 'Planning', progress: 45, description: 'Program pengelolaan sampah dan lingkungan', icon: '♻️' },
-{ name: 'Pembinaan UMK: UMK Academy', status: 'Active', progress: 90, description: 'Program pembinaan Usaha Mikro Kecil', icon: '🏪' }
-];
-
-let allCSRPrograms = [...csrProgramsData];
-
-// SMEPP (UMKM Binaan) Data
-const smeppData = [
-{ name: 'Batik Nusantara', owner: 'Siti Nurhaliza', sector: 'Craft', status: 'Excellent', performance: 95, revenue: 850000000, employees: 15 },
-{ name: 'Kopi Tradisional Indonesia', owner: 'Budi Santoso', sector: 'Food & Beverage', status: 'Excellent', performance: 92, revenue: 720000000, employees: 12 },
-{ name: 'Kerajinan Kayu Jati', owner: 'Hendra Wijaya', sector: 'Furniture', status: 'Good', performance: 78, revenue: 450000000, employees: 8 },
-{ name: 'Textil Ikat Modern', owner: 'Dewi Lestari', sector: 'Textile', status: 'Good', performance: 75, revenue: 380000000, employees: 6 },
-{ name: 'Abon Daging Sapi', owner: 'Anto Raharjo', sector: 'Food Processing', status: 'Fair', performance: 62, revenue: 250000000, employees: 5 },
-{ name: 'Tas Kulit Custom', owner: 'Rudi Hermawan', sector: 'Leather Goods', status: 'Excellent', performance: 88, revenue: 620000000, employees: 10 },
-{ name: 'Industri Sabun Alami', owner: 'Tri Wahyuningsih', sector: 'Chemical', status: 'Good', performance: 80, revenue: 320000000, employees: 4 },
-{ name: 'Produksi Mie Instan Premium', owner: 'Bambang Sutrisno', sector: 'Food', status: 'Fair', performance: 65, revenue: 180000000, employees: 3 },
-{ name: 'Konveksi Pakaian Seragam', owner: 'Endang Sutrisno', sector: 'Apparel', status: 'Developing', performance: 55, revenue: 120000000, employees: 2 },
-{ name: 'Pengolahan Kelapa Terpadu', owner: 'Supardi', sector: 'Agro', status: 'Good', performance: 76, revenue: 400000000, employees: 7 }
-];
-
-let allSMEPP = [...smeppData];
-
-// Government Stakeholders
-const referenceStakeholders = [
-{
-name: "Marthen Douw",
-organization: "DPR RI",
-role: "Komisi VII, Anggota",
-gender: "Pria",
-birth_date: "03/02/1990",
-type: "Key Stakeholder",
-contact_number: "",
-email: "marthen.douw@dpr.go.id",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Dapil Papua"
-},
-{
-name: "Rico Sia, B.E., S.E., M.Si",
-organization: "DPR RI",
-role: "Komisi VII, Anggota",
-gender: "Pria",
-birth_date: "01/08/1970",
-type: "Key Stakeholder",
-contact_number: "",
-email: "rico.sia@dpr.go.id",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Dapil Papua Barat Daya"
-},
-{
-name: "Mercy Chriesty Barends, S.T",
-organization: "DPR RI",
-role: "Komisi VII, Anggota",
-gender: "Wanita",
-birth_date: "25/12/1975",
-type: "Key Stakeholder",
-contact_number: "",
-email: "mercy.barends@dpr.go.id",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Dapil Maluku"
-},
-{
-name: "Ina Elisabeth Kobak, ST., MM",
-organization: "DPR RI",
-role: "Komisi VII, Anggota",
-gender: "Wanita",
-birth_date: "13/12/1990",
-type: "Key Stakeholder",
-contact_number: "",
-email: "ina.kobak@dpr.go.id",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Dapil Papua"
-},
-{
-name: "Trifena m. Tinal, B.Sc.",
-organization: "DPR RI",
-role: "Komisi VI, Anggota",
-gender: "Wanita",
-birth_date: "12/04/1976",
-type: "Key Stakeholder",
-contact_number: "",
-email: "trifena.tinal@dpr.go.id",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Dapil Papua"
-},
-{
-name: "Mathius D. Fakhiri",
-organization: "Pemprov Papua",
-role: "Gubernur Papua (Gerindra)",
-gender: "Pria",
-birth_date: "06/01/1968",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Interest",
-last_contact_date: "",
-notes: ""
-},
-{
-name: "Drs. Dominggus Mandacan, M.Si.",
-organization: "Pemprov Papua Barat",
-role: "Gubernur Papua Barat (Nasdem)",
-gender: "Pria",
-birth_date: "16/12/1959",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Interest",
-last_contact_date: "",
-notes: ""
-},
-{
-name: "Elisa Kambu, S.Sos.",
-organization: "Pemprov Papua Barat Daya",
-role: "Gubernur Papua Barat Daya (Gerindra)",
-gender: "Pria",
-birth_date: "12/03/1964",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Interest",
-last_contact_date: "",
-notes: ""
-},
-{
-name: "Meki Nawipa, S.H.",
-organization: "Pemprov Papua Tengah",
-role: "Gubernur Papua Tengah (PDIP)",
-gender: "Pria",
-birth_date: "06/05/1978",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Interest",
-last_contact_date: "",
-notes: ""
-},
-{
-name: "Prof. Dr. Ir. Apolo Safanpo, S.T., M.T., I.P.M.",
-organization: "Pemprov Papua Selatan",
-role: "Gubernur Papua Selatan (PDIP)",
-gender: "Pria",
-birth_date: "24/04/1975",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Interest",
-last_contact_date: "",
-notes: ""
-},
-{
-name: "Mayjend TNI Putranto Gatot Sri Handoyo, S.Sos., M.M.",
-organization: "TNI",
-role: "Pangdam Pattimura",
-gender: "Pria",
-birth_date: "29/05/1975",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Maluku, Maluku Utara"
-},
-{
-name: "Mayjend TNI Amrin Ibrahim",
-organization: "TNI",
-role: "Pangdam Cenderawasih",
-gender: "Pria",
-birth_date: "21/01/1971",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Papua, Papua Tengah, Papua Pegunungan"
-},
-{
-name: "Mayjen TNI Christian Kurnianto Tehuteru",
-organization: "TNI",
-role: "Pangdam Kasuari",
-gender: "Pria",
-birth_date: "",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Papua Barat, Papua Barat Daya"
-},
-{
-name: "Mayjen TNI Lucky Alvianto",
-organization: "TNI",
-role: "Pangdam Trikora Mandala",
-gender: "Pria",
-birth_date: "",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Papua Selatan"
-},
-{
-name: "Irjen. Pol. Drs. Eddy Sumitro Tambunan, M.Si.",
-organization: "POLRI",
-role: "Kapolda Maluku",
-gender: "Pria",
-birth_date: "27/08/1967",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Maluku"
-},
-{
-name: "Irjen. Pol. Waris Agono",
-organization: "POLRI",
-role: "Kapolda Maluku Utara",
-gender: "Pria",
-birth_date: "28/04/1968",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Maluku Utara"
-},
-{
-name: "Irjen. Pol. Petrus Patrige Rudolf Renwarin, S.H., M.Si.",
-organization: "POLRI",
-role: "Kapolda Papua",
-gender: "Pria",
-birth_date: "07/07/1969",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Papua, Papua Pegunungan, Papua Selatan"
-},
-{
-name: "Irjen. Pol. Jhonny Edison Isir, S.I.K., M.T.C.P.",
-organization: "POLRI",
-role: "Kapolda Papua Barat",
-gender: "Pria",
-birth_date: "07/07/1975",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Papua Barat"
-},
-{
-name: "Brigjen. Pol. Alfred Papare, S.I.K.",
-organization: "POLRI",
-role: "Kapolda Papua Tengah",
-gender: "Pria",
-birth_date: "04/06/1974",
-type: "Key Stakeholder",
-contact_number: "",
-email: "",
-influence_level: "High Influence",
-last_contact_date: "",
-notes: "Papua Tengah"
-}
-];
-
-let allStakeholders = [...referenceStakeholders];
-let editingId = null;
-
-// Helper Functions
-function getStatusBadgeClass(status) {
-switch(status) {
-case 'Draft':
-return 'status-draft';
-case 'Filming':
-return 'status-filming';
-case 'Published':
-return 'status-published';
-case 'Review':
-return 'bg-purple-100 text-purple-800';
-default:
-return 'status-draft';
-}
-}
-
-function getInfluenceBadgeClass(level) {
-switch(level) {
-case 'High Influence':
-return 'influence-high';
-case 'High Interest':
-return 'influence-interest';
-case 'Medium Influence':
-return 'influence-medium';
-case 'Low Influence':
-return 'influence-low';
-default:
-return 'influence-low';
-}
-}
-
-function getTypeBadgeClass(type) {
-switch(type) {
-case 'Key Stakeholder':
-return 'type-key-stakeholder';
-case 'Regular Stakeholder':
-return 'type-regular-stakeholder';
-case 'Emerging Stakeholder':
-return 'type-emerging-stakeholder';
-default:
-return 'type-regular-stakeholder';
-}
-}
-
-function getDaysInMonth(month, year) {
-return new Date(year, month, 0).getDate();
-}
-
-function getFirstDayOfMonth(month, year) {
-return new Date(year, month - 1, 1).getDay();
-}
-
-// Calendar Functions
-function renderCalendar() {
-const grid = document.getElementById('calendar-grid');
-grid.innerHTML = '';
-
-const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
-
-for (let i = 0; i < firstDay; i++) {
-const emptyCell = document.createElement('div');
-grid.appendChild(emptyCell);
-}
-
-for (let day = 1; day <= daysInMonth; day++) {
-const dayCell = document.createElement('div');
-dayCell.className = 'calendar-day';
-
-const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-
-const contentsForDay = allCalendarContent.filter(item =>
-item.filmDate === dateStr || item.publishedDate === dateStr
-);
-
-if (contentsForDay.length > 0) {
-dayCell.classList.add('has-content');
-}
-
-let html = `<div class="calendar-day-number">${day}</div>`;
-
-contentsForDay.forEach(content => {
-const status = getContentStatus(content);
-const statusClass = status === 'Published' ? 'badge-published' :
-status === 'Filming' ? 'badge-filming' : 'badge-draft';
-
-const shortTitle = content.title.length > 28 ? content.title.substring(0, 25) + '...' : content.title;
-
-html += `<div class="content-item" title="${content.title}">
-<span class="content-badge ${statusClass}">${status}</span>
-<span class="content-title">${shortTitle}</span>
-</div>`;
-});
-
-dayCell.innerHTML = html;
-grid.appendChild(dayCell);
-}
-
-document.getElementById('calendar-month-year').textContent = `February 2026`;
-updateCalendarStats();
-}
-
-function prevMonth() {
-currentMonth--;
-if (currentMonth < 1) {
-currentMonth = 12;
-currentYear--;
-}
-renderCalendar();
-}
-
-function nextMonth() {
-currentMonth++;
-if (currentMonth > 12) {
-currentMonth = 1;
-currentYear++;
-}
-renderCalendar();
-}
-
-function updateCalendarStats() {
-const allContent = allCalendarContent;
-const draft = allContent.filter(c => !c.filmDate && !c.publishedDate).length;
-const filming = allContent.filter(c => c.filmDate && !c.publishedDate).length;
-const published = allContent.filter(c => c.publishedDate).length;
-
-document.getElementById('total-content-count').textContent = allContent.length;
-document.getElementById('draft-count').textContent = draft;
-document.getElementById('filming-count').textContent = filming;
-document.getElementById('published-count').textContent = published;
-}
-
-// Media Coverage Functions
-function renderMediaCoverage(content) {
-const tbody = document.getElementById('media-tbody');
-tbody.innerHTML = '';
-
-content.forEach((item, index) => {
-const row = document.createElement('tr');
-row.className = 'border-b border-gray-100 table-row-hover';
-row.dataset.id = index;
-
-const status = getContentStatus(item);
-const statusClass = getStatusBadgeClass(status);
-const pubDate = item.publishedDate ? new Date(item.publishedDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
-const filmDate = item.filmDate ? new Date(item.filmDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
-
-const progress = item.publishedDate ? 100 : (item.filmDate ? 75 : 40);
-
-row.innerHTML = `
-<td class="py-4 px-4 text-sm font-medium text-gray-800">${item.title}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${filmDate}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${pubDate}</td>
-<td class="py-4 px-4"><span class="status-badge ${statusClass}">${status}</span></td>
-<td class="py-4 px-4">
-<div class="w-24 bg-gray-200 rounded-full h-2">
-<div class="progress-bar bg-pertamina-blue h-2 rounded-full" style="width: ${progress}%"></div>
-</div>
-<p class="text-xs text-gray-500 mt-1">${progress}%</p>
-</td>
-<td class="py-4 px-4 text-sm">
-<button class="text-pertamina-blue hover:underline mr-3">Edit</button>
-<button class="text-pertamina-red hover:underline">Delete</button>
-</td>
-`;
-tbody.appendChild(row);
-});
-
-updateMediaStats();
-}
-
-function updateMediaStats() {
-const draft = allCalendarContent.filter(c => !c.filmDate && !c.publishedDate).length;
-const filming = allCalendarContent.filter(c => c.filmDate && !c.publishedDate).length;
-const published = allCalendarContent.filter(c => c.publishedDate).length;
-
-document.getElementById('media-total-count').textContent = allCalendarContent.length;
-document.getElementById('media-draft-count').textContent = draft;
-document.getElementById('media-filming-count').textContent = filming;
-document.getElementById('media-published-count').textContent = published;
-}
-
-function filterMediaContent() {
-const searchTerm = document.getElementById('media-search').value.toLowerCase();
-const statusFilter = document.getElementById('media-status-filter').value;
-
-const filtered = allCalendarContent.filter(item => {
-const itemStatus = getContentStatus(item);
-const matchesSearch = item.title.toLowerCase().includes(searchTerm);
-const matchesStatus = !statusFilter || itemStatus === statusFilter;
-return matchesSearch && matchesStatus;
-});
-
-renderMediaCoverage(filtered);
-}
-
-// Content Planner Functions
-function renderContentPlanner(content) {
-const container = document.getElementById('planner-container');
-container.innerHTML = '';
-
-content.forEach((item, index) => {
-const status = getContentStatus(item);
-const statusColorClass = status === 'Published' ? 'border-green-500 bg-green-50' : status === 'Filming' ? 'border-orange-500 bg-orange-50' : 'border-yellow-500 bg-yellow-50';
-const statusTextClass = status === 'Published' ? 'text-green-700' : status === 'Filming' ? 'text-orange-700' : 'text-yellow-700';
-const progress = status === 'Published' ? 100 : (status === 'Filming' ? 75 : 40);
-
-const card = document.createElement('div');
-card.className = `border-l-4 ${statusColorClass} p-4 rounded-lg`;
-card.innerHTML = `
-<div class="flex items-start justify-between">
-<div class="flex-1">
-<h4 class="font-semibold text-gray-800">${item.title}</h4>
-<p class="text-sm ${statusTextClass} font-medium mt-2">Status: ${status}</p>
-</div>
-<span class="status-badge" style="padding: 0.35rem 0.9rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; ${status === 'Published' ? 'background-color: #D1FAE5; color: #065F46;' : status === 'Filming' ? 'background-color: #FED7AA; color: #92400E;' : 'background-color: #FEF3C7; color: #92400E;'}">${status}</span>
-</div>
-<div class="mt-3 grid grid-cols-2 gap-4 text-sm">
-<div>
-<span class="text-gray-600">Film Date:</span>
-<p class="font-medium text-gray-800">${item.filmDate ? new Date(item.filmDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBD'}</p>
-</div>
-<div>
-<span class="text-gray-600">Published:</span>
-<p class="font-medium text-gray-800">${item.publishedDate ? new Date(item.publishedDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBD'}</p>
-</div>
-</div>
-<div class="mt-4">
-<div class="flex justify-between items-center mb-2">
-<span class="text-sm text-gray-600">Progress</span>
-<span class="text-sm font-medium text-gray-800">${progress}%</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-2">
-<div class="progress-bar ${status === 'Published' ? 'bg-green-500' : status === 'Filming' ? 'bg-orange-500' : 'bg-amber-500'} h-2 rounded-full" style="width: ${progress}%"></div>
-</div>
-</div>
-`;
-container.appendChild(card);
-});
-
-updatePlannerStats();
-}
-
-function updatePlannerStats() {
-const allContent = allCalendarContent;
-const draft = allContent.filter(c => !c.filmDate && !c.publishedDate).length;
-const filming = allContent.filter(c => c.filmDate && !c.publishedDate).length;
-const published = allContent.filter(c => c.publishedDate).length;
-
-document.getElementById('planner-total-count').textContent = allContent.length;
-document.getElementById('planner-draft-count').textContent = draft;
-document.getElementById('planner-review-count').textContent = filming;
-document.getElementById('planner-published-count').textContent = published;
-}
-
-function filterPlannerContent() {
-const searchTerm = document.getElementById('planner-search').value.toLowerCase();
-const statusFilter = document.getElementById('planner-status-filter').value;
-
-const filtered = allCalendarContent.filter(item => {
-const matchesSearch = item.title.toLowerCase().includes(searchTerm);
-const itemStatus = getContentStatus(item);
-let matchesStatus = true;
-
-if (statusFilter === 'Draft') {
-matchesStatus = !item.filmDate && !item.publishedDate;
-} else if (statusFilter === 'Review') {
-matchesStatus = item.filmDate && !item.publishedDate;
-} else if (statusFilter === 'Published') {
-matchesStatus = item.publishedDate;
-}
-
-return matchesSearch && matchesStatus;
-});
-
-renderContentPlanner(filtered);
-}
-
-// Workspace Functions
-function renderWorkspace() {
-const container = document.getElementById('workspace-container');
-container.innerHTML = '';
-
-departmentData.forEach((dept, index) => {
-const getProgressColor = () => {
-if (dept.progress >= 90) return 'bg-green-500';
-if (dept.progress >= 70) return 'bg-blue-500';
-if (dept.progress >= 50) return 'bg-amber-500';
-return 'bg-red-500';
-};
-
-const getProgressLabel = () => {
-if (dept.progress >= 90) return 'Excellent';
-if (dept.progress >= 70) return 'Good';
-if (dept.progress >= 50) return 'Fair';
-return 'Needs Improvement';
-};
-
-const card = document.createElement('div');
-card.className = 'bg-gradient-to-r from-gray-50 to-white p-6 rounded-xl border border-gray-200';
-card.innerHTML = `
-<div class="flex items-center justify-between mb-3">
-<div>
-<h4 class="text-lg font-semibold text-gray-800">${dept.name}</h4>
-<p class="text-sm text-gray-500">Team: ${dept.team} people</p>
-</div>
-<div class="text-right">
-<p class="text-3xl font-bold text-gray-800">${dept.progress}%</p>
-<p class="text-xs font-medium text-gray-600">${getProgressLabel()}</p>
-</div>
-</div>
-<div class="w-full bg-gray-300 rounded-full h-3">
-<div class="progress-bar ${getProgressColor()} h-3 rounded-full" style="width: ${dept.progress}%"></div>
-</div>
-`;
-container.appendChild(card);
-});
-
-updateWorkspaceStats();
-}
-
-function updateWorkspaceStats() {
-const excellent = departmentData.filter(d => d.progress >= 90).length;
-const good = departmentData.filter(d => d.progress >= 70 && d.progress < 90).length;
-const fair = departmentData.filter(d => d.progress >= 50 && d.progress < 70).length;
-const poor = departmentData.filter(d => d.progress < 50).length;
-
-document.getElementById('dept-total').textContent = departmentData.length;
-document.getElementById('dept-excellent').textContent = excellent;
-document.getElementById('dept-good').textContent = good;
-document.getElementById('dept-fair').textContent = fair;
-document.getElementById('dept-poor').textContent = poor;
-}
-
-// CSR Program Functions
-function renderCSRPrograms(programs) {
-const container = document.getElementById('csr-container');
-container.innerHTML = '';
-
-programs.forEach((program, index) => {
-const statusColorClass = program.status === 'Active' ? 'border-green-500 bg-green-50' : program.status === 'Planning' ? 'border-amber-500 bg-amber-50' : 'border-blue-500 bg-blue-50';
-const statusBadgeClass = program.status === 'Active' ? 'status-badge-active' : program.status === 'Planning' ? 'status-badge-planning' : 'status-badge-completed';
-const iconBgColor = program.status === 'Active' ? 'bg-green-100' : program.status === 'Planning' ? 'bg-amber-100' : 'bg-blue-100';
-
-const card = document.createElement('div');
-card.className = `program-card border-l-4 ${statusColorClass}`;
-card.innerHTML = `
-<div class="flex items-start gap-4 mb-4">
-<div class="program-icon ${iconBgColor}">
-${program.icon}
-</div>
-<div class="flex-1">
-<div class="flex items-start justify-between">
-<div>
-<h4 class="text-lg font-semibold text-gray-800 leading-tight">${program.name}</h4>
-<p class="text-sm text-gray-600 mt-1">${program.description}</p>
-</div>
-<span class="status-badge ${statusBadgeClass}">${program.status}</span>
-</div>
-</div>
-</div>
-<div class="space-y-2">
-<div class="flex justify-between items-center">
-<span class="text-sm text-gray-600">Progress</span>
-<span class="text-sm font-medium text-gray-800">${program.progress}%</span>
-</div>
-<div class="w-full bg-gray-300 rounded-full h-2.5">
-<div class="progress-bar bg-pertamina-blue h-2.5 rounded-full" style="width: ${program.progress}%"></div>
-</div>
-</div>
-`;
-container.appendChild(card);
-});
-
-updateCSRStats(programs);
-}
-
-function updateCSRStats(programs) {
-const active = programs.filter(p => p.status === 'Active').length;
-const planning = programs.filter(p => p.status === 'Planning').length;
-const completed = programs.filter(p => p.status === 'Completed').length;
-const avgProgress = programs.length > 0 ? Math.round(programs.reduce((sum, p) => sum + p.progress, 0) / programs.length) : 0;
-
-document.getElementById('csr-total-count').textContent = programs.length;
-document.getElementById('csr-active-count').textContent = active;
-document.getElementById('csr-planning-count').textContent = planning;
-document.getElementById('csr-completed-count').textContent = completed;
-document.getElementById('csr-avg-progress').textContent = avgProgress + '%';
-}
-
-function filterCSRPrograms() {
-const searchTerm = document.getElementById('csr-search').value.toLowerCase();
-const statusFilter = document.getElementById('csr-status-filter').value;
-
-const filtered = allCSRPrograms.filter(program => {
-const matchesSearch = program.name.toLowerCase().includes(searchTerm) || program.description.toLowerCase().includes(searchTerm);
-const matchesStatus = !statusFilter || program.status === statusFilter;
-return matchesSearch && matchesStatus;
-});
-
-renderCSRPrograms(filtered);
-}
-
-function resetCSRFilter() {
-document.getElementById('csr-search').value = '';
-document.getElementById('csr-status-filter').value = '';
-renderCSRPrograms(allCSRPrograms);
-}
-
-// SMEPP Functions
-function renderSMEPP(umkms) {
-const tbody = document.getElementById('smepp-tbody');
-tbody.innerHTML = '';
-
-umkms.forEach((umkm, index) => {
-const row = document.createElement('tr');
-row.className = 'border-b border-gray-100 table-row-hover';
-
-const getStatusColor = () => {
-switch(umkm.status) {
-case 'Excellent':
-return 'bg-green-100 text-green-800';
-case 'Good':
-return 'bg-blue-100 text-blue-800';
-case 'Fair':
-return 'bg-amber-100 text-amber-800';
-case 'Developing':
-return 'bg-orange-100 text-orange-800';
-default:
-return 'bg-gray-100 text-gray-800';
-}
-};
-
-const revenue = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(umkm.revenue);
-
-row.innerHTML = `
-<td class="py-4 px-4 text-sm font-medium text-gray-800">${umkm.name}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${umkm.owner}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${umkm.sector}</td>
-<td class="py-4 px-4"><span class="px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor()}">${umkm.status}</span></td>
-<td class="py-4 px-4">
-<div class="flex items-center gap-2">
-<div class="w-16 bg-gray-200 rounded-full h-2">
-<div class="progress-bar bg-pertamina-blue h-2 rounded-full" style="width: ${umkm.performance}%"></div>
-</div>
-<span class="text-xs font-medium text-gray-600">${umkm.performance}%</span>
-</div>
-</td>
-<td class="py-4 px-4 text-sm text-gray-600">${revenue}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${umkm.employees}</td>
-`;
-tbody.appendChild(row);
-});
-
-updateSMEPPStats(umkms);
-}
-
-function updateSMEPPStats(umkms) {
-const excellent = umkms.filter(u => u.status === 'Excellent').length;
-const good = umkms.filter(u => u.status === 'Good').length;
-const fair = umkms.filter(u => u.status === 'Fair').length;
-const developing = umkms.filter(u => u.status === 'Developing').length;
-const totalEmployees = umkms.reduce((sum, u) => sum + u.employees, 0);
-
-document.getElementById('smepp-total-count').textContent = umkms.length;
-document.getElementById('smepp-excellent-count').textContent = excellent;
-document.getElementById('smepp-good-count').textContent = good;
-document.getElementById('smepp-fair-count').textContent = fair;
-document.getElementById('smepp-developing-count').textContent = developing;
-document.getElementById('smepp-total-employees').textContent = totalEmployees;
-}
-
-function filterSMEPP() {
-const searchTerm = document.getElementById('smepp-search').value.toLowerCase();
-const statusFilter = document.getElementById('smepp-status-filter').value;
-
-const filtered = allSMEPP.filter(umkm => {
-const matchesSearch = umkm.name.toLowerCase().includes(searchTerm) || umkm.owner.toLowerCase().includes(searchTerm);
-const matchesStatus = !statusFilter || umkm.status === statusFilter;
-return matchesSearch && matchesStatus;
-});
-
-renderSMEPP(filtered);
-}
-
-// Stakeholder Functions
-function renderStakeholders(stakeholders) {
-const tbody = document.getElementById('stakeholders-tbody');
-tbody.innerHTML = '';
-
-stakeholders.forEach((sh, index) => {
-const row = document.createElement('tr');
-row.className = 'border-b border-gray-100 table-row-hover';
-row.dataset.id = index;
-
-const influenceClass = getInfluenceBadgeClass(sh.influence_level);
-const typeClass = getTypeBadgeClass(sh.type);
-
-row.innerHTML = `
-<td class="py-4 px-4 text-sm font-medium text-gray-800">${sh.name}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${sh.organization}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${sh.role}</td>
-<td class="py-4 px-4 text-sm text-gray-600">${sh.email || '-'}</td>
-<td class="py-4 px-4"><span class="type-badge ${typeClass}">${sh.type}</span></td>
-<td class="py-4 px-4"><span class="influence-badge ${influenceClass}">${sh.influence_level}</span></td>
-<td class="py-4 px-4 text-sm text-gray-600">${sh.gender}</td>
-<td class="py-4 px-4 text-sm text-gray-600 max-w-xs truncate">${sh.notes || '-'}</td>
-<td class="py-4 px-4 text-sm">
-<button onclick="editStakeholder(${index})" class="text-pertamina-blue hover:underline mr-3">Edit</button>
-<button onclick="deleteStakeholder(${index})" class="text-pertamina-red hover:underline">Delete</button>
-</td>
-`;
-tbody.appendChild(row);
-});
-
-updateStakeholderStats();
-}
-
-function updateStakeholderStats() {
-document.getElementById('total-stakeholders').textContent = allStakeholders.length;
-document.getElementById('high-influence-count').textContent = allStakeholders.filter(s => s.influence_level === 'High Influence').length;
-document.getElementById('high-interest-count').textContent = allStakeholders.filter(s => s.influence_level === 'High Interest').length;
-document.getElementById('medium-influence-count').textContent = allStakeholders.filter(s => s.influence_level === 'Medium Influence').length;
-document.getElementById('low-influence-count').textContent = allStakeholders.filter(s => s.influence_level === 'Low Influence').length;
-}
-
-function filterStakeholders() {
-const searchTerm = document.getElementById('search-input').value.toLowerCase();
-const typeFilter = document.getElementById('type-filter').value;
-const influenceFilter = document.getElementById('influence-filter').value;
-
-const filtered = allStakeholders.filter(sh => {
-const matchesSearch = sh.name.toLowerCase().includes(searchTerm) || sh.email.toLowerCase().includes(searchTerm);
-const matchesType = !typeFilter || sh.type === typeFilter;
-const matchesInfluence = !influenceFilter || sh.influence_level === influenceFilter;
-return matchesSearch && matchesType && matchesInfluence;
-});
-
-renderStakeholders(filtered);
-}
-
-function openAddModal() {
-editingId = null;
-document.getElementById('modal-title').textContent = 'Add New Stakeholder';
-document.getElementById('stakeholder-form').reset();
-document.getElementById('modal-overlay').classList.remove('hidden');
-}
-
-function editStakeholder(index) {
-const sh = allStakeholders[index];
-editingId = index;
-document.getElementById('modal-title').textContent = 'Edit Stakeholder';
-document.getElementById('form-name').value = sh.name;
-document.getElementById('form-organization').value = sh.organization;
-document.getElementById('form-role').value = sh.role;
-document.getElementById('form-gender').value = sh.gender;
-document.getElementById('form-birth_date').value = sh.birth_date;
-document.getElementById('form-type').value = sh.type;
-document.getElementById('form-contact_number').value = sh.contact_number || '';
-document.getElementById('form-email').value = sh.email;
-document.getElementById('form-influence_level').value = sh.influence_level;
-document.getElementById('form-last_contact_date').value = sh.last_contact_date || '';
-document.getElementById('form-notes').value = sh.notes || '';
-document.getElementById('modal-overlay').classList.remove('hidden');
-}
-
-function handleFormSubmit(event) {
-event.preventDefault();
-
-const newStakeholder = {
-name: document.getElementById('form-name').value,
-organization: document.getElementById('form-organization').value,
-role: document.getElementById('form-role').value,
-gender: document.getElementById('form-gender').value,
-birth_date: document.getElementById('form-birth_date').value,
-type: document.getElementById('form-type').value,
-contact_number: document.getElementById('form-contact_number').value,
-email: document.getElementById('form-email').value,
-influence_level: document.getElementById('form-influence_level').value,
-last_contact_date: document.getElementById('form-last_contact_date').value,
-notes: document.getElementById('form-notes').value
-};
-
-if (editingId !== null && editingId >= referenceStakeholders.length) {
-Object.assign(allStakeholders[editingId], newStakeholder);
-} else if (editingId === null) {
-allStakeholders.push(newStakeholder);
-} else {
-alert('Cannot edit reference data.');
-return;
-}
-
-renderStakeholders(allStakeholders);
-closeAddModal();
-}
-
-function deleteStakeholder(index) {
-if (index < referenceStakeholders.length) {
-alert('Cannot delete reference data.');
-return;
-}
-
-if (confirm('Are you sure you want to delete this stakeholder?')) {
-allStakeholders.splice(index, 1);
-renderStakeholders(allStakeholders);
-}
-}
-
-function closeAddModal(event) {
-if (event && event.target.id !== 'modal-overlay') return;
-document.getElementById('modal-overlay').classList.add('hidden');
-document.getElementById('stakeholder-form').reset();
-editingId = null;
-}
-
-// Menu toggle functionality
-function toggleMenu(menuId) {
-const submenu = document.getElementById(`submenu-${menuId}`);
-const arrow = document.getElementById(`arrow-${menuId}`);
-
-document.querySelectorAll('.submenu').forEach(sm => {
-if (sm.id !== `submenu-${menuId}`) {
-sm.classList.remove('open');
-}
-});
-document.querySelectorAll('[id^="arrow-"]').forEach(ar => {
-if (ar.id !== `arrow-${menuId}`) {
-ar.style.transform = 'rotate(0deg)';
-}
-});
-
-submenu.classList.toggle('open');
-if (submenu.classList.contains('open')) {
-arrow.style.transform = 'rotate(180deg)';
-} else {
-arrow.style.transform = 'rotate(0deg)';
-}
-}
-
-function showContent(contentId) {
-const allContents = [
-'dashboard-home', 'content-calendar', 'content-media', 'content-planner',
-'content-workspace', 'content-government', 'content-nongovernment',
-'content-csr-monitoring', 'content-smepp-monitoring', 'content-policies',
-'content-boardmeeting', 'content-decisions'
-];
-
-allContents.forEach(id => {
-const el = document.getElementById(id);
-if (el) {
-el.classList.add('hidden');
-el.classList.remove('fade-in');
-}
-});
-
-const contentMap = {
-'calendar': 'content-calendar',
-'media': 'content-media',
-'planner': 'content-planner',
-'workspace': 'content-workspace',
-'government': 'content-government',
-'nongovernment': 'content-nongovernment',
-'csr-monitoring': 'content-csr-monitoring',
-'smepp-monitoring': 'content-smepp-monitoring',
-'policies': 'content-policies',
-'boardmeeting': 'content-boardmeeting',
-'decisions': 'content-decisions'
-};
-
-const targetId = contentMap[contentId] || 'dashboard-home';
-const targetEl = document.getElementById(targetId);
-if (targetEl) {
-targetEl.classList.remove('hidden');
-setTimeout(() => targetEl.classList.add('fade-in'), 10);
-}
-
-const titles = {
-'calendar': 'Content Calendar - February 2026',
-'media': 'Media Coverage Schedule',
-'planner': 'Content Planner - Status Produksi',
-'workspace': 'Team Workspace - Progress Per Departemen',
-'government': 'Government Relations',
-'nongovernment': 'Non-Government Partners',
-'csr-monitoring': 'CSR Program Monitoring',
-'smepp-monitoring': 'SMEPP - UMKM Binaan Monitoring',
-'policies': 'Policy Documents',
-'boardmeeting': 'Board Meetings',
-'decisions': 'Decision Archive'
-};
-document.getElementById('page-title').textContent = titles[contentId] || 'Dashboard Overview';
-
-if (contentId === 'media') {
-renderMediaCoverage(allCalendarContent);
-} else if (contentId === 'planner') {
-renderContentPlanner(allCalendarContent);
-} else if (contentId === 'workspace') {
-renderWorkspace();
-} else if (contentId === 'csr-monitoring') {
-renderCSRPrograms(allCSRPrograms);
-} else if (contentId === 'smepp-monitoring') {
-renderSMEPP(allSMEPP);
-}
-}
-
-// Update date and time
-function updateDateTime() {
-const now = new Date();
-const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-
-document.getElementById('current-date').textContent = now.toLocaleDateString('id-ID', dateOptions);
-document.getElementById('current-time').textContent = now.toLocaleTimeString('id-ID', timeOptions);
-}
-
-// Initialize
-updateDateTime();
-setInterval(updateDateTime, 1000);
-renderCalendar();
-renderMediaCoverage(allCalendarContent);
-renderContentPlanner(allCalendarContent);
-renderWorkspace();
-renderStakeholders(allStakeholders);
-</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ce515e586b5a28e',t:'MTc3MTE2MTQ0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PICA - Pertamina Internal Communication &amp; Alignment</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pertamina: {
+              red: '#E21F26',
+              blue: '#0054A6',
+              green: '#00A651',
+              darkBlue: '#003D7A',
+              lightRed: '#FEE2E2',
+              lightBlue: '#DBEAFE',
+              lightGreen: '#D1FAE5'
+            }
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .sidebar-item { transition: all 0.2s ease; }
+    .sidebar-item:hover { background: rgba(0, 84, 166, 0.1); }
+    .sidebar-item.active { background: linear-gradient(90deg, #0054A6 0%, #003D7A 100%); color: white; }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+    .progress-bar { transition: width 0.8s ease-out; }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .submenu.open { max-height: 500px; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #0054A6; border-radius: 3px; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gray-50">
+  <div class="h-full flex overflow-hidden"><!-- Sidebar -->
+   <aside class="w-72 bg-white border-r border-gray-200 flex flex-col shadow-lg" style="min-width: 288px;"><!-- Logo Section -->
+    <div class="p-6 border-b border-gray-100">
+     <div class="flex items-center gap-3">
+      <img src="picaa.png" alt="picaa Logo" class="w-30 h-12 object-contain hover:scale-105 transition-transform duration-300" loading="lazy">
+      <div>
+       <h1 id="logo-title" class="text-xl font-bold text-pertamina-blue">PICA</h1>
+       <p class="text-xs text-gray-500 leading-tight">Pertamina Internal<br>
+        Collaboration &amp; Archive</p>
+      </div>
+     </div>
+    </div><!-- Navigation -->
+    <nav class="flex-1 py-4 overflow-y-auto">
+     <div class="px-4 mb-2"><span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Main Menu</span>
+     </div><!-- Menu 1: Corporate Communication -->
+     <div class="menu-group"><button onclick="toggleMenu('corpcomm')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-corpcomm">
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-pertamina-lightBlue flex items-center justify-center">
+         <svg class="w-5 h-5 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+         </svg>
+        </div><span class="font-medium text-gray-700 text-sm">Corporate Communication</span>
+       </div>
+       <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-corpcomm" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+       </svg></button>
+      <div class="submenu pl-14 pr-4" id="submenu-corpcomm"><button onclick="showContent('calendar')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📅 Content Calendar</button> <button onclick="showContent('media')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🎥 Media Coverage Schedule</button> <button onclick="showContent('planner')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📝 Content Planner</button> <button onclick="showContent('workspace')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">👥 Team Workspace</button>
+      </div>
+     </div><!-- Menu 2: Stakeholder Relations -->
+     <div class="menu-group"><button onclick="toggleMenu('stakeholder')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-stakeholder">
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-pertamina-lightGreen flex items-center justify-center">
+         <svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+         </svg>
+        </div><span class="font-medium text-gray-700 text-sm">Stakeholder Relations</span>
+       </div>
+       <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-stakeholder" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+       </svg></button>
+      <div class="submenu pl-14 pr-4" id="submenu-stakeholder"><button onclick="showContent('government')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏛️ Government Relations</button> <button onclick="showContent('nongovernment')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🤝 Non-Government Partners</button>
+      </div>
+     </div><!-- Menu 3: CSR & SMEPP -->
+     <div class="menu-group"><button onclick="toggleMenu('csr')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-csr">
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-pertamina-lightRed flex items-center justify-center">
+         <svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+         </svg>
+        </div><span class="font-medium text-gray-700 text-sm">CSR &amp; SMEPP</span>
+       </div>
+       <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-csr" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+       </svg></button>
+      <div class="submenu pl-14 pr-4" id="submenu-csr"><button onclick="showContent('csrprogram')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🌱 CSR Programs</button> <button onclick="showContent('smepp')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏪 SMEPP Monitoring</button>
+      </div>
+     </div><!-- Menu 4: Corporate Governance -->
+     <div class="menu-group"><button onclick="toggleMenu('governance')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-governance">
+       <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
+         <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+         </svg>
+        </div><span class="font-medium text-gray-700 text-sm">Corporate Governance</span>
+       </div>
+       <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-governance" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+       </svg></button>
+      <div class="submenu pl-14 pr-4" id="submenu-governance"><button onclick="showContent('policies')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📋 Policy Documents</button> <button onclick="showContent('boardmeeting')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📆 Board Meetings</button> <button onclick="showContent('decisions')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📁 Decision Archive</button>
+      </div>
+     </div>
+    </nav><!-- User Profile -->
+    <div class="p-4 border-t border-gray-100 bg-gray-50">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pertamina-blue to-pertamina-green flex items-center justify-center text-white font-semibold">
+       AP
+      </div>
+      <div class="flex-1">
+       <p class="text-sm font-medium text-gray-800">Admin PICA</p>
+       <p class="text-xs text-gray-500">Corporate Secretary</p>
+      </div><button class="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+       <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+       </svg></button>
+     </div>
+    </div>
+   </aside><!-- Main Content Area -->
+   <main class="flex-1 flex flex-col overflow-hidden"><!-- Top Header -->
+    <header class="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between">
+     <div>
+      <h2 id="page-title" class="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
+      <p id="welcome-text" class="text-sm text-gray-500">Selamat datang di PICA Dashboard</p>
+     </div>
+     <div class="flex items-center gap-4">
+      <div class="relative"><input type="text" placeholder="Search..." class="w-64 pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+       <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+       </svg>
+      </div><button class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+       <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+       </svg><span class="absolute top-1 right-1 w-2 h-2 bg-pertamina-red rounded-full"></span> </button>
+      <div class="text-right">
+       <p class="text-sm font-medium text-gray-700" id="current-date"></p>
+       <p class="text-xs text-gray-400" id="current-time"></p>
+      </div>
+     </div>
+    </header><!-- Dynamic Content Area -->
+    <div class="flex-1 p-8 overflow-y-auto" id="content-area"><!-- Dashboard Home Content -->
+     <div id="dashboard-home" class="fade-in"><!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+       <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="flex items-center justify-between mb-4">
+         <div class="w-12 h-12 rounded-xl bg-pertamina-lightBlue flex items-center justify-center">
+          <svg class="w-6 h-6 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+         </div><span class="text-xs font-medium text-pertamina-green bg-pertamina-lightGreen px-2 py-1 rounded-full">+12%</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">156</p>
+        <p class="text-sm text-gray-500 mt-1">Total Content</p>
+       </div>
+       <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="flex items-center justify-between mb-4">
+         <div class="w-12 h-12 rounded-xl bg-pertamina-lightGreen flex items-center justify-center">
+          <svg class="w-6 h-6 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+         </div><span class="text-xs font-medium text-pertamina-green bg-pertamina-lightGreen px-2 py-1 rounded-full">+8%</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">89</p>
+        <p class="text-sm text-gray-500 mt-1">Active Stakeholders</p>
+       </div>
+       <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="flex items-center justify-between mb-4">
+         <div class="w-12 h-12 rounded-xl bg-pertamina-lightRed flex items-center justify-center">
+          <svg class="w-6 h-6 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+         </div><span class="text-xs font-medium text-pertamina-green bg-pertamina-lightGreen px-2 py-1 rounded-full">+15%</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">24</p>
+        <p class="text-sm text-gray-500 mt-1">CSR Programs</p>
+       </div>
+       <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <div class="flex items-center justify-between mb-4">
+         <div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
+          <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+         </div><span class="text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue px-2 py-1 rounded-full">100%</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-800">12</p>
+        <p class="text-sm text-gray-500 mt-1">Board Meetings</p>
+       </div>
+      </div><!-- Quick Actions & Recent Activity -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"><!-- Quick Actions -->
+       <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+        <div class="space-y-3"><button onclick="showContent('planner')" class="w-full flex items-center gap-3 p-3 bg-gradient-to-r from-pertamina-blue to-pertamina-darkBlue text-white rounded-xl hover:shadow-lg transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg><span class="font-medium">Create New Content</span> </button> <button onclick="showContent('government')" class="w-full flex items-center gap-3 p-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
+          <svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+          </svg><span class="font-medium">Add Stakeholder</span> </button> <button onclick="showContent('csrprogram')" class="w-full flex items-center gap-3 p-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
+          <svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg><span class="font-medium">View CSR Report</span> </button>
+        </div>
+       </div><!-- Recent Activity -->
+       <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
+        <div class="space-y-4">
+         <div class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors">
+          <div class="w-10 h-10 rounded-full bg-pertamina-lightBlue flex items-center justify-center flex-shrink-0">
+           <svg class="w-5 h-5 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+           </svg>
+          </div>
+          <div class="flex-1">
+           <p class="text-sm font-medium text-gray-800">Press Release Q4 2024 published</p>
+           <p class="text-xs text-gray-500">Corporate Communication • 2 hours ago</p>
+          </div><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Published</span>
+         </div>
+         <div class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors">
+          <div class="w-10 h-10 rounded-full bg-pertamina-lightGreen flex items-center justify-center flex-shrink-0">
+           <svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+           </svg>
+          </div>
+          <div class="flex-1">
+           <p class="text-sm font-medium text-gray-800">New stakeholder added: Kementerian ESDM</p>
+           <p class="text-xs text-gray-500">Stakeholder Relations • 5 hours ago</p>
+          </div><span class="px-2 py-1 text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue rounded-full">Active</span>
+         </div>
+         <div class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition-colors">
+          <div class="w-10 h-10 rounded-full bg-pertamina-lightRed flex items-center justify-center flex-shrink-0">
+           <svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+           </svg>
+          </div>
+          <div class="flex-1">
+           <p class="text-sm font-medium text-gray-800">CSR Program "Sekolah Energi" milestone reached</p>
+           <p class="text-xs text-gray-500">CSR &amp; SMEPP • 1 day ago</p>
+          </div><span class="px-2 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">In Progress</span>
+         </div>
+        </div>
+       </div>
+      </div><!-- Team Workspace Preview -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-lg font-semibold text-gray-800">Team Workspace - Project Progress</h3><button onclick="showContent('workspace')" class="text-sm text-pertamina-blue hover:underline font-medium">View All →</button>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+         <div>
+          <div class="flex justify-between mb-2"><span class="text-sm font-medium text-gray-700">Annual Report 2024</span> <span class="text-sm font-semibold text-pertamina-blue">85%</span>
+          </div>
+          <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+           <div class="progress-bar h-full bg-gradient-to-r from-pertamina-blue to-pertamina-green rounded-full" style="width: 85%"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between mb-2"><span class="text-sm font-medium text-gray-700">Media Kit Update</span> <span class="text-sm font-semibold text-pertamina-green">100%</span>
+          </div>
+          <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+           <div class="progress-bar h-full bg-pertamina-green rounded-full" style="width: 100%"></div>
+          </div>
+         </div>
+        </div>
+        <div class="space-y-4">
+         <div>
+          <div class="flex justify-between mb-2"><span class="text-sm font-medium text-gray-700">Sustainability Report</span> <span class="text-sm font-semibold text-amber-500">60%</span>
+          </div>
+          <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+           <div class="progress-bar h-full bg-amber-400 rounded-full" style="width: 60%"></div>
+          </div>
+         </div>
+         <div>
+          <div class="flex justify-between mb-2"><span class="text-sm font-medium text-gray-700">CSR Documentation</span> <span class="text-sm font-semibold text-pertamina-red">35%</span>
+          </div>
+          <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+           <div class="progress-bar h-full bg-pertamina-red rounded-full" style="width: 35%"></div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Content Calendar Page -->
+     <div id="content-calendar" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">📅 Content Calendar - January 2025</h3>
+        <div class="flex gap-2"><button class="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">← Prev</button> <button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-blue hover:bg-pertamina-darkBlue rounded-lg transition-colors">Next →</button>
+        </div>
+       </div>
+       <div class="grid grid-cols-7 gap-2 mb-4">
+        <div class="text-center text-sm font-semibold text-gray-500 py-2">
+         Sun
+        </div>
+        <div class="text-center text-sm font-semibold text-gray-500 py-2">
+         Mon
+        </div>
+        <div class="text-center text-sm font-semibold text-gray-500 py-2">
+         Tue
+        </div>
+        <div class="text-center text-sm font-semibold text-gray-500 py-2">
+         Wed
+        </div>
+        <div class="text-center text-sm font-semibold text-gray-500 py-2">
+         Thu
+        </div>
+        <div class="text-center text-sm font-semibold text-gray-500 py-2">
+         Fri
+        </div>
+        <div class="text-center text-sm font-semibold text-gray-500 py-2">
+         Sat
+        </div>
+       </div>
+       <div class="grid grid-cols-7 gap-2">
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">1</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">2</span>
+         <div class="mt-1 text-xs bg-pertamina-lightGreen text-pertamina-green px-2 py-1 rounded">
+          📅 Perwira Menjawab Eps 1
+         </div>
+         <div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-2 py-1 rounded">
+          🎥 Perwira Menjawab Eps 2
+          </div>
+          <div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-2 py-1 rounded">
+          🎥 Perwira Menjawab Eps 3
+           </div>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">3</span>
+          <div class="mt-1 text-xs bg-pertamina-lightBlue text-pertamina-blue px-2 py-1 rounded">
+          📊 GRWM
+         </div>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">4</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">5</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"<span class="text-sm font-medium">6</span>
+        <div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-2 py-1 rounded">
+          📝 Torang Kasih Tau Edisi Pertashop
+         </div>
+         <div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-2 py-1 rounded">
+          📝 POV: Tipe-Tipe Orang di Hari PertamaPuasa
+         </div>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">7</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">8</span>
+        </div>
+        <div class="min-h-24 p-2 bg-pertamina-blue text-white rounded-lg"><span class="text-sm font-medium">16</span>
+         <div class="mt-1 text-xs bg-white/20 px-2 py-1 rounded">
+          📝 Q&A Bareng OJT MOR 8
+         </div>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">10</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">11</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">12</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">13</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">14</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">15</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">16</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">17</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">18</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">19</span>
+        <div class="mt-1 text-xs bg-pertamina-lightBlue text-pertamina-blue px-2 py-1 rounded">
+          📊 POV: izin mau pulang duluan Tapi bos tiba-tiba ngajak meeting
+         </div>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">20</span>
+        </div>
+        <div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
+         <span class="text-sm font-medium">21</span>
+        </div>
+       </div>
+      </div>
+     </div><!-- Media Coverage Schedule Page -->
+     <div id="content-media" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">🎥 Media Coverage Schedule</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
+         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+         </svg> Add Schedule </button>
+       </div>
+       <div class="overflow-x-auto">
+        <table class="w-full">
+         <thead>
+          <tr class="border-b border-gray-200">
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Content Title</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Film Date</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Published Date</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Progress</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Status</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+           <td class="py-4 px-4 text-sm text-gray-800">POV: izin mau pulang duluan Tapi bos tiba-tiba ngajak meeting</td>
+           <td class="py-4 px-4 text-sm font-medium text-gray-800">19 Februari 2026</td>
+           <td class="py-4 px-4 text-sm text-gray-600">27 Februari 2026</td>
+           <td class="py-4 px-4">
+            <div class="w-24 bg-gray-200 rounded-full h-2">
+              <div class="progress-bar bg-pertamina-blue h-2 rounded-full" style="width: 100%"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">100%</p>
+             </div>
+            </div></td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Published</span></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+           <td class="py-4 px-4 text-sm text-gray-800">Ngabuburit Ala Perwira Pertamina</td>
+           <td class="py-4 px-4 text-sm font-medium text-gray-800">-</td>
+           <td class="py-4 px-4 text-sm text-gray-600">-</td>
+           <td class="py-4 px-4">
+            <div class="w-24 bg-gray-200 rounded-full h-2">
+              <div class="progress-bar bg-pertamina-blue h-2 rounded-full" style="width: 40%"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">40%</p>
+             </div>
+            </div></td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">Draft</span></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+           <td class="py-4 px-4 text-sm text-gray-800">Perwira Menjawab Eps 2</td>
+           <td class="py-4 px-4 text-sm font-medium text-gray-800">2 Februari 2026</td>
+           <td class="py-4 px-4 text-sm text-gray-600">-</td>
+           <td class="py-4 px-4">
+            <div class="w-24 bg-gray-200 rounded-full h-2">
+              <div class="progress-bar bg-pertamina-blue h-2 rounded-full" style="width: 75%"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">75%</p>
+             </div>
+            </div></td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue rounded-full">Filming</span></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- Content Planner Page -->
+     <div id="content-planner" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">📝 Content Planner</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
+         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+         </svg> New Content </button>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6"><!-- Draft Column -->
+        <div class="bg-gray-50 rounded-xl p-4">
+         <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-gray-400"></div>
+          <h4 class="font-semibold text-gray-700">Draft</h4><span class="ml-auto bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">3</span>
+         </div>
+         <div class="space-y-3">
+          <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+           <h5 class="font-medium text-gray-800 text-sm mb-2">Ngabuburit Ala Perwira Pertamina</h5>
+           <p class="text-xs text-gray-500 mb-3">Ngabuburit Ala Perwira Pertamina...</p>
+           <div class="flex items-center justify-between">
+            <div class="w-6 h-6 rounded-full bg-pertamina-blue text-white flex items-center justify-center text-xs">
+             AS
+            </div><span class="text-xs text-amber-600 font-medium">Reviewing</span>
+           </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+           <h5 class="font-medium text-gray-800 text-sm mb-2">Fun Fact Energi Menjelang Berbuka</h5>
+           <p class="text-xs text-gray-500 mb-3">Fun Fact Energi Menjelang Berbuka...</p>
+           <div class="flex items-center justify-between">
+            <div class="w-6 h-6 rounded-full bg-pertamina-green text-white flex items-center justify-center text-xs">
+             BK
+            </div><span class="text-xs text-amber-600 font-medium">Reviewing</span>
+           </div>
+          </div>
+         </div>
+        </div><!-- Filming Column -->
+        <div class="bg-amber-50 rounded-xl p-4">
+         <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+          <h4 class="font-semibold text-gray-700">Filming</h4><span class="ml-auto bg-amber-200 text-amber-700 text-xs font-medium px-2 py-1 rounded-full">2</span>
+         </div>
+         <div class="space-y-3">
+          <div class="bg-white p-4 rounded-lg shadow-sm border border-amber-200 hover:shadow-md transition-shadow cursor-pointer">
+           <h5 class="font-medium text-gray-800 text-sm mb-2">Perwira Menjawab Eps 2</h5>
+           <p class="text-xs text-gray-500 mb-3">Perwira Menjawab Eps 2...</p>
+           <div class="flex items-center justify-between">
+            <div class="w-6 h-6 rounded-full bg-purple-500 text-white flex items-center justify-center text-xs">
+             RW
+            </div><span class="text-xs text-gray-400">Due: Feb 02</span>
+           </div>
+          </div>
+         </div>
+        </div><!-- Published Column -->
+        <div class="bg-pertamina-lightGreen rounded-xl p-4">
+         <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-pertamina-green"></div>
+          <h4 class="font-semibold text-gray-700">Published</h4><span class="ml-auto bg-pertamina-green text-white text-xs font-medium px-2 py-1 rounded-full">5</span>
+         </div>
+         <div class="space-y-3">
+          <div class="bg-white p-4 rounded-lg shadow-sm border border-pertamina-green hover:shadow-md transition-shadow cursor-pointer">
+           <h5 class="font-medium text-gray-800 text-sm mb-2">Q&A Bareng OJT MOR 8</h5>
+           <p class="text-xs text-gray-500 mb-3">Q&A Bareng OJT MOR 8...</p>
+           <div class="flex items-center justify-between">
+            <div class="w-6 h-6 rounded-full bg-pertamina-red text-white flex items-center justify-center text-xs">
+             DM
+            </div><span class="text-xs text-pertamina-green font-medium">✓ Live</span>
+           </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm border border-pertamina-green hover:shadow-md transition-shadow cursor-pointer">
+           <h5 class="font-medium text-gray-800 text-sm mb-2">POV: Tipe-Tipe Orang di Hari Pertama Puasa</h5>
+           <p class="text-xs text-gray-500 mb-3">POV: Tipe-Tipe Orang di Hari Pertama Puasa...</p>
+           <div class="flex items-center justify-between">
+            <div class="w-6 h-6 rounded-full bg-pink-500 text-white flex items-center justify-center text-xs">
+             SL
+            </div><span class="text-xs text-pertamina-green font-medium">✓ Live</span>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Team Workspace Page -->
+     <div id="content-workspace" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <h3 class="text-xl font-bold text-gray-800 mb-6">👥 Team Workspace - Transparansi Progress</h3>
+       <div class="space-y-6">
+        <div class="p-4 bg-gray-50 rounded-xl">
+         <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-pertamina-blue text-white flex items-center justify-center font-semibold">
+           CC
+          </div>
+          <div class="flex-1">
+           <h4 class="font-semibold text-gray-800">Corporate Communication</h4>
+           <p class="text-sm text-gray-500">4 active projects</p>
+          </div><span class="text-2xl font-bold text-pertamina-blue">78%</span>
+         </div>
+         <div class="h-4 bg-gray-200 rounded-full overflow-hidden">
+          <div class="progress-bar h-full bg-gradient-to-r from-pertamina-blue to-pertamina-green rounded-full" style="width: 78%"></div>
+         </div>
+         <div class="mt-3 flex gap-4 text-sm"><span class="text-gray-500">📝 Draft: 2</span> <span class="text-amber-600">🔄 Review: 1</span> <span class="text-pertamina-green">✓ Done: 1</span>
+         </div>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-xl">
+         <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-pertamina-green text-white flex items-center justify-center font-semibold">
+           SR
+          </div>
+          <div class="flex-1">
+           <h4 class="font-semibold text-gray-800">Stakeholder Relations</h4>
+           <p class="text-sm text-gray-500">2 active projects</p>
+          </div><span class="text-2xl font-bold text-pertamina-green">92%</span>
+         </div>
+         <div class="h-4 bg-gray-200 rounded-full overflow-hidden">
+          <div class="progress-bar h-full bg-pertamina-green rounded-full" style="width: 92%"></div>
+         </div>
+         <div class="mt-3 flex gap-4 text-sm"><span class="text-gray-500">📝 Draft: 0</span> <span class="text-amber-600">🔄 Review: 1</span> <span class="text-pertamina-green">✓ Done: 1</span>
+         </div>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-xl">
+         <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-pertamina-red text-white flex items-center justify-center font-semibold">
+           CS
+          </div>
+          <div class="flex-1">
+           <h4 class="font-semibold text-gray-800">CSR &amp; SMEPP</h4>
+           <p class="text-sm text-gray-500">3 active projects</p>
+          </div><span class="text-2xl font-bold text-amber-500">54%</span>
+         </div>
+         <div class="h-4 bg-gray-200 rounded-full overflow-hidden">
+          <div class="progress-bar h-full bg-amber-400 rounded-full" style="width: 54%"></div>
+         </div>
+         <div class="mt-3 flex gap-4 text-sm"><span class="text-gray-500">📝 Draft: 2</span> <span class="text-amber-600">🔄 Review: 1</span> <span class="text-pertamina-green">✓ Done: 0</span>
+         </div>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-xl">
+         <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-gray-600 text-white flex items-center justify-center font-semibold">
+           CG
+          </div>
+          <div class="flex-1">
+           <h4 class="font-semibold text-gray-800">Corporate Governance</h4>
+           <p class="text-sm text-gray-500">2 active projects</p>
+          </div><span class="text-2xl font-bold text-pertamina-green">100%</span>
+         </div>
+         <div class="h-4 bg-gray-200 rounded-full overflow-hidden">
+          <div class="progress-bar h-full bg-pertamina-green rounded-full" style="width: 100%"></div>
+         </div>
+         <div class="mt-3 flex gap-4 text-sm"><span class="text-gray-500">📝 Draft: 0</span> <span class="text-amber-600">🔄 Review: 0</span> <span class="text-pertamina-green">✓ Done: 2</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Government Relations Page -->
+     <div id="content-government" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">🏛️ Government Stakeholder Database</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-green hover:bg-green-700 rounded-lg transition-colors flex items-center gap-2">
+         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+         </svg> Add Contact </button>
+       </div>
+       <div class="overflow-x-auto">
+        <table class="w-full">
+         <thead>
+          <tr class="border-b border-gray-200 bg-gray-50">
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600 rounded-tl-lg">Nama</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Instansi</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Jabatan</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Influence Level</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600 rounded-tr-lg">Type</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+           <td class="py-4 px-4">
+            <div class="flex items-center gap-3">
+             <div class="w-10 h-10 rounded-full bg-pertamina-blue text-white flex items-center justify-center font-medium">
+              ST
+             </div><span class="font-medium text-gray-800">Sherly Tjoanda Laos</span>
+            </div></td>
+           <td class="py-4 px-4 text-sm text-gray-600">Pemprov Maluku Utara</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Gubernur Maluku Utara</td>
+           <td class="py-4 px-4 text-sm text-gray-500">High Interest</td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Key Stakeholder</span></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+           <td class="py-4 px-4">
+            <div class="flex items-center gap-3">
+             <div class="w-10 h-10 rounded-full bg-pertamina-green text-white flex items-center justify-center font-medium">
+              AI
+             </div><span class="font-medium text-gray-800">Mayjend TNI Amrin Ibrahim</span>
+            </div></td>
+           <td class="py-4 px-4 text-sm text-gray-600">TNI</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Pangdam Cenderawasih</td>
+           <td class="py-4 px-4 text-sm text-gray-500">High Interest</td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Key Stakeholder</span></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+           <td class="py-4 px-4">
+            <div class="flex items-center gap-3">
+             <div class="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-medium">
+              SD
+             </div><span class="font-medium text-gray-800">Samaun Dahlan, S.Sos.,M.AP.</span>
+            </div></td>
+           <td class="py-4 px-4 text-sm text-gray-600">Pemkab Fak-Fak</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Bupati Kab. Fak-Fak</td>
+           <td class="py-4 px-4 text-sm text-gray-500">High Interest</td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">Primary Stakeholder</span></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+           <td class="py-4 px-4">
+            <div class="flex items-center gap-3">
+             <div class="w-10 h-10 rounded-full bg-gray-400 text-white flex items-center justify-center font-medium">
+              JU
+             </div><span class="font-medium text-gray-800">James Uang, S.Pd.,MM.</span>
+            </div></td>
+           <td class="py-4 px-4 text-sm text-gray-600">Pemkab Halmahera Barat</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Bupati Kab. Halmahera Barat</td>
+           <td class="py-4 px-4 text-sm text-gray-500">High Interest</td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">Primary Stakeholder</span></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- Non-Government Partners Page -->
+     <div id="content-nongovernment" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">🤝 Non-Government Partners</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-green hover:bg-green-700 rounded-lg transition-colors flex items-center gap-2">
+         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+         </svg> Add Partner </button>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+         <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+           📰
+          </div>
+          <div>
+           <h4 class="font-semibold text-gray-800">Kompas Media</h4><span class="text-xs text-gray-500">Media Partner</span>
+          </div>
+         </div>
+         <p class="text-sm text-gray-600 mb-3">National news coverage and editorial partnership</p><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span>
+        </div>
+        <div class="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+         <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+           🌿
+          </div>
+          <div>
+           <h4 class="font-semibold text-gray-800">WALHI</h4><span class="text-xs text-gray-500">Environmental NGO</span>
+          </div>
+         </div>
+         <p class="text-sm text-gray-600 mb-3">Environmental sustainability collaboration</p><span class="px-2 py-1 text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue rounded-full">Partnership</span>
+        </div>
+        <div class="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+         <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
+           🎓
+          </div>
+          <div>
+           <h4 class="font-semibold text-gray-800">Universitas Indonesia</h4><span class="text-xs text-gray-500">Academic Partner</span>
+          </div>
+         </div>
+         <p class="text-sm text-gray-600 mb-3">Research collaboration and talent development</p><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span>
+        </div>
+        <div class="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+         <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
+           ❤️
+          </div>
+          <div>
+           <h4 class="font-semibold text-gray-800">PMI Jakarta</h4><span class="text-xs text-gray-500">Humanitarian</span>
+          </div>
+         </div>
+         <p class="text-sm text-gray-600 mb-3">Blood donation and disaster relief programs</p><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span>
+        </div>
+        <div class="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+         <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
+           🏢
+          </div>
+          <div>
+           <h4 class="font-semibold text-gray-800">KADIN Indonesia</h4><span class="text-xs text-gray-500">Business Association</span>
+          </div>
+         </div>
+         <p class="text-sm text-gray-600 mb-3">Industry networking and business advocacy</p><span class="px-2 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">Review</span>
+        </div>
+       </div>
+      </div>
+     </div><!-- CSR Programs Page -->
+     <div id="content-csrprogram" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">🌱 CSR Programs Monitoring</h3>
+        <div class="flex gap-2"><select class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue"> <option>All Programs</option> <option>Education</option> <option>Environment</option> <option>Health</option> </select>
+        </div>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-lg transition-all">
+         <div class="flex items-start justify-between mb-4">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-pertamina-blue to-pertamina-green flex items-center justify-center text-2xl">
+           🎓
+          </div><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">On Track</span>
+         </div>
+         <h4 class="font-bold text-gray-800 mb-2">PERTAMINA CERDAS</h4>
+         <p class="text-sm text-gray-600 mb-4">Program Pertamina Cerdas</p>
+         <div class="flex items-center justify-between text-sm mb-3"><span class="text-gray-500">Progress</span> <span class="font-semibold text-pertamina-blue">75%</span>
+         </div>
+         <div class="h-2 bg-gray-100 rounded-full overflow-hidden mb-4">
+          <div class="h-full bg-pertamina-blue rounded-full" style="width: 75%"></div>
+         </div>
+         <div class="flex items-center justify-between text-xs text-gray-500"><span>🎯 Target: 100 </span> <span>✅ Achieved: 75</span>
+         </div>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-lg transition-all">
+         <div class="flex items-start justify-between mb-4">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-pertamina-green to-emerald-400 flex items-center justify-center text-2xl">
+           🌳
+          </div><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">On Track</span>
+         </div>
+         <h4 class="font-bold text-gray-800 mb-2">MITIGASI BENCANA</h4>
+         <p class="text-sm text-gray-600 mb-4">Program Mitigasi Bencana</p>
+         <div class="flex items-center justify-between text-sm mb-3"><span class="text-gray-500">Progress</span> <span class="font-semibold text-pertamina-green">88%</span>
+         </div>
+         <div class="h-2 bg-gray-100 rounded-full overflow-hidden mb-4">
+          <div class="h-full bg-pertamina-green rounded-full" style="width: 88%"></div>
+         </div>
+         <div class="flex items-center justify-between text-xs text-gray-500"><span>🎯 Target: 50,000 </span> <span>✅ Planted: 44,000</span>
+         </div>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-lg transition-all">
+         <div class="flex items-start justify-between mb-4">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-pertamina-red to-pink-400 flex items-center justify-center text-2xl">
+           🏪
+          </div><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">In Progress</span>
+         </div>
+         <h4 class="font-bold text-gray-800 mb-2">UMK ACADEMY</h4>
+         <p class="text-sm text-gray-600 mb-4">Program Pembinaan UMK : UMK Academy</p>
+         <div class="flex items-center justify-between text-sm mb-3"><span class="text-gray-500">Progress</span> <span class="font-semibold text-amber-500">45%</span>
+         </div>
+         <div class="h-2 bg-gray-100 rounded-full overflow-hidden mb-4">
+          <div class="h-full bg-amber-400 rounded-full" style="width: 45%"></div>
+         </div>
+         <div class="flex items-center justify-between text-xs text-gray-500"><span>🎯 Target: 200 </span> <span>✅ Renovated: 90</span>
+         </div>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-lg transition-all">
+         <div class="flex items-start justify-between mb-4">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400 to-orange-400 flex items-center justify-center text-2xl">
+           💡
+          </div><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Completed</span>
+         </div>
+         <h4 class="font-bold text-gray-800 mb-2">Desa ENERGI BERDIKARI</h4>
+         <p class="text-sm text-gray-600 mb-4">Program Desa Energi Berdikari</p>
+         <div class="flex items-center justify-between text-sm mb-3"><span class="text-gray-500">Progress</span> <span class="font-semibold text-pertamina-green">100%</span>
+         </div>
+         <div class="h-2 bg-gray-100 rounded-full overflow-hidden mb-4">
+          <div class="h-full bg-pertamina-green rounded-full" style="width: 100%"></div>
+         </div>
+         <div class="flex items-center justify-between text-xs text-gray-500"><span>🎯 Target: 15 </span> <span>✅ Completed: 15</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- SMEPP Monitoring Page -->
+     <div id="content-smepp" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">🏪 SMEPP - UMKM Binaan Monitoring</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors"> Download Report </button>
+       </div>
+       <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="p-4 bg-pertamina-lightBlue rounded-xl text-center">
+         <p class="text-3xl font-bold text-pertamina-blue">156</p>
+         <p class="text-sm text-gray-600">Total UMKM Binaan</p>
+        </div>
+        <div class="p-4 bg-pertamina-lightGreen rounded-xl text-center">
+         <p class="text-3xl font-bold text-pertamina-green">89</p>
+         <p class="text-sm text-gray-600">Active Partners</p>
+        </div>
+        <div class="p-4 bg-amber-50 rounded-xl text-center">
+         <p class="text-3xl font-bold text-amber-600">Rp 2.4M</p>
+         <p class="text-sm text-gray-600">Total Revenue Growth</p>
+        </div>
+        <div class="p-4 bg-pertamina-lightRed rounded-xl text-center">
+         <p class="text-3xl font-bold text-pertamina-red">1,250</p>
+         <p class="text-sm text-gray-600">Jobs Created</p>
+        </div>
+       </div>
+       <div class="overflow-x-auto">
+        <table class="w-full">
+         <thead>
+          <tr class="border-b border-gray-200 bg-gray-50">
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Nama UMKM</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Sektor</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Lokasi</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Revenue</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Growth</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Status</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+           <td class="py-4 px-4 font-medium text-gray-800">Batik Nusantara</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Fashion</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Pekalongan</td>
+           <td class="py-4 px-4 text-sm text-gray-800 font-medium">Rp 45M</td>
+           <td class="py-4 px-4"><span class="text-pertamina-green font-medium">↑ 23%</span></td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+           <td class="py-4 px-4 font-medium text-gray-800">Kopi Luwak Jaya</td>
+           <td class="py-4 px-4 text-sm text-gray-600">F&amp;B</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Lampung</td>
+           <td class="py-4 px-4 text-sm text-gray-800 font-medium">Rp 32M</td>
+           <td class="py-4 px-4"><span class="text-pertamina-green font-medium">↑ 18%</span></td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+           <td class="py-4 px-4 font-medium text-gray-800">Kerajinan Bambu Asri</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Handicraft</td>
+           <td class="py-4 px-4 text-sm text-gray-600">Yogyakarta</td>
+           <td class="py-4 px-4 text-sm text-gray-800 font-medium">Rp 18M</td>
+           <td class="py-4 px-4"><span class="text-amber-600 font-medium">↑ 5%</span></td>
+           <td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">Growing</span></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- Policy Documents Page -->
+     <div id="content-policies" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">📋 Policy Documents</h3>
+        <div class="flex gap-2"><input type="text" placeholder="Search documents..." class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue"> <button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-blue hover:bg-pertamina-darkBlue rounded-lg transition-colors"> Upload New </button>
+        </div>
+       </div>
+       <div class="space-y-3">
+        <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
+         <div class="w-12 h-12 rounded-lg bg-pertamina-lightBlue flex items-center justify-center">
+          <svg class="w-6 h-6 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+         </div>
+         <div class="flex-1">
+          <h4 class="font-semibold text-gray-800">Pedoman GCG Pertamina 2024</h4>
+          <p class="text-sm text-gray-500">Updated: 15 Dec 2024 • PDF • 2.4 MB</p>
+         </div><button class="px-4 py-2 text-sm text-pertamina-blue hover:bg-pertamina-lightBlue rounded-lg transition-colors">Download</button>
+        </div>
+        <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
+         <div class="w-12 h-12 rounded-lg bg-pertamina-lightGreen flex items-center justify-center">
+          <svg class="w-6 h-6 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+         </div>
+         <div class="flex-1">
+          <h4 class="font-semibold text-gray-800">Kebijakan Anti-Korupsi</h4>
+          <p class="text-sm text-gray-500">Updated: 1 Jan 2025 • PDF • 1.8 MB</p>
+         </div><button class="px-4 py-2 text-sm text-pertamina-blue hover:bg-pertamina-lightBlue rounded-lg transition-colors">Download</button>
+        </div>
+        <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
+         <div class="w-12 h-12 rounded-lg bg-pertamina-lightRed flex items-center justify-center">
+          <svg class="w-6 h-6 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+         </div>
+         <div class="flex-1">
+          <h4 class="font-semibold text-gray-800">Whistleblowing System Policy</h4>
+          <p class="text-sm text-gray-500">Updated: 10 Nov 2024 • PDF • 980 KB</p>
+         </div><button class="px-4 py-2 text-sm text-pertamina-blue hover:bg-pertamina-lightBlue rounded-lg transition-colors">Download</button>
+        </div>
+        <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
+         <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
+          <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+         </div>
+         <div class="flex-1">
+          <h4 class="font-semibold text-gray-800">Board Charter</h4>
+          <p class="text-sm text-gray-500">Updated: 5 Jan 2025 • PDF • 3.2 MB</p>
+         </div><button class="px-4 py-2 text-sm text-pertamina-blue hover:bg-pertamina-lightBlue rounded-lg transition-colors">Download</button>
+        </div>
+       </div>
+      </div>
+     </div><!-- Board Meetings Page -->
+     <div id="content-boardmeeting" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">📆 Board Meeting Schedule</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-blue hover:bg-pertamina-darkBlue rounded-lg transition-colors flex items-center gap-2">
+         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+         </svg> Schedule Meeting </button>
+       </div>
+       <div class="space-y-4">
+        <div class="p-5 border-l-4 border-pertamina-blue bg-pertamina-lightBlue/30 rounded-r-xl">
+         <div class="flex items-start justify-between">
+          <div><span class="text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue px-2 py-1 rounded">UPCOMING</span>
+           <h4 class="font-bold text-gray-800 mt-2">Board of Directors Meeting Q1 2025</h4>
+           <p class="text-sm text-gray-600 mt-1">Quarterly performance review and strategic planning</p>
+          </div>
+          <div class="text-right">
+           <p class="font-semibold text-gray-800">20 Jan 2025</p>
+           <p class="text-sm text-gray-500">09:00 - 12:00 WIB</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-4 mt-4"><span class="text-sm text-gray-500">📍 Boardroom Lt. 25</span> <span class="text-sm text-gray-500">👥 12 Participants</span>
+         </div>
+        </div>
+        <div class="p-5 border-l-4 border-gray-300 bg-gray-50 rounded-r-xl">
+         <div class="flex items-start justify-between">
+          <div><span class="text-xs font-medium text-gray-600 bg-gray-200 px-2 py-1 rounded">COMPLETED</span>
+           <h4 class="font-bold text-gray-800 mt-2">Audit Committee Meeting</h4>
+           <p class="text-sm text-gray-600 mt-1">Annual audit review and compliance assessment</p>
+          </div>
+          <div class="text-right">
+           <p class="font-semibold text-gray-800">10 Jan 2025</p>
+           <p class="text-sm text-gray-500">14:00 - 17:00 WIB</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-4 mt-4"><span class="text-sm text-gray-500">📍 Meeting Room A</span> <span class="text-sm text-pertamina-green">✓ Minutes Available</span>
+         </div>
+        </div>
+        <div class="p-5 border-l-4 border-gray-300 bg-gray-50 rounded-r-xl">
+         <div class="flex items-start justify-between">
+          <div><span class="text-xs font-medium text-gray-600 bg-gray-200 px-2 py-1 rounded">COMPLETED</span>
+           <h4 class="font-bold text-gray-800 mt-2">Risk Management Committee</h4>
+           <p class="text-sm text-gray-600 mt-1">Risk assessment and mitigation strategies</p>
+          </div>
+          <div class="text-right">
+           <p class="font-semibold text-gray-800">5 Jan 2025</p>
+           <p class="text-sm text-gray-500">10:00 - 12:00 WIB</p>
+          </div>
+         </div>
+         <div class="flex items-center gap-4 mt-4"><span class="text-sm text-gray-500">📍 Virtual Meeting</span> <span class="text-sm text-pertamina-green">✓ Minutes Available</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Decision Archive Page -->
+     <div id="content-decisions" class="hidden fade-in">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+       <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-gray-800">📁 Decision Archive</h3>
+        <div class="flex gap-2"><select class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue"> <option>All Years</option> <option>2025</option> <option>2024</option> <option>2023</option> </select> <select class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue"> <option>All Types</option> <option>Strategic</option> <option>Operational</option> <option>Financial</option> </select>
+        </div>
+       </div>
+       <div class="overflow-x-auto">
+        <table class="w-full">
+         <thead>
+          <tr class="border-b border-gray-200 bg-gray-50">
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">No. Keputusan</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Judul</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Tanggal</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Type</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Status</th>
+           <th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Action</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+           <td class="py-4 px-4 text-sm font-mono text-pertamina-blue">SK/DIR/001/2025</td>
+           <td class="py-4 px-4 text-sm font-medium text-gray-800">Penetapan Target KPI 2025</td>
+           <td class="py-4 px-4 text-sm text-gray-600">5 Jan 2025</td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue rounded">Strategic</span></td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
+           <td class="py-4 px-4"><button class="text-sm text-pertamina-blue hover:underline">View</button></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+           <td class="py-4 px-4 text-sm font-mono text-pertamina-blue">SK/DIR/045/2024</td>
+           <td class="py-4 px-4 text-sm font-medium text-gray-800">Kebijakan Work From Home</td>
+           <td class="py-4 px-4 text-sm text-gray-600">15 Dec 2024</td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded">Operational</span></td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
+           <td class="py-4 px-4"><button class="text-sm text-pertamina-blue hover:underline">View</button></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+           <td class="py-4 px-4 text-sm font-mono text-pertamina-blue">SK/DIR/040/2024</td>
+           <td class="py-4 px-4 text-sm font-medium text-gray-800">Approval Budget CSR 2025</td>
+           <td class="py-4 px-4 text-sm text-gray-600">28 Nov 2024</td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded">Financial</span></td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
+           <td class="py-4 px-4"><button class="text-sm text-pertamina-blue hover:underline">View</button></td>
+          </tr>
+          <tr class="border-b border-gray-100 hover:bg-gray-50">
+           <td class="py-4 px-4 text-sm font-mono text-gray-400">SK/DIR/012/2023</td>
+           <td class="py-4 px-4 text-sm font-medium text-gray-500">Struktur Organisasi Lama</td>
+           <td class="py-4 px-4 text-sm text-gray-400">10 Mar 2023</td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-gray-500 bg-gray-100 rounded">Operational</span></td>
+           <td class="py-4 px-4"><span class="px-2 py-1 text-xs font-medium text-gray-500 bg-gray-100 rounded-full">Archived</span></td>
+           <td class="py-4 px-4"><button class="text-sm text-gray-400 hover:underline">View</button></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      dashboard_title: 'PICA',
+      welcome_message: 'Selamat datang di PICA Dashboard',
+      background_color: '#F9FAFB',
+      primary_color: '#0054A6',
+      secondary_color: '#E21F26',
+      accent_color: '#00A651',
+      text_color: '#1F2937',
+      font_family: 'Inter'
+    };
+
+    let config = { ...defaultConfig };
+
+    // Element SDK initialization
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [
+            {
+              get: () => cfg.background_color || defaultConfig.background_color,
+              set: (value) => { cfg.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+            },
+            {
+              get: () => cfg.primary_color || defaultConfig.primary_color,
+              set: (value) => { cfg.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
+            },
+            {
+              get: () => cfg.secondary_color || defaultConfig.secondary_color,
+              set: (value) => { cfg.secondary_color = value; window.elementSdk.setConfig({ secondary_color: value }); }
+            },
+            {
+              get: () => cfg.accent_color || defaultConfig.accent_color,
+              set: (value) => { cfg.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
+            },
+            {
+              get: () => cfg.text_color || defaultConfig.text_color,
+              set: (value) => { cfg.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => cfg.font_family || defaultConfig.font_family,
+            set: (value) => { cfg.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
+          },
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['dashboard_title', cfg.dashboard_title || defaultConfig.dashboard_title],
+          ['welcome_message', cfg.welcome_message || defaultConfig.welcome_message]
+        ])
+      });
+    }
+
+    function applyConfig() {
+      const title = config.dashboard_title || defaultConfig.dashboard_title;
+      const welcome = config.welcome_message || defaultConfig.welcome_message;
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+
+      document.getElementById('logo-title').textContent = title;
+      document.getElementById('welcome-text').textContent = welcome;
+      
+      document.body.style.fontFamily = `${fontFamily}, Inter, sans-serif`;
+      document.body.style.backgroundColor = bgColor;
+    }
+
+    // Menu toggle functionality
+    function toggleMenu(menuId) {
+      const submenu = document.getElementById(`submenu-${menuId}`);
+      const arrow = document.getElementById(`arrow-${menuId}`);
+      const menuBtn = document.getElementById(`menu-${menuId}`);
+      
+      // Close all other submenus
+      document.querySelectorAll('.submenu').forEach(sm => {
+        if (sm.id !== `submenu-${menuId}`) {
+          sm.classList.remove('open');
+        }
+      });
+      document.querySelectorAll('[id^="arrow-"]').forEach(ar => {
+        if (ar.id !== `arrow-${menuId}`) {
+          ar.style.transform = 'rotate(0deg)';
+        }
+      });
+      document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      // Toggle current submenu
+      submenu.classList.toggle('open');
+      if (submenu.classList.contains('open')) {
+        arrow.style.transform = 'rotate(180deg)';
+        menuBtn.classList.add('active');
+      } else {
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // Content switching functionality
+    function showContent(contentId) {
+      // Hide all content sections
+      const allContents = [
+        'dashboard-home', 'content-calendar', 'content-media', 'content-planner',
+        'content-workspace', 'content-government', 'content-nongovernment',
+        'content-csrprogram', 'content-smepp', 'content-policies',
+        'content-boardmeeting', 'content-decisions'
+      ];
+      
+      allContents.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('fade-in');
+        }
+      });
+
+      // Show selected content
+      const contentMap = {
+        'calendar': 'content-calendar',
+        'media': 'content-media',
+        'planner': 'content-planner',
+        'workspace': 'content-workspace',
+        'government': 'content-government',
+        'nongovernment': 'content-nongovernment',
+        'csrprogram': 'content-csrprogram',
+        'smepp': 'content-smepp',
+        'policies': 'content-policies',
+        'boardmeeting': 'content-boardmeeting',
+        'decisions': 'content-decisions'
+      };
+
+      const targetId = contentMap[contentId] || 'dashboard-home';
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.classList.remove('hidden');
+        setTimeout(() => targetEl.classList.add('fade-in'), 10);
+      }
+
+      // Update page title
+      const titles = {
+        'calendar': 'Content Calendar',
+        'media': 'Media Coverage Schedule',
+        'planner': 'Content Planner',
+        'workspace': 'Team Workspace',
+        'government': 'Government Relations',
+        'nongovernment': 'Non-Government Partners',
+        'csrprogram': 'CSR Programs',
+        'smepp': 'SMEPP Monitoring',
+        'policies': 'Policy Documents',
+        'boardmeeting': 'Board Meetings',
+        'decisions': 'Decision Archive'
+      };
+      document.getElementById('page-title').textContent = titles[contentId] || 'Dashboard Overview';
+    }
+
+    // Update date and time
+    function updateDateTime() {
+      const now = new Date();
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      
+      document.getElementById('current-date').textContent = now.toLocaleDateString('id-ID', dateOptions);
+      document.getElementById('current-time').textContent = now.toLocaleTimeString('id-ID', timeOptions);
+    }
+
+    // Initialize
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    applyConfig();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ce3af8924c789be',t:'MTc3MTE0Njc2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
