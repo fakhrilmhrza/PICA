@@ -73,8 +73,8 @@
        </div>
        <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-corpcomm" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
        </svg></button>
-       <div class="submenu pl-14 pr-4" id="submenu-corpcomm"><button onclick="showContent('calendar')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📅 Content Calendar</button> <button onclick="showContent('media')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🎥 Media Coverage Schedule</button> <button onclick="showContent('planner')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📝 Content Planner</button> <button onclick="showContent('workspace')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">👥 Team Workspace</button> <button onclick="showContent('monitoring')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📊 Media Monitoring</button> <button onclick="showContent('engagement')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">💬 Media Engagement</button>
-       </div>
+      <div class="submenu pl-14 pr-4" id="submenu-corpcomm"><button onclick="showContent('calendar')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📅 Content Calendar</button> <button onclick="showContent('media')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🎥 Media Coverage Schedule</button> <button onclick="showContent('planner')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📝 Content Planner</button> <button onclick="showContent('workspace')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">👥 Team Workspace</button>
+      </div>
      </div><!-- Menu 2: Stakeholder Relations -->
      <div class="menu-group"><button onclick="toggleMenu('stakeholder')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-stakeholder">
        <div class="flex items-center gap-3">
@@ -1378,7 +1378,7 @@
         'dashboard-home', 'content-calendar', 'content-media', 'content-planner',
         'content-workspace', 'content-government', 'content-nongovernment',
         'content-csrprogram', 'content-achievement', 'content-smepp', 'content-sertifikasi',
-        'content-policies', 'content-boardmeeting', 'content-decisions', 'content-monitoring', 'content-engagement'
+        'content-policies', 'content-boardmeeting', 'content-decisions'
       ];
       
       allContents.forEach(id => {
@@ -1404,8 +1404,6 @@
         'policies': 'content-policies',
         'boardmeeting': 'content-boardmeeting',
         'decisions': 'content-decisions'
-        'monitoring': 'content-monitoring',
-        'engagement': 'content-engagement'
       };
 
       const targetId = contentMap[contentId] || 'dashboard-home';
@@ -1430,8 +1428,6 @@
         'policies': 'Policy Documents',
         'boardmeeting': 'Board Meetings',
         'decisions': 'Decision Archive'
-        'monitoring': 'Media Monitoring Dashboard',
-        'engagement': 'Media Engagement'
       };
       document.getElementById('page-title').textContent = titles[contentId] || 'Dashboard Overview';
     }
