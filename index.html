@@ -6,6 +6,7 @@
 <title>PICA - Pertamina Internal Communication &amp; Alignment</title>
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script src="/_sdk/element_sdk.js"></script>
+<script src="/_sdk/data_sdk.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <script>
 tailwind.config = {
@@ -44,15 +45,46 @@ inter: ['Inter', 'sans-serif']
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
 ::-webkit-scrollbar-thumb { background: #0054A6; border-radius: 3px; }
+.table-row-hover:hover { background-color: #f3f4f6; }
+.influence-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.influence-high { background-color: #FEE2E2; color: #E21F26; }
+.influence-medium { background-color: #FEF3C7; color: #D97706; }
+.influence-low { background-color: #D1FAE5; color: #00A651; }
+.influence-interest { background-color: #E0E7FF; color: #4F46E5; }
+.type-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.type-key-stakeholder { background-color: #DDF4FF; color: #0054A6; }
+.type-regular-stakeholder { background-color: #F3E8FF; color: #7C3AED; }
+.type-emerging-stakeholder { background-color: #FEF3C7; color: #D97706; }
+.status-badge { padding: 0.35rem 0.9rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; }
+.status-draft { background-color: #FEF3C7; color: #92400E; }
+.status-filming { background-color: #FED7AA; color: #92400E; }
+.status-published { background-color: #D1FAE5; color: #065F46; }
+.calendar-day { min-height: 160px; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s ease; overflow-y: auto; background-color: white; }
+.calendar-day:hover { background-color: #f9fafb; border-color: #0054A6; }
+.calendar-day.has-content { background-color: #DBEAFE; border-color: #0054A6; }
+.calendar-day-number { font-weight: 700; margin-bottom: 0.5rem; font-size: 0.95rem; color: #1f2937; }
+.calendar-day-content { font-size: 0.65rem; line-height: 1.2; }
+.content-badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 3px; font-size: 0.65rem; font-weight: 700; margin-bottom: 0.2rem; margin-right: 0.2rem; line-height: 1.1; white-space: nowrap; }
+.badge-draft { background-color: #FEF3C7; color: #92400E; }
+.badge-filming { background-color: #FED7AA; color: #92400E; }
+.badge-published { background-color: #D1FAE5; color: #065F46; }
+.content-item { font-size: 0.65rem; padding: 0.35rem 0.4rem; margin-bottom: 0.35rem; background-color: rgba(0, 84, 166, 0.08); border-left: 2px solid #0054A6; border-radius: 2px; line-height: 1.3; }
+.content-title { display: block; margin-top: 0.2rem; color: #1f2937; font-weight: 600; font-size: 0.7rem; word-break: break-word; }
+.content-count { font-size: 0.65rem; color: #666; font-weight: 600; margin-top: 0.4rem; }
+.program-card { border-left: 4px solid #0054A6; padding: 1.5rem; border-radius: 0.75rem; background: white; border: 1px solid #e5e7eb; transition: all 0.3s ease; }
+.program-card:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); transform: translateY(-2px); }
+.program-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.status-badge-active { background-color: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+.status-badge-planning { background-color: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+.status-badge-completed { background-color: #DBEAFE; color: #0369A1; border: 1px solid #93C5FD; }
 </style>
 <style>body { box-sizing: border-box; }</style>
-<script src="/_sdk/data_sdk.js" type="text/javascript"></script>
 </head>
 <body class="h-full bg-gray-50">
 <div class="h-full flex overflow-hidden"><!-- Sidebar -->
 <aside class="w-72 bg-white border-r border-gray-200 flex flex-col shadow-lg" style="min-width: 288px;"><!-- Logo Section -->
 <div class="h-64 bg-white flex items-center justify-center overflow-hidden relative group border-b border-gray-300 shadow-md">
-<div class="relative w-full h-full flex items-center justify-center px-6"><img src="https://i.imgur.com/ilP1Ssb.jpeg" alt="PICA Logo" class="w-4/5 h-4/5 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.parentElement.parentElement.style.background='#f5f5f5'; this.style.display='none';">
+<div class="relative w-full h-full flex items-center justify-center px-6"><img src="https://i.imgur.com/ilP1Ssb.jpeg" alt="PICA Logo" class="w-4/5 h-4/5 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300" loading="lazy">
 </div>
 </div><!-- Navigation -->
 <nav class="flex-1 py-4 overflow-y-auto">
@@ -91,7 +123,7 @@ inter: ['Inter', 'sans-serif']
 </div>
 <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-csr" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 </svg></button>
-<div class="submenu pl-14 pr-4" id="submenu-csr"><button onclick="showContent('csrprogram')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🌱 CSR Programs</button> <button onclick="showContent('achievement')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏆 Achievement CSR</button> <button onclick="showContent('smepp')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏪 SMEPP Monitoring</button> <button onclick="showContent('sertifikasi')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📜 Sertifikasi UMKM</button>
+<div class="submenu pl-14 pr-4" id="submenu-csr"><button onclick="showContent('csr-monitoring')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📊 CSR Program Monitoring</button> <button onclick="showContent('smepp-monitoring')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📈 SMEPP - UMKM Binaan Monitoring</button>
 </div>
 </div><!-- Menu 4: Corporate Governance -->
 <div class="menu-group"><button onclick="toggleMenu('governance')" class="sidebar-item w-full flex items-center justify-between px-4 py-3 text-left rounded-lg mx-2" style="width: calc(100% - 16px);" id="menu-governance">
@@ -170,7 +202,7 @@ AP
 </svg>
 </div><span class="text-xs font-medium text-pertamina-green bg-pertamina-lightGreen px-2 py-1 rounded-full">+15%</span>
 </div>
-<p class="text-3xl font-bold text-gray-800">24</p>
+<p class="text-3xl font-bold text-gray-800">7</p>
 <p class="text-sm text-gray-500 mt-1">CSR Programs</p>
 </div>
 <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
@@ -191,7 +223,7 @@ AP
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
 </svg><span class="font-medium">Create New Content</span> </button> <button onclick="showContent('government')" class="w-full flex items-center gap-3 p-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
 <svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-</svg><span class="font-medium">Add Stakeholder</span> </button> <button onclick="showContent('csrprogram')" class="w-full flex items-center gap-3 p-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
+</svg><span class="font-medium">View Stakeholders</span> </button> <button onclick="showContent('csr-monitoring')" class="w-full flex items-center gap-3 p-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-gray-100 transition-all">
 <svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
 </svg><span class="font-medium">View CSR Report</span> </button>
 </div>
@@ -212,581 +244,373 @@ AP
 </div>
 </div>
 </div>
-</div><!-- Content Calendar Page -->
+</div><!-- Content Calendar Page - Visual Calendar -->
 <div id="content-calendar" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 <div class="flex items-center justify-between mb-6">
+<div>
 <h3 class="text-xl font-bold text-gray-800">📅 Content Calendar - February 2026</h3>
-<div class="flex gap-2"><button class="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">← Prev</button> <button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-blue hover:bg-pertamina-darkBlue rounded-lg transition-colors">Next →</button>
+<p class="text-sm text-gray-500 mt-1">Status Konten &amp; Nama Konten</p>
 </div>
+<div class="flex gap-2"><button onclick="prevMonth()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">← Prev</button> <button onclick="nextMonth()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">Next →</button>
 </div>
+</div><!-- Visual Calendar -->
+<div class="bg-white rounded-xl border border-gray-200 p-6 mb-6 overflow-x-auto">
+<h4 class="text-lg font-semibold text-gray-800 mb-4 text-center" id="calendar-month-year">February 2026</h4><!-- Days of week header -->
 <div class="grid grid-cols-7 gap-2 mb-4">
-<div class="text-center text-sm font-semibold text-gray-500 py-2">
+<div class="text-center font-semibold text-gray-600 py-2 text-sm">
 Sun
 </div>
-<div class="text-center text-sm font-semibold text-gray-500 py-2">
+<div class="text-center font-semibold text-gray-600 py-2 text-sm">
 Mon
 </div>
-<div class="text-center text-sm font-semibold text-gray-500 py-2">
+<div class="text-center font-semibold text-gray-600 py-2 text-sm">
 Tue
 </div>
-<div class="text-center text-sm font-semibold text-gray-500 py-2">
+<div class="text-center font-semibold text-gray-600 py-2 text-sm">
 Wed
 </div>
-<div class="text-center text-sm font-semibold text-gray-500 py-2">
+<div class="text-center font-semibold text-gray-600 py-2 text-sm">
 Thu
 </div>
-<div class="text-center text-sm font-semibold text-gray-500 py-2">
+<div class="text-center font-semibold text-gray-600 py-2 text-sm">
 Fri
 </div>
-<div class="text-center text-sm font-semibold text-gray-500 py-2">
+<div class="text-center font-semibold text-gray-600 py-2 text-sm">
 Sat
 </div>
+</div><!-- Calendar grid -->
+<div class="grid grid-cols-7 gap-2" id="calendar-grid"><!-- Days will be populated by JavaScript -->
 </div>
-<div class="grid grid-cols-7 gap-2"><!-- Previous month -->
-<div class="min-h-24 p-2 bg-gray-50 rounded-lg text-gray-400 text-xs font-medium">
-1
+</div><!-- Legend -->
+<div class="bg-gray-50 rounded-lg p-4 mb-6">
+<p class="text-sm font-semibold text-gray-700 mb-3">Status Konten:</p>
+<div class="flex gap-6 flex-wrap">
+<div class="flex items-center gap-2"><span class="content-badge badge-draft">Draft</span> <span class="text-sm text-gray-600">Sedang Persiapan</span>
 </div>
-<div class="min-h-24 p-2 bg-gray-50 rounded-lg text-gray-400 text-xs font-medium">
-2
+<div class="flex items-center gap-2"><span class="content-badge badge-filming">Filming</span> <span class="text-sm text-gray-600">Sedang Syuting</span>
 </div>
-<div class="min-h-24 p-2 bg-gray-50 rounded-lg text-gray-400 text-xs font-medium">
-3
-</div>
-<div class="min-h-24 p-2 bg-gray-50 rounded-lg text-gray-400 text-xs font-medium">
-4
-</div><!-- February starts -->
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">1</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">2</span>
-<div class="mt-1 text-xs bg-pertamina-lightBlue text-pertamina-blue px-1 py-0.5 rounded truncate">
-🎥 Perwira E1,E2,E3
+<div class="flex items-center gap-2"><span class="content-badge badge-published">Published</span> <span class="text-sm text-gray-600">Sudah Dipublikasi</span>
 </div>
 </div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">3</span>
-<div class="mt-1 text-xs bg-pertamina-lightGreen text-pertamina-green px-1 py-0.5 rounded truncate">
-🎥 GRWM Film
+</div><!-- Stats -->
+<div class="grid grid-cols-4 gap-4">
+<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-pertamina-blue" id="total-content-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Total Content</p>
 </div>
+<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-amber-600" id="draft-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Draft</p>
 </div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">4</span>
-<div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-1 py-0.5 rounded truncate">
-✓ Perwira E1 Pub
+<div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-orange-600" id="filming-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Filming</p>
 </div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">5</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">6</span>
-<div class="mt-1 text-xs bg-pertamina-lightBlue text-pertamina-blue px-1 py-0.5 rounded truncate">
-🎥 Portashop
-</div>
-<div class="mt-0.5 text-xs bg-pertamina-lightBlue text-pertamina-blue px-1 py-0.5 rounded truncate">
-🎥 Tipe Orang
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">7</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">8</span>
-<div class="mt-1 text-xs bg-pertamina-lightGreen text-pertamina-green px-1 py-0.5 rounded truncate">
-✓ GRWM Pub
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">9</span>
-<div class="mt-1 text-xs bg-pertamina-lightBlue text-pertamina-blue px-1 py-0.5 rounded truncate">
-🎥 Q&amp;A OJT MOR
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">10</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">11</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">12</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">13</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">14</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">15</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">16</span>
-<div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-1 py-0.5 rounded truncate">
-✓ Q&amp;A OJT Pub
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">17</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">18</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">19</span>
-<div class="mt-1 text-xs bg-pertamina-lightBlue text-pertamina-blue px-1 py-0.5 rounded truncate">
-🎥 POV Meeting
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">20</span>
-<div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-1 py-0.5 rounded truncate">
-✓ Tipe Orang Pub
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">21</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">22</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">23</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">24</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">25</span>
-<div class="mt-1 text-xs bg-pertamina-lightGreen text-pertamina-green px-1 py-0.5 rounded truncate">
-✓ Portashop Pub
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">26</span>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors"><span class="text-sm font-medium">27</span>
-<div class="mt-1 text-xs bg-pertamina-lightRed text-pertamina-red px-1 py-0.5 rounded truncate">
-✓ POV Meeting Pub
-</div>
-</div>
-<div class="min-h-24 p-2 bg-white border border-gray-200 rounded-lg hover:border-pertamina-blue transition-colors">
-<span class="text-sm font-medium">28</span>
-</div><!-- Next month -->
-<div class="min-h-24 p-2 bg-gray-50 rounded-lg text-gray-400 text-xs font-medium">
-1
-</div>
-<div class="min-h-24 p-2 bg-gray-50 rounded-lg text-gray-400 text-xs font-medium">
-2
+<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-pertamina-green" id="published-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Published</p>
 </div>
 </div>
 </div>
-</div><!-- Media Coverage Schedule Page -->
+</div><!-- Media Coverage Schedule -->
 <div id="content-media" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 <div class="flex items-center justify-between mb-6">
-<h3 class="text-xl font-bold text-gray-800">🎥 Media Coverage Schedule</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-</svg> Add Schedule </button>
+<div>
+<h3 class="text-xl font-bold text-gray-800">🎥 Media Coverage Schedule</h3>
+<p class="text-sm text-gray-500 mt-1">Jadwal Liputan Tim</p>
 </div>
+</div><!-- Filter -->
+<div class="mb-6 flex gap-4"><input type="text" id="media-search" placeholder="Search content..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterMediaContent()"> <select id="media-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterMediaContent()"> <option value="">All Status</option> <option value="Draft">Draft</option> <option value="Filming">Filming</option> <option value="Published">Published</option> </select>
+</div><!-- Media Coverage Table -->
 <div class="overflow-x-auto">
 <table class="w-full">
 <thead>
-<tr class="border-b border-gray-200">
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Date</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Event</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Location</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Team</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Status</th>
+<tr class="border-b-2 border-gray-300 bg-gray-50">
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Content Title</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Film Date</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Published Date</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Progress</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Actions</th>
 </tr>
 </thead>
-<tbody>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm text-gray-800">6 Feb 2026</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Torang Kasi Tau Edisi Portashop</td>
-<td class="py-4 px-4 text-sm text-gray-600">Jayapura</td>
-<td class="py-4 px-4">
-<div class="flex -space-x-2">
-<div class="w-8 h-8 rounded-full bg-pertamina-blue text-white flex items-center justify-center text-xs font-medium">
-PC
-</div>
-<div class="w-8 h-8 rounded-full bg-pertamina-green text-white flex items-center justify-center text-xs font-medium">
-BK
-</div>
-</div></td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue rounded-full">Filming</span></td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm text-gray-800">19 Feb 2026</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">POV: izin mau pulang duluan</td>
-<td class="py-4 px-4 text-sm text-gray-600">Jayapura</td>
-<td class="py-4 px-4">
-<div class="flex -space-x-2">
-<div class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-medium">
-DM
-</div>
-<div class="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center text-xs font-medium">
-RW
-</div>
-</div></td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">Confirmed</span></td>
-</tr>
+<tbody id="media-tbody"><!-- Content will be populated by JavaScript -->
 </tbody>
 </table>
+</div><!-- Stats -->
+<div class="mt-8 pt-6 border-t border-gray-100 grid grid-cols-4 gap-4">
+<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-pertamina-blue" id="media-total-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Total Coverage</p>
+</div>
+<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-amber-600" id="media-draft-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Draft</p>
+</div>
+<div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-orange-600" id="media-filming-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Filming</p>
+</div>
+<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-pertamina-green" id="media-published-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Published</p>
 </div>
 </div>
-</div><!-- Content Planner Page -->
+</div>
+</div><!-- Content Planner -->
 <div id="content-planner" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<div class="flex items-center justify-between mb-6">
-<h3 class="text-xl font-bold text-gray-800">📝 Content Planner - February 2026</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-</svg> New Content </button>
+<h3 class="text-xl font-bold text-gray-800 mb-6">📝 Content Planner - Status Produksi</h3><!-- Filter -->
+<div class="mb-6 flex gap-4"><input type="text" id="planner-search" placeholder="Search content..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterPlannerContent()"> <select id="planner-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterPlannerContent()"> <option value="">All Status</option> <option value="Draft">Draft</option> <option value="Review">Review</option> <option value="Published">Published</option> </select>
+</div><!-- Content Planner Cards -->
+<div id="planner-container" class="space-y-4"><!-- Cards will be populated by JavaScript -->
+</div><!-- Stats -->
+<div class="mt-8 pt-6 border-t border-gray-100 grid grid-cols-4 gap-4">
+<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-pertamina-blue" id="planner-total-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Total Content</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6"><!-- Film Date Column -->
-<div class="bg-blue-50 rounded-xl p-4">
-<div class="flex items-center gap-2 mb-4">
-<div class="w-3 h-3 rounded-full bg-pertamina-blue"></div>
-<h4 class="font-semibold text-gray-700">Film Date (Tanggal Syuting)</h4><span class="ml-auto bg-pertamina-lightBlue text-pertamina-blue text-xs font-medium px-2 py-1 rounded-full">10</span>
+<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-amber-600" id="planner-draft-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Draft</p>
 </div>
-<div class="space-y-3">
-<div class="bg-white p-3 rounded-lg border border-blue-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">POV: izin mau pulang duluan</h5>
-<p class="text-xs text-gray-500">Feb 19, 2026</p>
+<div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-purple-600" id="planner-review-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Review</p>
 </div>
-<div class="bg-white p-3 rounded-lg border border-blue-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Torang Kasi Tau Edisi Portashop</h5>
-<p class="text-xs text-gray-500">Feb 6, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-blue-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">POV: Tipe-Tipe Orang Hari Pertama Puasa</h5>
-<p class="text-xs text-gray-500">Feb 6, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-blue-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Q&amp;A Bareng OJT MOR 8</h5>
-<p class="text-xs text-gray-500">Feb 9, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-blue-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">GRWM</h5>
-<p class="text-xs text-gray-500">Feb 3, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-blue-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Perwira Menjawab Eps 1, Eps 2, Eps 3</h5>
-<p class="text-xs text-gray-500">Feb 2, 2026</p>
-</div>
-</div>
-</div><!-- Published Date Column -->
-<div class="bg-green-50 rounded-xl p-4">
-<div class="flex items-center gap-2 mb-4">
-<div class="w-3 h-3 rounded-full bg-pertamina-green"></div>
-<h4 class="font-semibold text-gray-700">Published (Terbit)</h4><span class="ml-auto bg-pertamina-lightGreen text-pertamina-green text-xs font-medium px-2 py-1 rounded-full">8</span>
-</div>
-<div class="space-y-3">
-<div class="bg-white p-3 rounded-lg border border-green-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">POV: izin mau pulang duluan</h5>
-<p class="text-xs text-gray-500">✓ Feb 27, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-green-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Torang Kasi Tau Edisi Portashop</h5>
-<p class="text-xs text-gray-500">✓ Feb 25, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-green-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">POV: Tipe-Tipe Orang Hari Pertama Puasa</h5>
-<p class="text-xs text-gray-500">✓ Feb 20, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-green-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Q&amp;A Bareng OJT MOR 8</h5>
-<p class="text-xs text-gray-500">✓ Feb 16, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-green-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">GRWM</h5>
-<p class="text-xs text-gray-500">✓ Feb 8, 2026</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-green-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Perwira Menjawab Eps 1</h5>
-<p class="text-xs text-gray-500">✓ Feb 4, 2026</p>
-</div>
-</div>
-</div><!-- No Date Column -->
-<div class="bg-gray-50 rounded-xl p-4">
-<div class="flex items-center gap-2 mb-4">
-<div class="w-3 h-3 rounded-full bg-gray-400"></div>
-<h4 class="font-semibold text-gray-700">Planning Stage</h4><span class="ml-auto bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">2</span>
-</div>
-<div class="space-y-3">
-<div class="bg-white p-3 rounded-lg border border-gray-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Ngabuburit Ala Perwira Pertamina</h5>
-<p class="text-xs text-gray-500">📌 Belum dijadwalkan</p>
-</div>
-<div class="bg-white p-3 rounded-lg border border-gray-200">
-<h5 class="font-medium text-gray-800 text-sm mb-1">Fun Fact Energi Menjelang Berbuka</h5>
-<p class="text-xs text-gray-500">📌 Belum dijadwalkan</p>
+<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-pertamina-green" id="planner-published-count">0</p>
+<p class="text-sm text-gray-600 mt-1">Published</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div><!-- Placeholder for other pages (maintained from original) -->
+</div><!-- Team Workspace -->
 <div id="content-workspace" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">👥 Team Workspace - Transparansi Progress</h3>
-<div class="space-y-6">
-<div class="p-4 bg-gray-50 rounded-xl">
-<div class="flex items-center gap-4 mb-4">
-<div class="w-12 h-12 rounded-xl bg-pertamina-blue text-white flex items-center justify-center font-semibold">
-CC
+<h3 class="text-xl font-bold text-gray-800 mb-6">👥 Team Workspace - Progress Per Departemen</h3><!-- Department Progress Bars -->
+<div id="workspace-container" class="space-y-6"><!-- Progress bars will be populated by JavaScript -->
+</div><!-- Overall Stats -->
+<div class="mt-8 pt-6 border-t border-gray-100 grid grid-cols-5 gap-4">
+<div class="text-center">
+<p class="text-2xl font-bold text-pertamina-blue" id="dept-total">0</p>
+<p class="text-sm text-gray-600">Total Departments</p>
 </div>
-<div class="flex-1">
-<h4 class="font-semibold text-gray-800">Corporate Communication</h4>
-<p class="text-sm text-gray-500">4 active projects</p>
-</div><span class="text-2xl font-bold text-pertamina-blue">78%</span>
+<div class="text-center">
+<p class="text-2xl font-bold text-green-600" id="dept-excellent">0</p>
+<p class="text-sm text-gray-600">Excellent (90%+)</p>
 </div>
-<div class="h-4 bg-gray-200 rounded-full overflow-hidden">
-<div class="progress-bar h-full bg-gradient-to-r from-pertamina-blue to-pertamina-green rounded-full" style="width: 78%"></div>
+<div class="text-center">
+<p class="text-2xl font-bold text-blue-600" id="dept-good">0</p>
+<p class="text-sm text-gray-600">Good (70-89%)</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-amber-600" id="dept-fair">0</p>
+<p class="text-sm text-gray-600">Fair (50-69%)</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-red-600" id="dept-poor">0</p>
+<p class="text-sm text-gray-600">Below 50%</p>
 </div>
 </div>
 </div>
-</div>
-</div><!-- Government Relations (simplified) -->
+</div><!-- Government Relations -->
 <div id="content-government" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">🏛️ Government Stakeholder Database</h3>
-<p class="text-gray-600">Government Relations Database</p>
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold text-gray-800">🏛️ Government Relations - Stakeholder Database</h3><button onclick="openAddModal()" class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+</svg> Add Stakeholder </button>
+</div><!-- Filter & Search -->
+<div class="mb-6 flex gap-4"><input type="text" id="search-input" placeholder="Search by name or email..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterStakeholders()"> <select id="type-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterStakeholders()"> <option value="">All Types</option> <option value="Key Stakeholder">Key Stakeholder</option> <option value="Regular Stakeholder">Regular Stakeholder</option> <option value="Emerging Stakeholder">Emerging Stakeholder</option> </select> <select id="influence-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterStakeholders()"> <option value="">All Levels</option> <option value="High Influence">High Influence</option> <option value="High Interest">High Interest</option> <option value="Medium Influence">Medium Influence</option> <option value="Low Influence">Low Influence</option> </select>
+</div><!-- Stakeholders Table -->
+<div class="overflow-x-auto">
+<table class="w-full" id="stakeholders-table">
+<thead>
+<tr class="border-b border-gray-200">
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Name</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Organization</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Role</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Email</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Type</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Level</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Gender</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Notes</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Actions</th>
+</tr>
+</thead>
+<tbody id="stakeholders-tbody"><!-- Data will be populated by JavaScript -->
+</tbody>
+</table>
+</div><!-- Stats -->
+<div class="mt-6 pt-6 border-t border-gray-100 grid grid-cols-5 gap-4">
+<div class="text-center">
+<p class="text-2xl font-bold text-pertamina-blue" id="total-stakeholders">0</p>
+<p class="text-sm text-gray-600">Total</p>
 </div>
-</div><!-- Non-Government Partners (simplified) -->
+<div class="text-center">
+<p class="text-2xl font-bold text-pertamina-red" id="high-influence-count">0</p>
+<p class="text-sm text-gray-600">High Influence</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-indigo-600" id="high-interest-count">0</p>
+<p class="text-sm text-gray-600">High Interest</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-amber-600" id="medium-influence-count">0</p>
+<p class="text-sm text-gray-600">Medium Influence</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-pertamina-green" id="low-influence-count">0</p>
+<p class="text-sm text-gray-600">Low Influence</p>
+</div>
+</div>
+</div>
+</div><!-- Add/Edit Modal -->
+<div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onclick="closeAddModal(event)">
+<div class="bg-white rounded-2xl p-8 w-full max-w-2xl max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+<h3 class="text-2xl font-bold text-gray-800 mb-6" id="modal-title">Add New Stakeholder</h3>
+<form id="stakeholder-form" onsubmit="handleFormSubmit(event)">
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Name</label> <input type="text" id="form-name" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Organization</label> <input type="text" id="form-organization" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Role</label> <input type="text" id="form-role" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Gender</label> <select id="form-gender" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"> <option value="">Select Gender</option> <option value="Pria">Pria (Male)</option> <option value="Wanita">Wanita (Female)</option> </select>
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Birth Date</label> <input type="date" id="form-birth_date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Type</label> <select id="form-type" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"> <option value="">Select Type</option> <option value="Key Stakeholder">Key Stakeholder</option> <option value="Regular Stakeholder">Regular Stakeholder</option> <option value="Emerging Stakeholder">Emerging Stakeholder</option> </select>
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Contact Number</label> <input type="tel" id="form-contact_number" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Email</label> <input type="email" id="form-email" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Level</label> <select id="form-influence_level" required class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"> <option value="">Select Level</option> <option value="High Influence">High Influence</option> <option value="High Interest">High Interest</option> <option value="Medium Influence">Medium Influence</option> <option value="Low Influence">Low Influence</option> </select>
+</div>
+<div><label class="block text-sm font-medium text-gray-700 mb-2">Last Contact Date</label> <input type="date" id="form-last_contact_date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20">
+</div>
+<div class="col-span-2"><label class="block text-sm font-medium text-gray-700 mb-2">Notes</label> <textarea id="form-notes" rows="3" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20"></textarea>
+</div>
+</div>
+<div class="flex gap-3 justify-end mt-6"><button type="button" onclick="closeAddModal()" class="px-6 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium">Cancel</button> <button type="submit" class="px-6 py-2 text-white bg-pertamina-blue rounded-lg hover:bg-pertamina-darkBlue transition-colors font-medium">Save Stakeholder</button>
+</div>
+</form>
+</div>
+</div><!-- Non-Government Partners -->
 <div id="content-nongovernment" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 <h3 class="text-xl font-bold text-gray-800 mb-6">🤝 Non-Government Partners</h3>
 <p class="text-gray-600">Non-Government Partners Database</p>
 </div>
-</div><!-- CSR Programs (simplified) -->
-<div id="content-csrprogram" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">🌱 CSR Programs Monitoring</h3>
-<p class="text-gray-600">CSR Programs Database</p>
-</div>
-</div><!-- Achievement CSR -->
-<div id="content-achievement" class="hidden fade-in">
+</div><!-- CSR Program Monitoring -->
+<div id="content-csr-monitoring" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 <div class="flex items-center justify-between mb-6">
-<h3 class="text-xl font-bold text-gray-800">🏆 Achievement CSR - Pencapaian Program Tanggung Jawab Sosial Perusahaan</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-</svg> Add Achievement </button>
-</div><!-- Statistics Cards -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-<div class="card-hover bg-gradient-to-br from-pertamina-lightBlue to-blue-50 rounded-xl p-4 shadow-sm border border-pertamina-lightBlue">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Total Programs</span>
-<svg class="w-5 h-5 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7 12a5 5 0 1010 0 5 5 0 01-10 0z" />
-</svg>
+<div>
+<h3 class="text-xl font-bold text-gray-800">📊 CSR Program Monitoring</h3>
+<p class="text-sm text-gray-500 mt-1">Program Pemberdayaan Masyarakat - Status &amp; Progress Real-Time</p>
 </div>
-<p class="text-2xl font-bold text-pertamina-blue">42</p>
-<p class="text-xs text-gray-500 mt-1">+8 bulan ini</p>
+</div><!-- Filter & Search -->
+<div class="mb-6 flex gap-4 flex-wrap"><input type="text" id="csr-search" placeholder="Search program..." class="flex-1 min-w-64 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterCSRPrograms()"> <select id="csr-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterCSRPrograms()"> <option value="">All Status</option> <option value="Active">Active</option> <option value="Planning">Planning</option> <option value="Completed">Completed</option> </select> <button onclick="resetCSRFilter()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Reset</button>
+</div><!-- CSR Programs Grid - 2 Columns -->
+<div id="csr-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8"><!-- Cards will be populated by JavaScript -->
+</div><!-- Overall Stats -->
+<div class="pt-6 border-t border-gray-100 grid grid-cols-5 gap-4">
+<div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-pertamina-blue" id="csr-total-count">0</p>
+<p class="text-sm text-gray-600">Total Programs</p>
 </div>
-<div class="card-hover bg-gradient-to-br from-pertamina-lightGreen to-green-50 rounded-xl p-4 shadow-sm border border-pertamina-lightGreen">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Beneficiaries</span>
-<svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-</svg>
+<div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-green-600" id="csr-active-count">0</p>
+<p class="text-sm text-gray-600">Active</p>
 </div>
-<p class="text-2xl font-bold text-pertamina-green">15,847</p>
-<p class="text-xs text-gray-500 mt-1">+2,340 bulan ini</p>
+<div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-amber-600" id="csr-planning-count">0</p>
+<p class="text-sm text-gray-600">Planning</p>
 </div>
-<div class="card-hover bg-gradient-to-br from-pertamina-lightRed to-red-50 rounded-xl p-4 shadow-sm border border-pertamina-lightRed">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Budget Used</span>
-<svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
+<div class="bg-gradient-to-br from-blue-50 to-cyan-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-blue-600" id="csr-completed-count">0</p>
+<p class="text-sm text-gray-600">Completed</p>
 </div>
-<p class="text-2xl font-bold text-pertamina-red">Rp 8.4B</p>
-<p class="text-xs text-gray-500 mt-1">78% dari total alokasi</p>
-</div>
-<div class="card-hover bg-gradient-to-br from-amber-100 to-amber-50 rounded-xl p-4 shadow-sm border border-amber-200">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Success Rate</span>
-<svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-</svg>
-</div>
-<p class="text-2xl font-bold text-amber-600">92.5%</p>
-<p class="text-xs text-gray-500 mt-1">Excellent performance</p>
-</div>
-</div><!-- Achievement Table -->
-<div class="overflow-x-auto">
-<table class="w-full">
-<thead>
-<tr class="border-b border-gray-200">
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Program Name</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Category</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Beneficiaries</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Budget</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Status</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Outcome</th>
-</tr>
-</thead>
-<tbody>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Pendidikan Anak Desa</td>
-<td class="py-4 px-4 text-sm text-gray-600">Education</td>
-<td class="py-4 px-4 text-sm text-gray-600">1,250 anak</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Rp 1.2B</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Completed</span></td>
-<td class="py-4 px-4"><span class="text-xs font-medium text-pertamina-green">✓ Excellent</span></td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Kesehatan Masyarakat Pesisir</td>
-<td class="py-4 px-4 text-sm text-gray-600">Health</td>
-<td class="py-4 px-4 text-sm text-gray-600">3,420 warga</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Rp 890M</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Completed</span></td>
-<td class="py-4 px-4"><span class="text-xs font-medium text-pertamina-green">✓ Excellent</span></td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Program Lingkungan Hidup</td>
-<td class="py-4 px-4 text-sm text-gray-600">Environment</td>
-<td class="py-4 px-4 text-sm text-gray-600">5,800 rumah</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Rp 2.1B</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">On Progress</span></td>
-<td class="py-4 px-4"><span class="text-xs font-medium text-amber-600">⟳ Good</span></td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Pemberdayaan UMKM Lokal</td>
-<td class="py-4 px-4 text-sm text-gray-600">Economy</td>
-<td class="py-4 px-4 text-sm text-gray-600">420 UMKM</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Rp 1.5B</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue rounded-full">Active</span></td>
-<td class="py-4 px-4"><span class="text-xs font-medium text-pertamina-green">✓ Excellent</span></td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Beasiswa Mahasiswa</td>
-<td class="py-4 px-4 text-sm text-gray-600">Education</td>
-<td class="py-4 px-4 text-sm text-gray-600">280 mahasiswa</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Rp 980M</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Completed</span></td>
-<td class="py-4 px-4"><span class="text-xs font-medium text-pertamina-green">✓ Excellent</span></td>
-</tr>
-<tr class="hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Infrastruktur Desa</td>
-<td class="py-4 px-4 text-sm text-gray-600">Infrastructure</td>
-<td class="py-4 px-4 text-sm text-gray-600">12 desa</td>
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Rp 1.7B</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">On Progress</span></td>
-<td class="py-4 px-4"><span class="text-xs font-medium text-amber-600">⟳ Good</span></td>
-</tr>
-</tbody>
-</table>
+<div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 text-center">
+<p class="text-2xl font-bold text-purple-600" id="csr-avg-progress">0%</p>
+<p class="text-sm text-gray-600">Avg Progress</p>
 </div>
 </div>
-</div><!-- SMEPP (simplified) -->
-<div id="content-smepp" class="hidden fade-in">
-<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">🏪 SMEPP - UMKM Binaan Monitoring</h3>
-<p class="text-gray-600">SMEPP Database</p>
 </div>
-</div><!-- Sertifikasi UMKM -->
-<div id="content-sertifikasi" class="hidden fade-in">
+</div><!-- SMEPP Monitoring -->
+<div id="content-smepp-monitoring" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 <div class="flex items-center justify-between mb-6">
-<h3 class="text-xl font-bold text-gray-800">📜 Sertifikasi UMKM - Akselerasi Sertifikasi &amp; Standar Industri</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-red hover:bg-red-700 rounded-lg transition-colors flex items-center gap-2">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-</svg> Add Certification </button>
-</div><!-- Statistics Cards -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-<div class="card-hover bg-gradient-to-br from-pertamina-lightBlue to-blue-50 rounded-xl p-4 shadow-sm border border-pertamina-lightBlue">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Total UMKM</span>
-<svg class="w-5 h-5 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m0 0l8 4m-8-4v10l8 4m0-10l8 4m-8-4v10l8 4m0-10l-8-4" />
-</svg>
+<div>
+<h3 class="text-xl font-bold text-gray-800">📈 SMEPP - UMKM Binaan Monitoring</h3>
+<p class="text-sm text-gray-500 mt-1">Program Pembinaan UMKM - Status &amp; Performance</p>
 </div>
-<p class="text-2xl font-bold text-pertamina-blue">287</p>
-<p class="text-xs text-gray-500 mt-1">+34 bulan ini</p>
-</div>
-<div class="card-hover bg-gradient-to-br from-pertamina-lightGreen to-green-50 rounded-xl p-4 shadow-sm border border-pertamina-lightGreen">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Certified</span>
-<svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7 12a5 5 0 1010 0 5 5 0 01-10 0z" />
-</svg>
-</div>
-<p class="text-2xl font-bold text-pertamina-green">198</p>
-<p class="text-xs text-gray-500 mt-1">69% sudah tersertifikasi</p>
-</div>
-<div class="card-hover bg-gradient-to-br from-amber-100 to-amber-50 rounded-xl p-4 shadow-sm border border-amber-200">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">In Progress</span>
-<svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
-</div>
-<p class="text-2xl font-bold text-amber-600">65</p>
-<p class="text-xs text-gray-500 mt-1">Proses sertifikasi</p>
-</div>
-<div class="card-hover bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl p-4 shadow-sm border border-purple-200">
-<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Certification Types</span>
-<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-</svg>
-</div>
-<p class="text-2xl font-bold text-purple-600">8</p>
-<p class="text-xs text-gray-500 mt-1">Berbagai jenis sertifikat</p>
-</div>
-</div><!-- Certification Table -->
-<div class="overflow-x-auto">
+</div><!-- Filter & Search -->
+<div class="mb-6 flex gap-4"><input type="text" id="smepp-search" placeholder="Search UMKM..." class="flex-1 pl-4 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onkeyup="filterSMEPP()"> <select id="smepp-status-filter" class="px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-pertamina-blue focus:ring-2 focus:ring-pertamina-blue/20" onchange="filterSMEPP()"> <option value="">All Status</option> <option value="Excellent">Excellent</option> <option value="Good">Good</option> <option value="Fair">Fair</option> <option value="Developing">Developing</option> </select>
+</div><!-- UMKM Table -->
+<div class="overflow-x-auto mb-6">
 <table class="w-full">
 <thead>
-<tr class="border-b border-gray-200">
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Business Name</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Certification Type</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Valid Until</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Status</th>
-<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Issued Date</th>
+<tr class="border-b-2 border-gray-300 bg-gray-50">
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">UMKM Name</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Owner</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Sector</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Status</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Performance</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Revenue (Year)</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-700">Employees</th>
 </tr>
 </thead>
-<tbody>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">CV Maju Jaya</td>
-<td class="py-4 px-4 text-sm text-gray-600">ISO 9001:2015</td>
-<td class="py-4 px-4 text-sm text-gray-600">Dec 15, 2026</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
-<td class="py-4 px-4 text-sm text-gray-600">Dec 15, 2023</td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Toko Elektronik Sentral</td>
-<td class="py-4 px-4 text-sm text-gray-600">UMKM Bersertifikat</td>
-<td class="py-4 px-4 text-sm text-gray-600">Aug 22, 2026</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">Expiring Soon</span></td>
-<td class="py-4 px-4 text-sm text-gray-600">Aug 22, 2023</td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">PT Rasa Nusantara</td>
-<td class="py-4 px-4 text-sm text-gray-600">Halal</td>
-<td class="py-4 px-4 text-sm text-gray-600">Mar 10, 2027</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
-<td class="py-4 px-4 text-sm text-gray-600">Mar 10, 2024</td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Garment Indonesia Bersatu</td>
-<td class="py-4 px-4 text-sm text-gray-600">SNI</td>
-<td class="py-4 px-4 text-sm text-gray-600">Jan 05, 2027</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Active</span></td>
-<td class="py-4 px-4 text-sm text-gray-600">Jan 05, 2024</td>
-</tr>
-<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Kerajinan Bambu Tradisional</td>
-<td class="py-4 px-4 text-sm text-gray-600">Eco-Friendly Cert</td>
-<td class="py-4 px-4 text-sm text-gray-600">Jun 18, 2025</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-red-600 bg-red-50 rounded-full">Expired</span></td>
-<td class="py-4 px-4 text-sm text-gray-600">Jun 18, 2022</td>
-</tr>
-<tr class="hover:bg-gray-50 transition-colors">
-<td class="py-4 px-4 text-sm font-medium text-gray-800">Kopi Premium Aceh</td>
-<td class="py-4 px-4 text-sm text-gray-600">GI - Geographical Indication</td>
-<td class="py-4 px-4 text-sm text-gray-600">Feb 28, 2027</td>
-<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-blue bg-pertamina-lightBlue rounded-full">Processing</span></td>
-<td class="py-4 px-4 text-sm text-gray-600">Pending</td>
-</tr>
+<tbody id="smepp-tbody"><!-- Data will be populated by JavaScript -->
 </tbody>
 </table>
+</div><!-- Overall Stats -->
+<div class="pt-6 border-t border-gray-100 grid grid-cols-6 gap-4">
+<div class="text-center">
+<p class="text-2xl font-bold text-pertamina-blue" id="smepp-total-count">0</p>
+<p class="text-sm text-gray-600">Total UMKM</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-green-600" id="smepp-excellent-count">0</p>
+<p class="text-sm text-gray-600">Excellent</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-blue-600" id="smepp-good-count">0</p>
+<p class="text-sm text-gray-600">Good</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-amber-600" id="smepp-fair-count">0</p>
+<p class="text-sm text-gray-600">Fair</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-orange-600" id="smepp-developing-count">0</p>
+<p class="text-sm text-gray-600">Developing</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-purple-600" id="smepp-total-employees">0</p>
+<p class="text-sm text-gray-600">Total Employees</p>
 </div>
 </div>
-</div><!-- Policies (simplified) -->
+</div>
+</div><!-- Policies -->
 <div id="content-policies" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 <h3 class="text-xl font-bold text-gray-800 mb-6">📋 Policy Documents</h3>
 <p class="text-gray-600">Policy Documents Database</p>
 </div>
-</div><!-- Board Meetings (simplified) -->
+</div><!-- Board Meetings -->
 <div id="content-boardmeeting" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-<h3 class="text-xl font-bold text-gray-800 mb-6">📆 Board Meeting Schedule</h3>
+<h3 class="text-xl font-bold text-gray-800 mb-6">📆 Board Meetings</h3>
 <p class="text-gray-600">Board Meetings Database</p>
 </div>
-</div><!-- Decisions (simplified) -->
+</div><!-- Decisions -->
 <div id="content-decisions" class="hidden fade-in">
 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
 <h3 class="text-xl font-bold text-gray-800 mb-6">📁 Decision Archive</h3>
@@ -797,60 +621,942 @@ CC
 </main>
 </div>
 <script>
-// Default configuration
-const defaultConfig = {
-dashboard_title: 'PICA',
-welcome_message: 'Selamat datang di PICA Dashboard',
-background_color: '#F9FAFB',
-primary_color: '#0054A6',
-secondary_color: '#E21F26',
-accent_color: '#00A651',
-text_color: '#1F2937',
-font_family: 'Inter'
+// Content Calendar Data
+const contentCalendarData = [
+{ title: "POV: izin mau pulang duluan Tapi bos tiba-tiba ngajak meeting", filmDate: "2026-02-19", publishedDate: "2026-02-27" },
+{ title: "Torang Kasi Tau Edisi Portashop", filmDate: "2026-02-06", publishedDate: "2026-02-25" },
+{ title: "POV: Tipe-Tipe Orang di Hari PertamaPuasa", filmDate: "2026-02-06", publishedDate: "2026-02-20" },
+{ title: "Q&A Bareng OJT MOR 8", filmDate: "2026-02-09", publishedDate: "2026-02-16" },
+{ title: "GRWM", filmDate: "2026-02-03", publishedDate: "2026-02-08" },
+{ title: "Perwira Menjawab Eps 1", filmDate: "2026-02-02", publishedDate: "2026-02-04" },
+{ title: "Perwira Menjawab Eps 2", filmDate: "2026-02-02", publishedDate: null },
+{ title: "Perwira Menjawab Eps 3", filmDate: "2026-02-02", publishedDate: null },
+{ title: "Ngabuburit Ala Perwira Pertamina", filmDate: null, publishedDate: null },
+{ title: "Fun Fact Energi Menjelang Berbuka", filmDate: null, publishedDate: null }
+];
+
+function getContentStatus(content) {
+if (content.publishedDate) return 'Published';
+if (content.filmDate) return 'Filming';
+return 'Draft';
+}
+
+let allCalendarContent = [...contentCalendarData];
+let currentMonth = 2;
+let currentYear = 2026;
+
+// Department Data
+const departmentData = [
+{ name: "Content Production", progress: 85, team: 8 },
+{ name: "Video Editing", progress: 92, team: 6 },
+{ name: "Social Media", progress: 78, team: 5 },
+{ name: "PR & Communications", progress: 88, team: 7 },
+{ name: "Analytics", progress: 65, team: 4 },
+{ name: "Graphic Design", progress: 95, team: 5 }
+];
+
+// CSR Program Data with Icons
+const csrProgramsData = [
+{ name: 'Pertamina Berdikari', status: 'Active', progress: 85, description: 'Program pemberdayaan masyarakat dan koperasi', icon: '🤝' },
+{ name: 'Mitigasi Bencana', status: 'Active', progress: 92, description: 'Program penanggulangan dan manajemen bencana alam', icon: '🚨' },
+{ name: 'Konservasi Fauna', status: 'Active', progress: 78, description: 'Program pelestarian satwa liar dan biodiversitas', icon: '🦁' },
+{ name: 'Desa Energi Berdikari', status: 'Active', progress: 88, description: 'Program desa dengan energi terbarukan', icon: '⚡' },
+{ name: 'PERTAMINA CERDAS', status: 'Active', progress: 82, description: 'Program pendidikan dan pengembangan SDM', icon: '📚' },
+{ name: 'Waste Management', status: 'Planning', progress: 45, description: 'Program pengelolaan sampah dan lingkungan', icon: '♻️' },
+{ name: 'Pembinaan UMK: UMK Academy', status: 'Active', progress: 90, description: 'Program pembinaan Usaha Mikro Kecil', icon: '🏪' }
+];
+
+let allCSRPrograms = [...csrProgramsData];
+
+// SMEPP (UMKM Binaan) Data
+const smeppData = [
+{ name: 'Batik Nusantara', owner: 'Siti Nurhaliza', sector: 'Craft', status: 'Excellent', performance: 95, revenue: 850000000, employees: 15 },
+{ name: 'Kopi Tradisional Indonesia', owner: 'Budi Santoso', sector: 'Food & Beverage', status: 'Excellent', performance: 92, revenue: 720000000, employees: 12 },
+{ name: 'Kerajinan Kayu Jati', owner: 'Hendra Wijaya', sector: 'Furniture', status: 'Good', performance: 78, revenue: 450000000, employees: 8 },
+{ name: 'Textil Ikat Modern', owner: 'Dewi Lestari', sector: 'Textile', status: 'Good', performance: 75, revenue: 380000000, employees: 6 },
+{ name: 'Abon Daging Sapi', owner: 'Anto Raharjo', sector: 'Food Processing', status: 'Fair', performance: 62, revenue: 250000000, employees: 5 },
+{ name: 'Tas Kulit Custom', owner: 'Rudi Hermawan', sector: 'Leather Goods', status: 'Excellent', performance: 88, revenue: 620000000, employees: 10 },
+{ name: 'Industri Sabun Alami', owner: 'Tri Wahyuningsih', sector: 'Chemical', status: 'Good', performance: 80, revenue: 320000000, employees: 4 },
+{ name: 'Produksi Mie Instan Premium', owner: 'Bambang Sutrisno', sector: 'Food', status: 'Fair', performance: 65, revenue: 180000000, employees: 3 },
+{ name: 'Konveksi Pakaian Seragam', owner: 'Endang Sutrisno', sector: 'Apparel', status: 'Developing', performance: 55, revenue: 120000000, employees: 2 },
+{ name: 'Pengolahan Kelapa Terpadu', owner: 'Supardi', sector: 'Agro', status: 'Good', performance: 76, revenue: 400000000, employees: 7 }
+];
+
+let allSMEPP = [...smeppData];
+
+// Government Stakeholders
+const referenceStakeholders = [
+{
+name: "Marthen Douw",
+organization: "DPR RI",
+role: "Komisi VII, Anggota",
+gender: "Pria",
+birth_date: "03/02/1990",
+type: "Key Stakeholder",
+contact_number: "",
+email: "marthen.douw@dpr.go.id",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Dapil Papua"
+},
+{
+name: "Rico Sia, B.E., S.E., M.Si",
+organization: "DPR RI",
+role: "Komisi VII, Anggota",
+gender: "Pria",
+birth_date: "01/08/1970",
+type: "Key Stakeholder",
+contact_number: "",
+email: "rico.sia@dpr.go.id",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Dapil Papua Barat Daya"
+},
+{
+name: "Mercy Chriesty Barends, S.T",
+organization: "DPR RI",
+role: "Komisi VII, Anggota",
+gender: "Wanita",
+birth_date: "25/12/1975",
+type: "Key Stakeholder",
+contact_number: "",
+email: "mercy.barends@dpr.go.id",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Dapil Maluku"
+},
+{
+name: "Ina Elisabeth Kobak, ST., MM",
+organization: "DPR RI",
+role: "Komisi VII, Anggota",
+gender: "Wanita",
+birth_date: "13/12/1990",
+type: "Key Stakeholder",
+contact_number: "",
+email: "ina.kobak@dpr.go.id",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Dapil Papua"
+},
+{
+name: "Trifena m. Tinal, B.Sc.",
+organization: "DPR RI",
+role: "Komisi VI, Anggota",
+gender: "Wanita",
+birth_date: "12/04/1976",
+type: "Key Stakeholder",
+contact_number: "",
+email: "trifena.tinal@dpr.go.id",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Dapil Papua"
+},
+{
+name: "Mathius D. Fakhiri",
+organization: "Pemprov Papua",
+role: "Gubernur Papua (Gerindra)",
+gender: "Pria",
+birth_date: "06/01/1968",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Interest",
+last_contact_date: "",
+notes: ""
+},
+{
+name: "Drs. Dominggus Mandacan, M.Si.",
+organization: "Pemprov Papua Barat",
+role: "Gubernur Papua Barat (Nasdem)",
+gender: "Pria",
+birth_date: "16/12/1959",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Interest",
+last_contact_date: "",
+notes: ""
+},
+{
+name: "Elisa Kambu, S.Sos.",
+organization: "Pemprov Papua Barat Daya",
+role: "Gubernur Papua Barat Daya (Gerindra)",
+gender: "Pria",
+birth_date: "12/03/1964",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Interest",
+last_contact_date: "",
+notes: ""
+},
+{
+name: "Meki Nawipa, S.H.",
+organization: "Pemprov Papua Tengah",
+role: "Gubernur Papua Tengah (PDIP)",
+gender: "Pria",
+birth_date: "06/05/1978",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Interest",
+last_contact_date: "",
+notes: ""
+},
+{
+name: "Prof. Dr. Ir. Apolo Safanpo, S.T., M.T., I.P.M.",
+organization: "Pemprov Papua Selatan",
+role: "Gubernur Papua Selatan (PDIP)",
+gender: "Pria",
+birth_date: "24/04/1975",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Interest",
+last_contact_date: "",
+notes: ""
+},
+{
+name: "Mayjend TNI Putranto Gatot Sri Handoyo, S.Sos., M.M.",
+organization: "TNI",
+role: "Pangdam Pattimura",
+gender: "Pria",
+birth_date: "29/05/1975",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Maluku, Maluku Utara"
+},
+{
+name: "Mayjend TNI Amrin Ibrahim",
+organization: "TNI",
+role: "Pangdam Cenderawasih",
+gender: "Pria",
+birth_date: "21/01/1971",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Papua, Papua Tengah, Papua Pegunungan"
+},
+{
+name: "Mayjen TNI Christian Kurnianto Tehuteru",
+organization: "TNI",
+role: "Pangdam Kasuari",
+gender: "Pria",
+birth_date: "",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Papua Barat, Papua Barat Daya"
+},
+{
+name: "Mayjen TNI Lucky Alvianto",
+organization: "TNI",
+role: "Pangdam Trikora Mandala",
+gender: "Pria",
+birth_date: "",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Papua Selatan"
+},
+{
+name: "Irjen. Pol. Drs. Eddy Sumitro Tambunan, M.Si.",
+organization: "POLRI",
+role: "Kapolda Maluku",
+gender: "Pria",
+birth_date: "27/08/1967",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Maluku"
+},
+{
+name: "Irjen. Pol. Waris Agono",
+organization: "POLRI",
+role: "Kapolda Maluku Utara",
+gender: "Pria",
+birth_date: "28/04/1968",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Maluku Utara"
+},
+{
+name: "Irjen. Pol. Petrus Patrige Rudolf Renwarin, S.H., M.Si.",
+organization: "POLRI",
+role: "Kapolda Papua",
+gender: "Pria",
+birth_date: "07/07/1969",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Papua, Papua Pegunungan, Papua Selatan"
+},
+{
+name: "Irjen. Pol. Jhonny Edison Isir, S.I.K., M.T.C.P.",
+organization: "POLRI",
+role: "Kapolda Papua Barat",
+gender: "Pria",
+birth_date: "07/07/1975",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Papua Barat"
+},
+{
+name: "Brigjen. Pol. Alfred Papare, S.I.K.",
+organization: "POLRI",
+role: "Kapolda Papua Tengah",
+gender: "Pria",
+birth_date: "04/06/1974",
+type: "Key Stakeholder",
+contact_number: "",
+email: "",
+influence_level: "High Influence",
+last_contact_date: "",
+notes: "Papua Tengah"
+}
+];
+
+let allStakeholders = [...referenceStakeholders];
+let editingId = null;
+
+// Helper Functions
+function getStatusBadgeClass(status) {
+switch(status) {
+case 'Draft':
+return 'status-draft';
+case 'Filming':
+return 'status-filming';
+case 'Published':
+return 'status-published';
+case 'Review':
+return 'bg-purple-100 text-purple-800';
+default:
+return 'status-draft';
+}
+}
+
+function getInfluenceBadgeClass(level) {
+switch(level) {
+case 'High Influence':
+return 'influence-high';
+case 'High Interest':
+return 'influence-interest';
+case 'Medium Influence':
+return 'influence-medium';
+case 'Low Influence':
+return 'influence-low';
+default:
+return 'influence-low';
+}
+}
+
+function getTypeBadgeClass(type) {
+switch(type) {
+case 'Key Stakeholder':
+return 'type-key-stakeholder';
+case 'Regular Stakeholder':
+return 'type-regular-stakeholder';
+case 'Emerging Stakeholder':
+return 'type-emerging-stakeholder';
+default:
+return 'type-regular-stakeholder';
+}
+}
+
+function getDaysInMonth(month, year) {
+return new Date(year, month, 0).getDate();
+}
+
+function getFirstDayOfMonth(month, year) {
+return new Date(year, month - 1, 1).getDay();
+}
+
+// Calendar Functions
+function renderCalendar() {
+const grid = document.getElementById('calendar-grid');
+grid.innerHTML = '';
+
+const daysInMonth = getDaysInMonth(currentMonth, currentYear);
+const firstDay = getFirstDayOfMonth(currentMonth, currentYear);
+
+for (let i = 0; i < firstDay; i++) {
+const emptyCell = document.createElement('div');
+grid.appendChild(emptyCell);
+}
+
+for (let day = 1; day <= daysInMonth; day++) {
+const dayCell = document.createElement('div');
+dayCell.className = 'calendar-day';
+
+const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+const contentsForDay = allCalendarContent.filter(item =>
+item.filmDate === dateStr || item.publishedDate === dateStr
+);
+
+if (contentsForDay.length > 0) {
+dayCell.classList.add('has-content');
+}
+
+let html = `<div class="calendar-day-number">${day}</div>`;
+
+contentsForDay.forEach(content => {
+const status = getContentStatus(content);
+const statusClass = status === 'Published' ? 'badge-published' :
+status === 'Filming' ? 'badge-filming' : 'badge-draft';
+
+const shortTitle = content.title.length > 28 ? content.title.substring(0, 25) + '...' : content.title;
+
+html += `<div class="content-item" title="${content.title}">
+<span class="content-badge ${statusClass}">${status}</span>
+<span class="content-title">${shortTitle}</span>
+</div>`;
+});
+
+dayCell.innerHTML = html;
+grid.appendChild(dayCell);
+}
+
+document.getElementById('calendar-month-year').textContent = `February 2026`;
+updateCalendarStats();
+}
+
+function prevMonth() {
+currentMonth--;
+if (currentMonth < 1) {
+currentMonth = 12;
+currentYear--;
+}
+renderCalendar();
+}
+
+function nextMonth() {
+currentMonth++;
+if (currentMonth > 12) {
+currentMonth = 1;
+currentYear++;
+}
+renderCalendar();
+}
+
+function updateCalendarStats() {
+const allContent = allCalendarContent;
+const draft = allContent.filter(c => !c.filmDate && !c.publishedDate).length;
+const filming = allContent.filter(c => c.filmDate && !c.publishedDate).length;
+const published = allContent.filter(c => c.publishedDate).length;
+
+document.getElementById('total-content-count').textContent = allContent.length;
+document.getElementById('draft-count').textContent = draft;
+document.getElementById('filming-count').textContent = filming;
+document.getElementById('published-count').textContent = published;
+}
+
+// Media Coverage Functions
+function renderMediaCoverage(content) {
+const tbody = document.getElementById('media-tbody');
+tbody.innerHTML = '';
+
+content.forEach((item, index) => {
+const row = document.createElement('tr');
+row.className = 'border-b border-gray-100 table-row-hover';
+row.dataset.id = index;
+
+const status = getContentStatus(item);
+const statusClass = getStatusBadgeClass(status);
+const pubDate = item.publishedDate ? new Date(item.publishedDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
+const filmDate = item.filmDate ? new Date(item.filmDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
+
+const progress = item.publishedDate ? 100 : (item.filmDate ? 75 : 40);
+
+row.innerHTML = `
+<td class="py-4 px-4 text-sm font-medium text-gray-800">${item.title}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${filmDate}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${pubDate}</td>
+<td class="py-4 px-4"><span class="status-badge ${statusClass}">${status}</span></td>
+<td class="py-4 px-4">
+<div class="w-24 bg-gray-200 rounded-full h-2">
+<div class="progress-bar bg-pertamina-blue h-2 rounded-full" style="width: ${progress}%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-1">${progress}%</p>
+</td>
+<td class="py-4 px-4 text-sm">
+<button class="text-pertamina-blue hover:underline mr-3">Edit</button>
+<button class="text-pertamina-red hover:underline">Delete</button>
+</td>
+`;
+tbody.appendChild(row);
+});
+
+updateMediaStats();
+}
+
+function updateMediaStats() {
+const draft = allCalendarContent.filter(c => !c.filmDate && !c.publishedDate).length;
+const filming = allCalendarContent.filter(c => c.filmDate && !c.publishedDate).length;
+const published = allCalendarContent.filter(c => c.publishedDate).length;
+
+document.getElementById('media-total-count').textContent = allCalendarContent.length;
+document.getElementById('media-draft-count').textContent = draft;
+document.getElementById('media-filming-count').textContent = filming;
+document.getElementById('media-published-count').textContent = published;
+}
+
+function filterMediaContent() {
+const searchTerm = document.getElementById('media-search').value.toLowerCase();
+const statusFilter = document.getElementById('media-status-filter').value;
+
+const filtered = allCalendarContent.filter(item => {
+const itemStatus = getContentStatus(item);
+const matchesSearch = item.title.toLowerCase().includes(searchTerm);
+const matchesStatus = !statusFilter || itemStatus === statusFilter;
+return matchesSearch && matchesStatus;
+});
+
+renderMediaCoverage(filtered);
+}
+
+// Content Planner Functions
+function renderContentPlanner(content) {
+const container = document.getElementById('planner-container');
+container.innerHTML = '';
+
+content.forEach((item, index) => {
+const status = getContentStatus(item);
+const statusColorClass = status === 'Published' ? 'border-green-500 bg-green-50' : status === 'Filming' ? 'border-orange-500 bg-orange-50' : 'border-yellow-500 bg-yellow-50';
+const statusTextClass = status === 'Published' ? 'text-green-700' : status === 'Filming' ? 'text-orange-700' : 'text-yellow-700';
+const progress = status === 'Published' ? 100 : (status === 'Filming' ? 75 : 40);
+
+const card = document.createElement('div');
+card.className = `border-l-4 ${statusColorClass} p-4 rounded-lg`;
+card.innerHTML = `
+<div class="flex items-start justify-between">
+<div class="flex-1">
+<h4 class="font-semibold text-gray-800">${item.title}</h4>
+<p class="text-sm ${statusTextClass} font-medium mt-2">Status: ${status}</p>
+</div>
+<span class="status-badge" style="padding: 0.35rem 0.9rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; ${status === 'Published' ? 'background-color: #D1FAE5; color: #065F46;' : status === 'Filming' ? 'background-color: #FED7AA; color: #92400E;' : 'background-color: #FEF3C7; color: #92400E;'}">${status}</span>
+</div>
+<div class="mt-3 grid grid-cols-2 gap-4 text-sm">
+<div>
+<span class="text-gray-600">Film Date:</span>
+<p class="font-medium text-gray-800">${item.filmDate ? new Date(item.filmDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBD'}</p>
+</div>
+<div>
+<span class="text-gray-600">Published:</span>
+<p class="font-medium text-gray-800">${item.publishedDate ? new Date(item.publishedDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBD'}</p>
+</div>
+</div>
+<div class="mt-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm text-gray-600">Progress</span>
+<span class="text-sm font-medium text-gray-800">${progress}%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="progress-bar ${status === 'Published' ? 'bg-green-500' : status === 'Filming' ? 'bg-orange-500' : 'bg-amber-500'} h-2 rounded-full" style="width: ${progress}%"></div>
+</div>
+</div>
+`;
+container.appendChild(card);
+});
+
+updatePlannerStats();
+}
+
+function updatePlannerStats() {
+const allContent = allCalendarContent;
+const draft = allContent.filter(c => !c.filmDate && !c.publishedDate).length;
+const filming = allContent.filter(c => c.filmDate && !c.publishedDate).length;
+const published = allContent.filter(c => c.publishedDate).length;
+
+document.getElementById('planner-total-count').textContent = allContent.length;
+document.getElementById('planner-draft-count').textContent = draft;
+document.getElementById('planner-review-count').textContent = filming;
+document.getElementById('planner-published-count').textContent = published;
+}
+
+function filterPlannerContent() {
+const searchTerm = document.getElementById('planner-search').value.toLowerCase();
+const statusFilter = document.getElementById('planner-status-filter').value;
+
+const filtered = allCalendarContent.filter(item => {
+const matchesSearch = item.title.toLowerCase().includes(searchTerm);
+const itemStatus = getContentStatus(item);
+let matchesStatus = true;
+
+if (statusFilter === 'Draft') {
+matchesStatus = !item.filmDate && !item.publishedDate;
+} else if (statusFilter === 'Review') {
+matchesStatus = item.filmDate && !item.publishedDate;
+} else if (statusFilter === 'Published') {
+matchesStatus = item.publishedDate;
+}
+
+return matchesSearch && matchesStatus;
+});
+
+renderContentPlanner(filtered);
+}
+
+// Workspace Functions
+function renderWorkspace() {
+const container = document.getElementById('workspace-container');
+container.innerHTML = '';
+
+departmentData.forEach((dept, index) => {
+const getProgressColor = () => {
+if (dept.progress >= 90) return 'bg-green-500';
+if (dept.progress >= 70) return 'bg-blue-500';
+if (dept.progress >= 50) return 'bg-amber-500';
+return 'bg-red-500';
 };
 
-let config = { ...defaultConfig };
+const getProgressLabel = () => {
+if (dept.progress >= 90) return 'Excellent';
+if (dept.progress >= 70) return 'Good';
+if (dept.progress >= 50) return 'Fair';
+return 'Needs Improvement';
+};
 
-// Element SDK initialization
-if (window.elementSdk) {
-window.elementSdk.init({
-defaultConfig,
-onConfigChange: async (newConfig) => {
-config = { ...defaultConfig, ...newConfig };
-applyConfig();
-},
-mapToCapabilities: (cfg) => ({
-recolorables: [
-{
-get: () => cfg.background_color || defaultConfig.background_color,
-set: (value) => { cfg.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
-},
-{
-get: () => cfg.primary_color || defaultConfig.primary_color,
-set: (value) => { cfg.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
-}
-],
-borderables: [],
-fontEditable: undefined,
-fontSizeable: undefined
-}),
-mapToEditPanelValues: (cfg) => new Map([
-['dashboard_title', cfg.dashboard_title || defaultConfig.dashboard_title],
-['welcome_message', cfg.welcome_message || defaultConfig.welcome_message]
-])
+const card = document.createElement('div');
+card.className = 'bg-gradient-to-r from-gray-50 to-white p-6 rounded-xl border border-gray-200';
+card.innerHTML = `
+<div class="flex items-center justify-between mb-3">
+<div>
+<h4 class="text-lg font-semibold text-gray-800">${dept.name}</h4>
+<p class="text-sm text-gray-500">Team: ${dept.team} people</p>
+</div>
+<div class="text-right">
+<p class="text-3xl font-bold text-gray-800">${dept.progress}%</p>
+<p class="text-xs font-medium text-gray-600">${getProgressLabel()}</p>
+</div>
+</div>
+<div class="w-full bg-gray-300 rounded-full h-3">
+<div class="progress-bar ${getProgressColor()} h-3 rounded-full" style="width: ${dept.progress}%"></div>
+</div>
+`;
+container.appendChild(card);
 });
+
+updateWorkspaceStats();
 }
 
-function applyConfig() {
-const welcome = config.welcome_message || defaultConfig.welcome_message;
-document.getElementById('welcome-text').textContent = welcome;
+function updateWorkspaceStats() {
+const excellent = departmentData.filter(d => d.progress >= 90).length;
+const good = departmentData.filter(d => d.progress >= 70 && d.progress < 90).length;
+const fair = departmentData.filter(d => d.progress >= 50 && d.progress < 70).length;
+const poor = departmentData.filter(d => d.progress < 50).length;
+
+document.getElementById('dept-total').textContent = departmentData.length;
+document.getElementById('dept-excellent').textContent = excellent;
+document.getElementById('dept-good').textContent = good;
+document.getElementById('dept-fair').textContent = fair;
+document.getElementById('dept-poor').textContent = poor;
+}
+
+// CSR Program Functions
+function renderCSRPrograms(programs) {
+const container = document.getElementById('csr-container');
+container.innerHTML = '';
+
+programs.forEach((program, index) => {
+const statusColorClass = program.status === 'Active' ? 'border-green-500 bg-green-50' : program.status === 'Planning' ? 'border-amber-500 bg-amber-50' : 'border-blue-500 bg-blue-50';
+const statusBadgeClass = program.status === 'Active' ? 'status-badge-active' : program.status === 'Planning' ? 'status-badge-planning' : 'status-badge-completed';
+const iconBgColor = program.status === 'Active' ? 'bg-green-100' : program.status === 'Planning' ? 'bg-amber-100' : 'bg-blue-100';
+
+const card = document.createElement('div');
+card.className = `program-card border-l-4 ${statusColorClass}`;
+card.innerHTML = `
+<div class="flex items-start gap-4 mb-4">
+<div class="program-icon ${iconBgColor}">
+${program.icon}
+</div>
+<div class="flex-1">
+<div class="flex items-start justify-between">
+<div>
+<h4 class="text-lg font-semibold text-gray-800 leading-tight">${program.name}</h4>
+<p class="text-sm text-gray-600 mt-1">${program.description}</p>
+</div>
+<span class="status-badge ${statusBadgeClass}">${program.status}</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-600">Progress</span>
+<span class="text-sm font-medium text-gray-800">${program.progress}%</span>
+</div>
+<div class="w-full bg-gray-300 rounded-full h-2.5">
+<div class="progress-bar bg-pertamina-blue h-2.5 rounded-full" style="width: ${program.progress}%"></div>
+</div>
+</div>
+`;
+container.appendChild(card);
+});
+
+updateCSRStats(programs);
+}
+
+function updateCSRStats(programs) {
+const active = programs.filter(p => p.status === 'Active').length;
+const planning = programs.filter(p => p.status === 'Planning').length;
+const completed = programs.filter(p => p.status === 'Completed').length;
+const avgProgress = programs.length > 0 ? Math.round(programs.reduce((sum, p) => sum + p.progress, 0) / programs.length) : 0;
+
+document.getElementById('csr-total-count').textContent = programs.length;
+document.getElementById('csr-active-count').textContent = active;
+document.getElementById('csr-planning-count').textContent = planning;
+document.getElementById('csr-completed-count').textContent = completed;
+document.getElementById('csr-avg-progress').textContent = avgProgress + '%';
+}
+
+function filterCSRPrograms() {
+const searchTerm = document.getElementById('csr-search').value.toLowerCase();
+const statusFilter = document.getElementById('csr-status-filter').value;
+
+const filtered = allCSRPrograms.filter(program => {
+const matchesSearch = program.name.toLowerCase().includes(searchTerm) || program.description.toLowerCase().includes(searchTerm);
+const matchesStatus = !statusFilter || program.status === statusFilter;
+return matchesSearch && matchesStatus;
+});
+
+renderCSRPrograms(filtered);
+}
+
+function resetCSRFilter() {
+document.getElementById('csr-search').value = '';
+document.getElementById('csr-status-filter').value = '';
+renderCSRPrograms(allCSRPrograms);
+}
+
+// SMEPP Functions
+function renderSMEPP(umkms) {
+const tbody = document.getElementById('smepp-tbody');
+tbody.innerHTML = '';
+
+umkms.forEach((umkm, index) => {
+const row = document.createElement('tr');
+row.className = 'border-b border-gray-100 table-row-hover';
+
+const getStatusColor = () => {
+switch(umkm.status) {
+case 'Excellent':
+return 'bg-green-100 text-green-800';
+case 'Good':
+return 'bg-blue-100 text-blue-800';
+case 'Fair':
+return 'bg-amber-100 text-amber-800';
+case 'Developing':
+return 'bg-orange-100 text-orange-800';
+default:
+return 'bg-gray-100 text-gray-800';
+}
+};
+
+const revenue = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(umkm.revenue);
+
+row.innerHTML = `
+<td class="py-4 px-4 text-sm font-medium text-gray-800">${umkm.name}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${umkm.owner}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${umkm.sector}</td>
+<td class="py-4 px-4"><span class="px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor()}">${umkm.status}</span></td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-gray-200 rounded-full h-2">
+<div class="progress-bar bg-pertamina-blue h-2 rounded-full" style="width: ${umkm.performance}%"></div>
+</div>
+<span class="text-xs font-medium text-gray-600">${umkm.performance}%</span>
+</div>
+</td>
+<td class="py-4 px-4 text-sm text-gray-600">${revenue}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${umkm.employees}</td>
+`;
+tbody.appendChild(row);
+});
+
+updateSMEPPStats(umkms);
+}
+
+function updateSMEPPStats(umkms) {
+const excellent = umkms.filter(u => u.status === 'Excellent').length;
+const good = umkms.filter(u => u.status === 'Good').length;
+const fair = umkms.filter(u => u.status === 'Fair').length;
+const developing = umkms.filter(u => u.status === 'Developing').length;
+const totalEmployees = umkms.reduce((sum, u) => sum + u.employees, 0);
+
+document.getElementById('smepp-total-count').textContent = umkms.length;
+document.getElementById('smepp-excellent-count').textContent = excellent;
+document.getElementById('smepp-good-count').textContent = good;
+document.getElementById('smepp-fair-count').textContent = fair;
+document.getElementById('smepp-developing-count').textContent = developing;
+document.getElementById('smepp-total-employees').textContent = totalEmployees;
+}
+
+function filterSMEPP() {
+const searchTerm = document.getElementById('smepp-search').value.toLowerCase();
+const statusFilter = document.getElementById('smepp-status-filter').value;
+
+const filtered = allSMEPP.filter(umkm => {
+const matchesSearch = umkm.name.toLowerCase().includes(searchTerm) || umkm.owner.toLowerCase().includes(searchTerm);
+const matchesStatus = !statusFilter || umkm.status === statusFilter;
+return matchesSearch && matchesStatus;
+});
+
+renderSMEPP(filtered);
+}
+
+// Stakeholder Functions
+function renderStakeholders(stakeholders) {
+const tbody = document.getElementById('stakeholders-tbody');
+tbody.innerHTML = '';
+
+stakeholders.forEach((sh, index) => {
+const row = document.createElement('tr');
+row.className = 'border-b border-gray-100 table-row-hover';
+row.dataset.id = index;
+
+const influenceClass = getInfluenceBadgeClass(sh.influence_level);
+const typeClass = getTypeBadgeClass(sh.type);
+
+row.innerHTML = `
+<td class="py-4 px-4 text-sm font-medium text-gray-800">${sh.name}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${sh.organization}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${sh.role}</td>
+<td class="py-4 px-4 text-sm text-gray-600">${sh.email || '-'}</td>
+<td class="py-4 px-4"><span class="type-badge ${typeClass}">${sh.type}</span></td>
+<td class="py-4 px-4"><span class="influence-badge ${influenceClass}">${sh.influence_level}</span></td>
+<td class="py-4 px-4 text-sm text-gray-600">${sh.gender}</td>
+<td class="py-4 px-4 text-sm text-gray-600 max-w-xs truncate">${sh.notes || '-'}</td>
+<td class="py-4 px-4 text-sm">
+<button onclick="editStakeholder(${index})" class="text-pertamina-blue hover:underline mr-3">Edit</button>
+<button onclick="deleteStakeholder(${index})" class="text-pertamina-red hover:underline">Delete</button>
+</td>
+`;
+tbody.appendChild(row);
+});
+
+updateStakeholderStats();
+}
+
+function updateStakeholderStats() {
+document.getElementById('total-stakeholders').textContent = allStakeholders.length;
+document.getElementById('high-influence-count').textContent = allStakeholders.filter(s => s.influence_level === 'High Influence').length;
+document.getElementById('high-interest-count').textContent = allStakeholders.filter(s => s.influence_level === 'High Interest').length;
+document.getElementById('medium-influence-count').textContent = allStakeholders.filter(s => s.influence_level === 'Medium Influence').length;
+document.getElementById('low-influence-count').textContent = allStakeholders.filter(s => s.influence_level === 'Low Influence').length;
+}
+
+function filterStakeholders() {
+const searchTerm = document.getElementById('search-input').value.toLowerCase();
+const typeFilter = document.getElementById('type-filter').value;
+const influenceFilter = document.getElementById('influence-filter').value;
+
+const filtered = allStakeholders.filter(sh => {
+const matchesSearch = sh.name.toLowerCase().includes(searchTerm) || sh.email.toLowerCase().includes(searchTerm);
+const matchesType = !typeFilter || sh.type === typeFilter;
+const matchesInfluence = !influenceFilter || sh.influence_level === influenceFilter;
+return matchesSearch && matchesType && matchesInfluence;
+});
+
+renderStakeholders(filtered);
+}
+
+function openAddModal() {
+editingId = null;
+document.getElementById('modal-title').textContent = 'Add New Stakeholder';
+document.getElementById('stakeholder-form').reset();
+document.getElementById('modal-overlay').classList.remove('hidden');
+}
+
+function editStakeholder(index) {
+const sh = allStakeholders[index];
+editingId = index;
+document.getElementById('modal-title').textContent = 'Edit Stakeholder';
+document.getElementById('form-name').value = sh.name;
+document.getElementById('form-organization').value = sh.organization;
+document.getElementById('form-role').value = sh.role;
+document.getElementById('form-gender').value = sh.gender;
+document.getElementById('form-birth_date').value = sh.birth_date;
+document.getElementById('form-type').value = sh.type;
+document.getElementById('form-contact_number').value = sh.contact_number || '';
+document.getElementById('form-email').value = sh.email;
+document.getElementById('form-influence_level').value = sh.influence_level;
+document.getElementById('form-last_contact_date').value = sh.last_contact_date || '';
+document.getElementById('form-notes').value = sh.notes || '';
+document.getElementById('modal-overlay').classList.remove('hidden');
+}
+
+function handleFormSubmit(event) {
+event.preventDefault();
+
+const newStakeholder = {
+name: document.getElementById('form-name').value,
+organization: document.getElementById('form-organization').value,
+role: document.getElementById('form-role').value,
+gender: document.getElementById('form-gender').value,
+birth_date: document.getElementById('form-birth_date').value,
+type: document.getElementById('form-type').value,
+contact_number: document.getElementById('form-contact_number').value,
+email: document.getElementById('form-email').value,
+influence_level: document.getElementById('form-influence_level').value,
+last_contact_date: document.getElementById('form-last_contact_date').value,
+notes: document.getElementById('form-notes').value
+};
+
+if (editingId !== null && editingId >= referenceStakeholders.length) {
+Object.assign(allStakeholders[editingId], newStakeholder);
+} else if (editingId === null) {
+allStakeholders.push(newStakeholder);
+} else {
+alert('Cannot edit reference data.');
+return;
+}
+
+renderStakeholders(allStakeholders);
+closeAddModal();
+}
+
+function deleteStakeholder(index) {
+if (index < referenceStakeholders.length) {
+alert('Cannot delete reference data.');
+return;
+}
+
+if (confirm('Are you sure you want to delete this stakeholder?')) {
+allStakeholders.splice(index, 1);
+renderStakeholders(allStakeholders);
+}
+}
+
+function closeAddModal(event) {
+if (event && event.target.id !== 'modal-overlay') return;
+document.getElementById('modal-overlay').classList.add('hidden');
+document.getElementById('stakeholder-form').reset();
+editingId = null;
 }
 
 // Menu toggle functionality
 function toggleMenu(menuId) {
 const submenu = document.getElementById(`submenu-${menuId}`);
 const arrow = document.getElementById(`arrow-${menuId}`);
-const menuBtn = document.getElementById(`menu-${menuId}`);
 
 document.querySelectorAll('.submenu').forEach(sm => {
 if (sm.id !== `submenu-${menuId}`) {
@@ -871,13 +1577,12 @@ arrow.style.transform = 'rotate(0deg)';
 }
 }
 
-// Content switching functionality
 function showContent(contentId) {
 const allContents = [
 'dashboard-home', 'content-calendar', 'content-media', 'content-planner',
 'content-workspace', 'content-government', 'content-nongovernment',
-'content-csrprogram', 'content-achievement', 'content-smepp', 'content-sertifikasi',
-'content-policies', 'content-boardmeeting', 'content-decisions'
+'content-csr-monitoring', 'content-smepp-monitoring', 'content-policies',
+'content-boardmeeting', 'content-decisions'
 ];
 
 allContents.forEach(id => {
@@ -895,10 +1600,8 @@ const contentMap = {
 'workspace': 'content-workspace',
 'government': 'content-government',
 'nongovernment': 'content-nongovernment',
-'csrprogram': 'content-csrprogram',
-'achievement': 'content-achievement',
-'smepp': 'content-smepp',
-'sertifikasi': 'content-sertifikasi',
+'csr-monitoring': 'content-csr-monitoring',
+'smepp-monitoring': 'content-smepp-monitoring',
 'policies': 'content-policies',
 'boardmeeting': 'content-boardmeeting',
 'decisions': 'content-decisions'
@@ -914,19 +1617,29 @@ setTimeout(() => targetEl.classList.add('fade-in'), 10);
 const titles = {
 'calendar': 'Content Calendar - February 2026',
 'media': 'Media Coverage Schedule',
-'planner': 'Content Planner',
-'workspace': 'Team Workspace',
+'planner': 'Content Planner - Status Produksi',
+'workspace': 'Team Workspace - Progress Per Departemen',
 'government': 'Government Relations',
 'nongovernment': 'Non-Government Partners',
-'csrprogram': 'CSR Programs',
-'achievement': 'Achievement CSR',
-'smepp': 'SMEPP Monitoring',
-'sertifikasi': 'Sertifikasi UMKM',
+'csr-monitoring': 'CSR Program Monitoring',
+'smepp-monitoring': 'SMEPP - UMKM Binaan Monitoring',
 'policies': 'Policy Documents',
 'boardmeeting': 'Board Meetings',
 'decisions': 'Decision Archive'
 };
 document.getElementById('page-title').textContent = titles[contentId] || 'Dashboard Overview';
+
+if (contentId === 'media') {
+renderMediaCoverage(allCalendarContent);
+} else if (contentId === 'planner') {
+renderContentPlanner(allCalendarContent);
+} else if (contentId === 'workspace') {
+renderWorkspace();
+} else if (contentId === 'csr-monitoring') {
+renderCSRPrograms(allCSRPrograms);
+} else if (contentId === 'smepp-monitoring') {
+renderSMEPP(allSMEPP);
+}
 }
 
 // Update date and time
@@ -942,7 +1655,11 @@ document.getElementById('current-time').textContent = now.toLocaleTimeString('id
 // Initialize
 updateDateTime();
 setInterval(updateDateTime, 1000);
-applyConfig();
+renderCalendar();
+renderMediaCoverage(allCalendarContent);
+renderContentPlanner(allCalendarContent);
+renderWorkspace();
+renderStakeholders(allStakeholders);
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d0c8738e02c712c',t:'MTc3MTU3NTAzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ce515e586b5a28e',t:'MTc3MTE2MTQ0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
