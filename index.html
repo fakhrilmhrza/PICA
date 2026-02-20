@@ -110,8 +110,8 @@
        </div>
        <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-governance" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
        </svg></button>
-      <div class="submenu pl-14 pr-4" id="submenu-governance"><button onclick="showContent('policies')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📋 Policy Documents</button> <button onclick="showContent('boardmeeting')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📆 Board Meetings</button> <button onclick="showContent('decisions')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📁 Decision Archive</button>
-      </div>
+      <div class="submenu pl-14 pr-4" id="submenu-governance"><button onclick="showContent('policies')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📋 Policy Documents</button> <button onclick="showContent('boardmeeting')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📆 Board Meetings</button> <button onclick="showContent('decisions')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📁 Decision Archive</button> <button onclick="showContent('management')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">📊 Management Activity</button>
+</div>
      </div>
     </nav><!-- User Profile -->
     <div class="p-4 border-t border-gray-100 bg-gray-50">
@@ -1659,6 +1659,180 @@
       </div>
      </div>
     </div>
+  </div><!-- Management Activity -->
+<div id="content-management" class="hidden fade-in">
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold text-gray-800">📊 Management Activity</h3><button class="px-4 py-2 text-sm font-medium text-white bg-pertamina-blue hover:bg-pertamina-darkBlue rounded-lg transition-colors flex items-center gap-2">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+</svg> Add Activity </button>
+</div><!-- Stats Cards for Management Activity -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+<div class="bg-gradient-to-br from-pertamina-lightBlue to-blue-50 rounded-xl p-4 border border-blue-200">
+<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Total Activities</span>
+<svg class="w-5 h-5 text-pertamina-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+</svg>
+</div>
+<p class="text-2xl font-bold text-pertamina-blue">47</p>
+</div>
+<div class="bg-gradient-to-br from-pertamina-lightGreen to-green-50 rounded-xl p-4 border border-green-200">
+<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Completed</span>
+<svg class="w-5 h-5 text-pertamina-green" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+</div>
+<p class="text-2xl font-bold text-pertamina-green">32</p>
+</div>
+<div class="bg-gradient-to-br from-amber-100 to-amber-50 rounded-xl p-4 border border-amber-200">
+<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">In Progress</span>
+<svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+</div>
+<p class="text-2xl font-bold text-amber-600">12</p>
+</div>
+<div class="bg-gradient-to-br from-pertamina-lightRed to-red-50 rounded-xl p-4 border border-red-200">
+<div class="flex items-center justify-between mb-2"><span class="text-sm font-medium text-gray-600">Pending</span>
+<svg class="w-5 h-5 text-pertamina-red" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4v2m0-14a9 9 0 110 18 9 9 0 010-18z" />
+</svg>
+</div>
+<p class="text-2xl font-bold text-pertamina-red">3</p>
+</div>
+</div><!-- Management Activity Table -->
+<div class="overflow-x-auto">
+<table class="w-full">
+<thead>
+<tr class="border-b border-gray-200">
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Date</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Activity</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Manager</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Department</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Status</th>
+<th class="text-left py-4 px-4 text-sm font-semibold text-gray-600">Progress</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-4 text-sm text-gray-800">15 Feb 2026</td>
+<td class="py-4 px-4 text-sm font-medium text-gray-800">Q1 Strategic Planning Meeting</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-pertamina-blue text-white flex items-center justify-center text-xs font-medium">
+SH
+</div><span class="text-sm text-gray-600">Suhendra H.</span>
+</div></td>
+<td class="py-4 px-4 text-sm text-gray-600">Corporate Strategy</td>
+<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Completed</span></td>
+<td class="py-4 px-4">
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-pertamina-green h-2 rounded-full" style="width: 100%"></div>
+</div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-4 text-sm text-gray-800">18 Feb 2026</td>
+<td class="py-4 px-4 text-sm font-medium text-gray-800">Budget Review &amp; Approval</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-pertamina-green text-white flex items-center justify-center text-xs font-medium">
+BK
+</div><span class="text-sm text-gray-600">Budhi Katno</span>
+</div></td>
+<td class="py-4 px-4 text-sm text-gray-600">Finance</td>
+<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">In Progress</span></td>
+<td class="py-4 px-4">
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-amber-500 h-2 rounded-full" style="width: 75%"></div>
+</div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-4 text-sm text-gray-800">20 Feb 2026</td>
+<td class="py-4 px-4 text-sm font-medium text-gray-800">HR Policy Update Discussion</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-purple-500 text-white flex items-center justify-center text-xs font-medium">
+RP
+</div><span class="text-sm text-gray-600">Rini Puspita</span>
+</div></td>
+<td class="py-4 px-4 text-sm text-gray-600">Human Resources</td>
+<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">In Progress</span></td>
+<td class="py-4 px-4">
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-amber-500 h-2 rounded-full" style="width: 60%"></div>
+</div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-4 text-sm text-gray-800">22 Feb 2026</td>
+<td class="py-4 px-4 text-sm font-medium text-gray-800">Performance Evaluation &amp; Feedback</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-medium">
+AW
+</div><span class="text-sm text-gray-600">Achmad Wirawan</span>
+</div></td>
+<td class="py-4 px-4 text-sm text-gray-600">Operations</td>
+<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-green bg-pertamina-lightGreen rounded-full">Completed</span></td>
+<td class="py-4 px-4">
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-pertamina-green h-2 rounded-full" style="width: 100%"></div>
+</div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-4 text-sm text-gray-800">25 Feb 2026</td>
+<td class="py-4 px-4 text-sm font-medium text-gray-800">Risk Assessment &amp; Mitigation Plan</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-medium">
+DS
+</div><span class="text-sm text-gray-600">Darmawan S.</span>
+</div></td>
+<td class="py-4 px-4 text-sm text-gray-600">Risk Management</td>
+<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-red bg-pertamina-lightRed rounded-full">Pending</span></td>
+<td class="py-4 px-4">
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-pertamina-red h-2 rounded-full" style="width: 20%"></div>
+</div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-4 text-sm text-gray-800">26 Feb 2026</td>
+<td class="py-4 px-4 text-sm font-medium text-gray-800">Stakeholder Communication Plan</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-green-600 text-white flex items-center justify-center text-xs font-medium">
+NW
+</div><span class="text-sm text-gray-600">Nur Widayat</span>
+</div></td>
+<td class="py-4 px-4 text-sm text-gray-600">Communications</td>
+<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-amber-600 bg-amber-50 rounded-full">In Progress</span></td>
+<td class="py-4 px-4">
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-amber-500 h-2 rounded-full" style="width: 85%"></div>
+</div></td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-4 px-4 text-sm text-gray-800">28 Feb 2026</td>
+<td class="py-4 px-4 text-sm font-medium text-gray-800">Training Program Launch</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-cyan-500 text-white flex items-center justify-center text-xs font-medium">
+MT
+</div><span class="text-sm text-gray-600">Mita Tri</span>
+</div></td>
+<td class="py-4 px-4 text-sm text-gray-600">Development</td>
+<td class="py-4 px-4"><span class="px-3 py-1 text-xs font-medium text-pertamina-red bg-pertamina-lightRed rounded-full">Pending</span></td>
+<td class="py-4 px-4">
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-pertamina-red h-2 rounded-full" style="width: 10%"></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
    </main>
   </div>
   <script>
@@ -1776,7 +1950,8 @@
         'dashboard-home', 'content-calendar', 'content-media', 'content-planner',
         'content-workspace', 'content-government', 'content-nongovernment', 'content-sengagement',
         'content-csrprogram', 'content-achievement', 'content-smepp', 'content-sertifikasi',
-        'content-policies', 'content-boardmeeting', 'content-decisions', 'content-monitoring', 'content-engagement'
+        'content-policies', 'content-boardmeeting', 'content-decisions', 'content-monitoring', 'content-engagement',
+        'content-management'
       ];
       
       allContents.forEach(id => {
@@ -1804,7 +1979,8 @@
         'boardmeeting': 'content-boardmeeting',
         'decisions': 'content-decisions',
         'monitoring': 'content-monitoring',
-        'engagement': 'content-engagement'
+        'engagement': 'content-engagement',
+        'management': 'content-management'
       };
 
       const targetId = contentMap[contentId] || 'dashboard-home';
@@ -1831,7 +2007,8 @@
         'boardmeeting': 'Board Meetings',
         'decisions': 'Decision Archive',
         'monitoring': 'Media Monitoring Dashboard',
-        'engagement': 'Media Engagement'
+        'engagement': 'Media Engagement',
+        'management': 'Management Activity'
       };
       document.getElementById('page-title').textContent = titles[contentId] || 'Dashboard Overview';
     }
