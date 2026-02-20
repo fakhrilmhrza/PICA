@@ -122,7 +122,7 @@
 </div>
 <svg class="w-4 h-4 text-gray-400 transform transition-transform" id="arrow-event" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 </svg></button>
-<div class="submenu pl-14 pr-4" id="submenu-event"><button onclick="showContent('eventinternal')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏢 Event Internal</button> <button onclick="showContent('eventeksternal')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🌍 Event Eksternal</button>
+<div class="submenu pl-14 pr-4" id="submenu-event"><button onclick="showContent('eventinternal')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🏢 Event Internal</button> <button onclick="showContent('eventeksternal')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors">🌍 Event Eksternal</button> <button onclick="showContent('archive-event')" class="w-full text-left py-2 px-3 text-sm text-gray-600 hover:text-pertamina-blue hover:bg-gray-50 rounded-md transition-colors border-t border-gray-200 mt-2 pt-2">📦 Archive</button>
 </div>
      </div>
     </nav><!-- User Profile -->
@@ -2109,7 +2109,7 @@ AG
         'content-workspace', 'content-government', 'content-nongovernment', 'content-sengagement',
         'content-csrprogram', 'content-achievement', 'content-smepp', 'content-sertifikasi',
         'content-policies', 'content-boardmeeting', 'content-decisions', 'content-monitoring', 'content-engagement', 'content-management',
-        'content-eventinternal', 'content-eventeksternal'
+        'content-eventinternal', 'content-eventeksternal', 'content-archive-corpcomm', 'content-archive-stakeholder', 'content-archive-csr', 'content-archive-governance', 'content-archive-event'
       ];
       
       allContents.forEach(id => {
@@ -2140,7 +2140,12 @@ AG
         'engagement': 'content-engagement',
         'management': 'content-management',
         'eventinternal': 'content-eventinternal',
-        'eventeksternal': 'content-eventeksternal'
+        'eventeksternal': 'content-eventeksternal',
+        'archive-corpcomm': 'content-archive-corpcomm',
+        'archive-stakeholder': 'content-archive-stakeholder',
+        'archive-csr': 'content-archive-csr',
+        'archive-governance': 'content-archive-governance',
+        'archive-event': 'content-archive-event'
       };
 
       const targetId = contentMap[contentId] || 'dashboard-home';
@@ -2170,7 +2175,12 @@ AG
         'engagement': 'Media Engagement',
         'management': 'Management Activity',
         'eventinternal': 'Event Internal',
-        'eventeksternal': 'Event Eksternal'
+        'eventeksternal': 'Event Eksternal',
+        'archive-corpcomm': 'Archive - Corporate Communication',
+        'archive-stakeholder': 'Archive - Stakeholder Relations',
+        'archive-csr': 'Archive - CSR & SMEPP',
+        'archive-governance': 'Archive - Corporate Governance',
+        'archive-event': 'Archive - Event' 
       };
       document.getElementById('page-title').textContent = titles[contentId] || 'Dashboard Overview';
     }
